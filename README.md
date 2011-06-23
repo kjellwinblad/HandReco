@@ -8,7 +8,6 @@ We will first try the system with Latin characters and then with a few Chinese c
 
 Project Members
 ---------------
-Chongyang Sun
-Fabian Alenius
-Kjell Winblad
-
+*   Chongyang Sun
+*   Fabian Alenius
+*   Kjell Winblad
