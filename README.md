@@ -8,6 +8,6 @@ We will first try the system with Latin characters and then with a few Chinese c
 
 Project Members
 ---------------
-*   Chongyang Sun
+*   Chongyang Sun ([dorissun](http://github.com/dorissun))
 *   Fabian Alenius ([faal](http://github.com/faal))
 *   Kjell Winblad ([kjellwinblad](http://github.com/kjellwinblad))
