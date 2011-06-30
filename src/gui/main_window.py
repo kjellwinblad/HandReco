@@ -9,6 +9,7 @@ from javax.swing import BoxLayout
 from javax.swing import JButton
 from javax.swing import JPanel
 from java.awt import BorderLayout
+from gui.example_recorder import ExampleRecorder
 
 class MainWindow(JFrame):
     '''
@@ -23,6 +24,9 @@ class MainWindow(JFrame):
 
         self.initUI()
 
+    def openExampleRecorder(self,event):
+        ExampleRecorder()
+
     def initUI(self):
         #Set up window
         self.setTitle("HandReco")
@@ -32,7 +36,7 @@ class MainWindow(JFrame):
         self.setSize(300,300)
         #Add content to window
         record_examples_panel = JPanel(BorderLayout())
-        record_examples_panel.add(JButton("Record Examples"), BorderLayout.CENTER)
+        record_examples_panel.add(JButton("Record Examples", actionPerformed=self.openExampleRecorder), BorderLayout.CENTER)
         self.add(record_examples_panel)
         #
         train_model_panel = JPanel(BorderLayout())
