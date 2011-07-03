@@ -10,7 +10,7 @@ from javax.swing import JButton
 from javax.swing import JLabel
 from javax.swing import JPanel
 from javax.swing import BorderFactory
-from java.awt import BorderLayout
+from java.awt import BorderLayout, Dimension
 from java.awt import FlowLayout
 from gui.paint_area import PaintArea
 
@@ -54,9 +54,16 @@ class ExampleRecorder(JFrame):
         example_panel.add(example_label_panel)
         example_image_panel = JPanel(BorderLayout())
         example_image_panel.setBorder(BorderFactory.createTitledBorder("Example Image:"))
-        self.example_paint_area = PaintArea()
-        example_image_panel.add(self.example_paint_area, BorderLayout.CENTER)
-        example_image_panel.add(JButton("Clear"), BorderLayout.SOUTH)
+        self.example_paint_area = PaintArea(100,100)
+        panel_with_absolute_layout_for_paint_area = JPanel(None)
+        panel_with_absolute_layout_for_paint_area.setPreferredSize(Dimension(self.example_paint_area.getWidth(), self.example_paint_area.getHeight()))
+        panel_with_absolute_layout_for_paint_area.add(self.example_paint_area)
+        panel_with_absolute_layout_for_paint_area.add(self.example_paint_area)
+        example_image_panel.add(panel_with_absolute_layout_for_paint_area, BorderLayout.CENTER)
+        def change_text(event):
+            self.example_paint_area.clear()
+        clear_button = JButton("Clear", actionPerformed=change_text)
+        example_image_panel.add(clear_button, BorderLayout.SOUTH)
         example_panel.add(example_image_panel)
         save_example_panel = JPanel(BorderLayout())
         save_example_panel.add(JButton("Save >>"), BorderLayout.CENTER)
