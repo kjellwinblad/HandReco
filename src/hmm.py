@@ -130,32 +130,32 @@ B = [[1.0, 0.0],
      [0.0, 1.0]]
 
 class TestHMM(unittest.TestCase):
-    def zeros(self):
+    def test_zeros(self):
         ''' Test the zeros function '''
         self.assertEqual(zeros(2,2), [[0,0], [0,0]])
         self.assertEqual(zeros(3,1), [[0,0,0]])
         self.assertEqual(zeros(3,2), [[0,0,0], [0,0,0]])
 
-    def generate(self):
+    def test_generate(self):
         '''Create a HMM and generate 100 observations'''
         h = HMM(pi, A, B, V)
         h.log.setLevel(logging.DEBUG)
         for i in range(100):
             h.gen()
 
-    def forward(self):
+    def test_forward(self):
         ''' fixme '''
         h = HMM(pi, A, B, V)
         h.log.setLevel(logging.DEBUG)
         h.calc_forward([0, 0])
 
-    def backward(self):
+    def test_backward(self):
         '''fixme '''
         h = HMM(pi, A, B, V)
         h.log.setLevel(logging.DEBUG)
         h.calc_backward([0, 0])
 
-    def viterbi(self):
+    def test_viterbi(self):
         '''fixme'''
         h = HMM(pi, A, B, V)
         h.log.setLevel(logging.DEBUG)
