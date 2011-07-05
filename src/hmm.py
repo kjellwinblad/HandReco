@@ -1,13 +1,30 @@
 import unittest
-import numpy
 import logging
+import random
 
-def select_random(distribution):
-    '''Given an array specifying the discrete distribution, select a value and return the index'''
-    res = numpy.random.multinomial(1, distribution)
-    for i in range(res.size):
-        if res[i] == 1:
-            return i
+def zeros(x, y):
+    ''' Return a matrix of zeros with height y and width x. '''
+    matrix = []
+    for i in range(y):
+        matrix.append([0] * x)
+    return matrix
+
+
+
+def select_random(massDist):
+    ''' Given a discrete distribution, for example [0.2, 0.5, 0.3], select an element.
+        Note that the probabilities need to sum up to 1.0
+    '''
+    assert(sum(massDist) == 1.0)
+    randRoll = random.random() # in [0,1)
+    s = 0
+    result = 0
+    for mass in massDist:
+        s += mass
+        if randRoll < s:
+            return result
+        result+=1
+
 
 class HMM:
     # Variables, the notation is the same as in the Rabiner paper.
@@ -15,6 +32,7 @@ class HMM:
     # B = Observation Probability Distribution
     # V = Vocabulary of observations
     # pi = Initial State distribution
+    # N = Number of States
     # q = current state
     # t = current (discrete) time
 
@@ -22,7 +40,7 @@ class HMM:
         ''' Initalize the HMM with the supplied values'''
         self.pi = pi
         self.A = A
-        self.N = A[0].size
+        self.N = len(A[0])
         self.B = B
         self.V = V
         self.q = select_random(self.pi)
@@ -33,9 +51,9 @@ class HMM:
         self.log.debug(' Time is ' + str(self.t) + ', Initial State is ' + str(self.q) + ', Sequence is ' + str(self.O))
 
     def calc_forward(self, O):
-        T = O.size
+        T = len(O)
         print 'T =', T
-        alpha = numpy.zeros([T, self.N])
+        alpha = zeros(T, self.N)
         #initalize
         t = 0
         for i in range(self.N):
@@ -55,8 +73,8 @@ class HMM:
         print final_prob
 
     def calc_backward(self, O):
-        T = O.size
-        beta = numpy.zeros([T, self.N])
+        T = len(O)
+        beta = zeros(T, self.N)
         #initialization
         for i in range(self.N):
             beta[T-1, i] = 1
@@ -79,9 +97,9 @@ class HMM:
         self.log.debug(' Time is ' + str(self.t) + ', Observed ' + observation + ', New State is ' + str(self.q) + ', Sequence is ' + str(self.O))
 
     def viterbi(self, O):
-        T = O.size
-        delta = numpy.zeros([T, self.N])
-        psi = numpy.zeros([T, self.N])
+        T = len(O)
+        delta = zeros(T, self.N)
+        psi = zeros(T, self.N)
         #initialization
         t = 0
         for i in range(self.N):
@@ -101,17 +119,23 @@ class HMM:
 # Vocabulary
 V = ['a', 'b']
 # initial state probabilities
-pi = numpy.array([0.5, 0.5])
+pi = [0.5, 0.5]
 # row index is current state, column index is new state
 # i.e. in state 0 we have 80% chance of staying in state 0 and 20% of transitioning to state 1
-A = numpy.array([[0.8, 0.2],
-                 [0.1, 0.9]])
+A = [[0.8, 0.2],
+     [0.1, 0.9]]
 # row index is state, column index is observation
 # i.e. in state 0 we can only observe 'a' and in state 1 we can only observe 'b'
-B = numpy.array([[1.0, 0.0],
-                 [0.0, 1.0]])
+B = [[1.0, 0.0],
+     [0.0, 1.0]]
 
 class TestHMM(unittest.TestCase):
+    def zeros(self):
+        ''' Test the zeros function '''
+        self.assertEqual(zeros(2,2), [[0,0], [0,0]])
+        self.assertEqual(zeros(3,1), [[0,0,0]])
+        self.assertEqual(zeros(3,2), [[0,0,0], [0,0,0]])
+
     def generate(self):
         '''Create a HMM and generate 100 observations'''
         h = HMM(pi, A, B, V)
@@ -123,19 +147,19 @@ class TestHMM(unittest.TestCase):
         ''' fixme '''
         h = HMM(pi, A, B, V)
         h.log.setLevel(logging.DEBUG)
-        h.calc_forward(numpy.array([0, 0]))
+        h.calc_forward([0, 0])
 
     def backward(self):
         '''fixme '''
         h = HMM(pi, A, B, V)
         h.log.setLevel(logging.DEBUG)
-        h.calc_backward(numpy.array([0, 0]))
+        h.calc_backward([0, 0])
 
     def viterbi(self):
         '''fixme'''
         h = HMM(pi, A, B, V)
         h.log.setLevel(logging.DEBUG)
-        h.viterbi(numpy.array([0, 0]))
+        h.viterbi([0, 0])
 
 if __name__ == '__main__':
     unittest.main()
