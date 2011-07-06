@@ -69,21 +69,20 @@ class HMM:
 
     def calc_forward(self, O):
         T = len(O)
-        print 'T =', T
         self.alpha = zeros(T, self.N)
         #initalize
         t = 0
         for i in range(self.N):
-            self.alpha[t][i] = pi[i] * B[i][O[t]]
+            self.alpha[t][i] = self.pi[i] * self.B[i][O[t]]
         print self.alpha
         #induction
         for t in range(1,T):
             for j in range(self.N):
                 prob_sum = 0
                 for i in range(self.N):
-                    prob_sum += self.alpha[t-1][i] * A[i][j]
-                self.log.debug('t is ' + str(t) + ', i = ' + str(i) + ', j = ' +str(j) + ', O[t] = ' + str(O[t]) + ', prob_sum = ' + str(prob_sum) + ', B[j][O[t]] = ' + str(B[j][O[t]]))
-                self.alpha[t][j] = prob_sum * B[j][O[t]]
+                    prob_sum += self.alpha[t-1][i] * self.A[i][j]
+                self.log.debug('t is ' + str(t) + ', i = ' + str(i) + ', j = ' +str(j) + ', O[t] = ' + str(O[t]) + ', prob_sum = ' + str(prob_sum) + ', B[j][O[t]] = ' + str(self.B[j][O[t]]))
+                self.alpha[t][j] = prob_sum * self.B[j][O[t]]
         print self.alpha
         final_prob = 0
         for i in range(self.N):
@@ -177,7 +176,7 @@ class HMM:
                         numerator += gamma[t][j]
                     denominator += gamma[t][j]
                 B[j][k] = numerator / denominator
-                
+
 # Vocabulary
 V = ['a', 'b']
 # initial state probabilities
@@ -226,4 +225,3 @@ class TestHMM(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 
-test
