@@ -2,11 +2,17 @@ import unittest
 import logging
 import random
 
-def zeros(x, y):
-    ''' Return a matrix of zeros with height y and width x. '''
+def zeros_3d(x, y, z):
     matrix = []
-    for i in range(y):
-        matrix.append([0] * x)
+    for i in range(x):
+        matrix.append(zeros(y,z))
+    return matrix
+
+def zeros(x, y):
+    ''' Return a matrix of zeros with height x and width y. '''
+    matrix = []
+    for i in range(x):
+        matrix.append([0] * y)
     return matrix
 
 
@@ -33,6 +39,7 @@ class HMM:
     # V = Vocabulary of observations
     # pi = Initial State distribution
     # N = Number of States
+    # K = Number of symbols in vocabulary
     # q = current state
     # t = current (discrete) time
 
@@ -43,6 +50,7 @@ class HMM:
         self.N = len(A[0])
         self.B = B
         self.V = V
+        self.K = len(V)
         self.q = select_random(self.pi)
         self.t = 0
         self.O = []
@@ -50,51 +58,54 @@ class HMM:
         logging.basicConfig()
         self.log.debug(' Time is ' + str(self.t) + ', Initial State is ' + str(self.q) + ', Sequence is ' + str(self.O))
 
-    def calc_forward(self, O):
-        T = len(O)
-        print 'T =', T
-        alpha = zeros(T, self.N)
-        #initalize
-        t = 0
-        for i in range(self.N):
-            alpha[t, i] = pi[i] * B[i,O[t]]
-        print alpha
-        #induction
-        for t in range(1,T):
-            for j in range(self.N):
-                prob_sum = 0
-                for i in range(self.N):
-                    prob_sum += alpha[t-1, i] * A[i, j]
-                alpha[t, j] = prob_sum * B[j, O[t]]
-        print alpha
-        final_prob = 0
-        for i in range(self.N):
-            final_prob += alpha[T-1, i]
-        print final_prob
-
-    def calc_backward(self, O):
-        T = len(O)
-        beta = zeros(T, self.N)
-        #initialization
-        for i in range(self.N):
-            beta[T-1, i] = 1
-        print 'inital beta ', beta
-        #induction
-        for t in range(T-2, -1, -1):
-            for i in range(self.N):
-                prob_sum = 0
-                for j in range(self.N):
-                    prob_sum += self.A[i, j] * self.B[j, O[t]] * beta[t+1, j]
-                beta[t, i] = prob_sum
-
     def gen(self):
-        '''Generate a new observation based on the current state'''
+        '''Generate a new observation based on the current state and transition to a new state.'''
         index = select_random(self.B[self.q])
         observation = self.V[index]
         self.O.append(observation)
         self.q = select_random(self.A[self.q])
         self.t += 1
         self.log.debug(' Time is ' + str(self.t) + ', Observed ' + observation + ', New State is ' + str(self.q) + ', Sequence is ' + str(self.O))
+
+    def calc_forward(self, O):
+        T = len(O)
+        print 'T =', T
+        self.alpha = zeros(T, self.N)
+        #initalize
+        t = 0
+        for i in range(self.N):
+            self.alpha[t][i] = pi[i] * B[i][O[t]]
+        print self.alpha
+        #induction
+        for t in range(1,T):
+            for j in range(self.N):
+                prob_sum = 0
+                for i in range(self.N):
+                    prob_sum += self.alpha[t-1][i] * A[i][j]
+                self.log.debug('t is ' + str(t) + ', i = ' + str(i) + ', j = ' +str(j) + ', O[t] = ' + str(O[t]) + ', prob_sum = ' + str(prob_sum) + ', B[j][O[t]] = ' + str(B[j][O[t]]))
+                self.alpha[t][j] = prob_sum * B[j][O[t]]
+        print self.alpha
+        final_prob = 0
+        for i in range(self.N):
+            final_prob += self.alpha[T-1][i]
+        print final_prob
+
+    def calc_backward(self, O):
+        T = len(O)
+        self.beta = zeros(T, self.N)
+        #initialization
+        for i in range(self.N):
+            self.beta[T-1][i] = 1
+        self.log.debug(' beta is ' + str(self.beta))
+        print 'inital beta ', self.beta
+        #induction
+        for t in range(T-2, -1, -1):
+            for i in range(self.N):
+                prob_sum = 0
+                for j in range(self.N):
+                    prob_sum += self.A[i][j] * self.B[j][O[t]] * self.beta[t+1][j]
+                self.beta[t][i] = prob_sum
+        self.log.debug(' beta is ' + str(self.beta))
 
     def viterbi(self, O):
         T = len(O)
@@ -103,19 +114,70 @@ class HMM:
         #initialization
         t = 0
         for i in range(self.N):
-            delta[t, i] = pi[i] * B[i, O[t]]
-            psi[t, i] = 0
+            delta[t][i] = pi[i] * B[i][O[t]]
+            psi[t][i] = 0
         # recursion
         for t in range(1, T):
             for j in range(self.N):
                 acc = []
                 for i in range(self.N):
-                    acc.append(delta[t-1, i] * A[i, j])
-                delta[t, j] = max(acc) * B[j, O[t]]
-                psi[t, j] = acc.index(max(acc))
+                    acc.append(delta[t-1][i] * A[i][j])
+                delta[t][j] = max(acc) * B[j][O[t]]
+                psi[t][j] = acc.index(max(acc))
         print delta
         print psi
 
+    def baum_welch(self, O):
+        # We need to calculate the xi and gamma tables before can find the update values
+        xi = zeros_3d(len(O) - 1, self.N, self.N)
+        gamma = zeros(len(O) - 1, self.N)
+        print 'xi ', xi
+        # Begin with xi
+        for t in range(len(O) - 1):
+            s = 0
+            for i in range(self.N):
+                for j in range(self.N):
+                    self.log.debug(' t = ' + str(t) + ', i = ' + str(i) + ', j = ' +str(j))
+                    xi[t][i][j] = self.alpha[t][i] * self.A[i][j] * self.B[j][O[t+1]] * self.beta[t+1][j]
+                    s += xi[t][i][j]
+            # Normalize
+            for i in range(self.N):
+                for j in range(self.N):
+                    xi[t][i][j] *= 1/s
+        print xi
+
+        # Now calculate the gamma table
+        for t in range(len(O) - 1):
+            for i in range(self.N):
+                s = 0
+                for j in range(self.N):
+                    s += xi[t][i][j]
+                gamma[t][i] = s
+        print gamma
+        # Update model parameters
+        # Update pi
+        for i in range(self.N):
+            pi[i] = gamma[0][i]
+        # Update A
+        for i in range(self.N):
+            for j in range(self.N):
+                numerator = 0
+                denominator = 0
+                for t in range(len(O) - 1):
+                    numerator += xi[t][i][j]
+                    denominator += gamma[t][i]
+                self.A[i][j] = numerator / denominator
+        # Update B
+        for j in range(self.N):
+            for k in range(self.K):
+                numerator = 0
+                denominator = 0
+                for t in range(len(O) - 1):
+                    if O[t] == k:
+                        numerator += gamma[t][j]
+                    denominator += gamma[t][j]
+                B[j][k] = numerator / denominator
+                
 # Vocabulary
 V = ['a', 'b']
 # initial state probabilities
@@ -133,8 +195,8 @@ class TestHMM(unittest.TestCase):
     def test_zeros(self):
         ''' Test the zeros function '''
         self.assertEqual(zeros(2,2), [[0,0], [0,0]])
-        self.assertEqual(zeros(3,1), [[0,0,0]])
-        self.assertEqual(zeros(3,2), [[0,0,0], [0,0,0]])
+        self.assertEqual(zeros(3,1), [[0],[0],[0]])
+        self.assertEqual(zeros(3,2), [[0,0], [0,0],[0,0]])
 
     def test_generate(self):
         '''Create a HMM and generate 100 observations'''
