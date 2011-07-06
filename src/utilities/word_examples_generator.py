@@ -6,10 +6,11 @@ Created on Jul 3, 2011
 
 from random import random
 from random import choice
+import unittest
 
 example_alphabet=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 
-def generate_examples_for_word(word="dog", number_of_examples=100, poelap=0.05, poelenl=0.5, powlap=0.2, polmap=0.01, alphabet=example_alphabet):
+def generate_examples_for_word(word="dog", number_of_examples=100, poelap=0.03, poelenl=0.7, powlap=0.1, polmap=0.01, alphabet=example_alphabet):
     '''
     Function that generate misspelled versions of a word given propabilities
     defined by the parameters.  
@@ -36,7 +37,6 @@ def generate_examples_for_word(word="dog", number_of_examples=100, poelap=0.05, 
         elif position < word_length:
             return [word[position-1], word[position]]
         else:
-            print("last case")
             return [word[word_length-1]]
     
     def actual_or_other(letter):
@@ -71,7 +71,38 @@ def generate_examples_for_word(word="dog", number_of_examples=100, poelap=0.05, 
         examples.append(generate_example_for_word_from_pos(word))
     return examples
 
+
+default_word_list = ["dog","cat","pig","love","hate",
+                     "scala","python","summer","winter","night",
+                     "daydream","nightmare","animal","happiness","sadness",
+                     "friendliness","feminism","fascism","socialism","capitalism"]
+
+def generate_examples_for_words(words=default_word_list, number_of_examples=100, poelap=0.03, poelenl=0.7, powlap=0.1, polmap=0.01, alphabet=example_alphabet):
+    '''
+    Generate tuples for all words in the list words of the format:
+    (word, list of training examples for the words)
+    
+    See generate_examples_for_word for description of the rest of the parameters
+    '''
+    word_training_example_tuples = []
+    for word in words:
+        word_training_example_tuples.append((word,generate_examples_for_word(word, number_of_examples, poelap, poelenl, powlap, polmap, alphabet)))
+    return word_training_example_tuples
+
+class TestWordExampleGenerator(unittest.TestCase):
+
+    def test_word_example_generator(self):
+        print(generate_examples_for_word(word="dog",number_of_examples=100))
+        pass
+    
+    def test_words_example_generator(self):
+        print(generate_examples_for_words(words=default_word_list,number_of_examples=100))
+        pass
+
+
 if __name__ == "__main__":
-    print(generate_examples_for_word(word="dog",number_of_examples=1000))
+    #import sys;sys.argv = ['', 'Test.test_word_']
+    unittest.main()
+
         
             
