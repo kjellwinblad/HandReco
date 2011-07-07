@@ -91,7 +91,7 @@ class HMM:
         beta = zeros(T, self.N)
         #initialization
         for i in range(self.N):
-            beta[T-1][i] = 1
+            beta[T-1][i] = 1.0
         self.log.debug(' beta is ' + str(beta))
         print 'inital beta ', beta
         #induction
@@ -99,7 +99,7 @@ class HMM:
             for i in range(self.N):
                 prob_sum = 0
                 for j in range(self.N):
-                    prob_sum += self.A[i][j] * self.B[j][O[t]] * beta[t+1][j]
+                    prob_sum += self.A[i][j] * self.B[j][O[t+1]] * beta[t+1][j]
                 beta[t][i] = prob_sum
         self.log.debug(' beta is ' + str(beta))
         return beta
