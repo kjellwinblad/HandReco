@@ -69,13 +69,11 @@ class HMM:
 
     def calc_forward(self, O):
         T = len(O)
-        print 'T ', T
         alpha = zeros(T, self.N)
         #initalize
         t = 0
         for i in range(self.N):
             alpha[t][i] = self.pi[i] * self.B[i][O[t]]
-        print alpha
         #induction
         for t in range(1,T):
             for j in range(self.N):
@@ -93,7 +91,6 @@ class HMM:
         for i in range(self.N):
             beta[T-1][i] = 1.0
         self.log.debug(' beta is ' + str(beta))
-        print 'inital beta ', beta
         #induction
         for t in range(T-2, -1, -1):
             for i in range(self.N):
@@ -121,8 +118,6 @@ class HMM:
                     acc.append(delta[t-1][i] * self.A[i][j])
                 delta[t][j] = max(acc) * self.B[j][O[t]]
                 psi[t][j] = acc.index(max(acc))
-        print delta
-        print psi
 
     def baum_welch(self, O):
         # Note, there is no scaling in this implementation !
@@ -132,7 +127,6 @@ class HMM:
         # We need to calculate the xi and gamma tables before can find the update values
         xi = zeros_3d(len(O) - 1, self.N, self.N)
         gamma = zeros(len(O) - 1, self.N)
-        print 'xi ', xi
         # Begin with xi
         for t in range(len(O) - 1):
             s = 0
@@ -145,7 +139,6 @@ class HMM:
             for i in range(self.N):
                 for j in range(self.N):
                     xi[t][i][j] *= 1/s
-        print xi
 
         # Now calculate the gamma table
         for t in range(len(O) - 1):
@@ -154,7 +147,6 @@ class HMM:
                 for j in range(self.N):
                     s += xi[t][i][j]
                 gamma[t][i] = s
-        print gamma
         # Update model parameters
         # Update pi
         for i in range(self.N):
@@ -194,8 +186,6 @@ class HMM:
             for i in range(self.N):
                 final_prob += alpha[k][T-1][i]
             P.append(final_prob)
-        print alpha
-        print P
         # Update A
         for i in range(self.N):
             for j in range(self.N):
@@ -212,8 +202,11 @@ class HMM:
                     s = 0
                     for t in range(T - 1):
                         s += alpha[k][t][i] * beta[k][t][i]
-                    sum_denominator += 1.0 / P [k] * s
-                self.A[i][j] = sum_numerator / sum_denominator
+                    sum_denominator += 1.0 / P[k] * s
+                if sum_numerator == 0.0:
+                    self.A[i][j] = 0.0
+                else:
+                    self.A[i][j] = sum_numerator / sum_denominator
 
         # Update B
         for j in range(self.N):
@@ -223,17 +216,20 @@ class HMM:
                 for k in range(K):
                     # Calculate the numerator
                     T = len(O[k])
-                    s = 0
+                    s = 0.0
                     for t in range(T - 1):
                         if O[k][t] == l:
-                            s =+ alpha[k][t][i] * beta[k][t][i]
+                            s += alpha[k][t][j] * beta[k][t][j]
                     sum_numerator += 1.0 / P[k] * s
                     # Calculate the denominator
-                    s = 0
+                    s = 0.0
                     for t in range(T - 1):
-                        s += alpha[k][t][i] * beta[k][t][i]
+                        s += alpha[k][t][j] * beta[k][t][j]
                     sum_denominator += 1.0 / P[k] * s
-                self.B[j][l] = sum_numerator / sum_denominator
+                if sum_numerator == 0.0:
+                    self.B[j][l] = 0.0
+                else:
+                    self.B[j][l] = sum_numerator / sum_denominator
 
         # We don't need to update because we are assuming a bakis HMM where one state will have pi[i] = 1.0
 
