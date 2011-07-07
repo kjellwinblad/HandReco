@@ -69,42 +69,40 @@ class HMM:
 
     def calc_forward(self, O):
         T = len(O)
-        self.alpha = zeros(T, self.N)
+        print 'T ', T
+        alpha = zeros(T, self.N)
         #initalize
         t = 0
         for i in range(self.N):
-            self.alpha[t][i] = self.pi[i] * self.B[i][O[t]]
-        print self.alpha
+            alpha[t][i] = self.pi[i] * self.B[i][O[t]]
+        print alpha
         #induction
         for t in range(1,T):
             for j in range(self.N):
                 prob_sum = 0
                 for i in range(self.N):
-                    prob_sum += self.alpha[t-1][i] * self.A[i][j]
+                    prob_sum += alpha[t-1][i] * self.A[i][j]
                 self.log.debug('t is ' + str(t) + ', i = ' + str(i) + ', j = ' +str(j) + ', O[t] = ' + str(O[t]) + ', prob_sum = ' + str(prob_sum) + ', B[j][O[t]] = ' + str(self.B[j][O[t]]))
-                self.alpha[t][j] = prob_sum * self.B[j][O[t]]
-        print self.alpha
-        final_prob = 0
-        for i in range(self.N):
-            final_prob += self.alpha[T-1][i]
-        print final_prob
+                alpha[t][j] = prob_sum * self.B[j][O[t]]
+        return alpha
 
     def calc_backward(self, O):
         T = len(O)
-        self.beta = zeros(T, self.N)
+        beta = zeros(T, self.N)
         #initialization
         for i in range(self.N):
-            self.beta[T-1][i] = 1
-        self.log.debug(' beta is ' + str(self.beta))
-        print 'inital beta ', self.beta
+            beta[T-1][i] = 1
+        self.log.debug(' beta is ' + str(beta))
+        print 'inital beta ', beta
         #induction
         for t in range(T-2, -1, -1):
             for i in range(self.N):
                 prob_sum = 0
                 for j in range(self.N):
-                    prob_sum += self.A[i][j] * self.B[j][O[t]] * self.beta[t+1][j]
-                self.beta[t][i] = prob_sum
-        self.log.debug(' beta is ' + str(self.beta))
+                    prob_sum += self.A[i][j] * self.B[j][O[t]] * beta[t+1][j]
+                beta[t][i] = prob_sum
+        self.log.debug(' beta is ' + str(beta))
+        return beta
 
     def viterbi(self, O):
         T = len(O)
@@ -113,20 +111,24 @@ class HMM:
         #initialization
         t = 0
         for i in range(self.N):
-            delta[t][i] = pi[i] * B[i][O[t]]
+            delta[t][i] = self.pi[i] * self.B[i][O[t]]
             psi[t][i] = 0
         # recursion
         for t in range(1, T):
             for j in range(self.N):
                 acc = []
                 for i in range(self.N):
-                    acc.append(delta[t-1][i] * A[i][j])
-                delta[t][j] = max(acc) * B[j][O[t]]
+                    acc.append(delta[t-1][i] * self.A[i][j])
+                delta[t][j] = max(acc) * self.B[j][O[t]]
                 psi[t][j] = acc.index(max(acc))
         print delta
         print psi
 
     def baum_welch(self, O):
+        # Note, there is no scaling in this implementation !
+        alpha = self.calc_forward(O)
+        beta = self.calc_backward(O)
+
         # We need to calculate the xi and gamma tables before can find the update values
         xi = zeros_3d(len(O) - 1, self.N, self.N)
         gamma = zeros(len(O) - 1, self.N)
@@ -137,7 +139,7 @@ class HMM:
             for i in range(self.N):
                 for j in range(self.N):
                     self.log.debug(' t = ' + str(t) + ', i = ' + str(i) + ', j = ' +str(j))
-                    xi[t][i][j] = self.alpha[t][i] * self.A[i][j] * self.B[j][O[t+1]] * self.beta[t+1][j]
+                    xi[t][i][j] = alpha[t][i] * self.A[i][j] * self.B[j][O[t+1]] * beta[t+1][j]
                     s += xi[t][i][j]
             # Normalize
             for i in range(self.N):
@@ -156,8 +158,9 @@ class HMM:
         # Update model parameters
         # Update pi
         for i in range(self.N):
-            pi[i] = gamma[0][i]
+            self.pi[i] = gamma[0][i]
         # Update A
+        print 'Updating A'
         for i in range(self.N):
             for j in range(self.N):
                 numerator = 0
@@ -175,22 +178,81 @@ class HMM:
                     if O[t] == k:
                         numerator += gamma[t][j]
                     denominator += gamma[t][j]
-                B[j][k] = numerator / denominator
+                self.B[j][k] = numerator / denominator
 
-# Vocabulary
-V = ['a', 'b']
-# initial state probabilities
-pi = [0.5, 0.5]
-# row index is current state, column index is new state
-# i.e. in state 0 we have 80% chance of staying in state 0 and 20% of transitioning to state 1
-A = [[0.8, 0.2],
-     [0.1, 0.9]]
-# row index is state, column index is observation
-# i.e. in state 0 we can only observe 'a' and in state 1 we can only observe 'b'
-B = [[1.0, 0.0],
-     [0.0, 1.0]]
+    def baum_welch_bakis(self, O):
+        ''' Implemenation of equations 109 and 110 in Rabiner. '''
+        alpha = []
+        beta = []
+        P = []
+        K = len(O)
+        for k in range(K):
+            alpha.append(self.calc_forward(O[k]))
+            beta.append(self.calc_backward(O[k]))
+            final_prob = 0
+            T = len(O[k])
+            for i in range(self.N):
+                final_prob += alpha[k][T-1][i]
+            P.append(final_prob)
+        print alpha
+        print P
+        # Update A
+        for i in range(self.N):
+            for j in range(self.N):
+                sum_numerator = 0
+                sum_denominator = 0
+                for k in range(K):
+                    # Calculate the numerator
+                    T = len(O[k])
+                    s = 0
+                    for t in range(T - 1):
+                        s += alpha[k][t][i] * self.A[i][j] * self.B[j][O[k][t+1]] * beta[k][t+1][j]
+                    sum_numerator += 1.0 / P[k] * s
+                    # Calculate the denominator
+                    s = 0
+                    for t in range(T - 1):
+                        s += alpha[k][t][i] * beta[k][t][i]
+                    sum_denominator += 1.0 / P [k] * s
+                self.A[i][j] = sum_numerator / sum_denominator
+
+        # Update B
+        for j in range(self.N):
+            for l in range(self.K):
+                sum_numerator = 0
+                sum_denominator = 0
+                for k in range(K):
+                    # Calculate the numerator
+                    T = len(O[k])
+                    s = 0
+                    for t in range(T - 1):
+                        if O[k][t] == l:
+                            s =+ alpha[k][t][i] * beta[k][t][i]
+                    sum_numerator += 1.0 / P[k] * s
+                    # Calculate the denominator
+                    s = 0
+                    for t in range(T - 1):
+                        s += alpha[k][t][i] * beta[k][t][i]
+                    sum_denominator += 1.0 / P[k] * s
+                self.B[j][l] = sum_numerator / sum_denominator
+
+        # We don't need to update because we are assuming a bakis HMM where one state will have pi[i] = 1.0
+
 
 class TestHMM(unittest.TestCase):
+    def setUp(self):
+        # Vocabulary
+        self.V = ['a', 'b']
+        # initial state probabilities
+        self.pi = [0.5, 0.5]
+        # row index is current state, column index is new state
+        # i.e. in state 0 we have 80% chance of staying in state 0 and 20% of transitioning to state 1
+        self.A = [[0.8, 0.2],
+                  [0.1, 0.9]]
+        # row index is state, column index is observation
+        # i.e. in state 0 we can only observe 'a' and in state 1 we can only observe 'b'
+        self.B = [[1.0, 0.0],
+                  [0.0, 1.0]]
+
     def test_zeros(self):
         ''' Test the zeros function '''
         self.assertEqual(zeros(2,2), [[0,0], [0,0]])
@@ -199,26 +261,26 @@ class TestHMM(unittest.TestCase):
 
     def test_generate(self):
         '''Create a HMM and generate 100 observations'''
-        h = HMM(pi, A, B, V)
+        h = HMM(self.pi, self.A, self.B, self.V)
         h.log.setLevel(logging.DEBUG)
         for i in range(100):
             h.gen()
 
     def test_forward(self):
         ''' fixme '''
-        h = HMM(pi, A, B, V)
+        h = HMM(self.pi, self.A, self.B, self.V)
         h.log.setLevel(logging.DEBUG)
         h.calc_forward([0, 0])
 
     def test_backward(self):
         '''fixme '''
-        h = HMM(pi, A, B, V)
+        h = HMM(self.pi, self.A, self.B, self.V)
         h.log.setLevel(logging.DEBUG)
         h.calc_backward([0, 0])
 
     def test_viterbi(self):
         '''fixme'''
-        h = HMM(pi, A, B, V)
+        h = HMM(self.pi, self.A, self.B, self.V)
         h.log.setLevel(logging.DEBUG)
         h.viterbi([0, 0])
 
