@@ -120,6 +120,10 @@ class HMM:
                 psi[t][j] = acc.index(max(acc))
 
     def baum_welch(self, O):
+        ''' Call with a sequence of observations, e.g. O = [0,1,0,1]. The function will
+            calculate new model paramters according the baum welch formula. Will update
+            pi.
+        '''
         # Note, there is no scaling in this implementation !
         alpha = self.calc_forward(O)
         beta = self.calc_backward(O)
@@ -173,7 +177,9 @@ class HMM:
                 self.B[j][k] = numerator / denominator
 
     def baum_welch_bakis(self, O):
-        ''' Implemenation of equations 109 and 110 in Rabiner. '''
+        ''' Call with a list of sequences of observations, e.g. O = [[0,1,0], [0,1,1]].
+            This is an implemenation of equations 109 and 110 in Rabiner. Will NOT update
+            pi as it assumed that the model is a bakis left-to-right model.'''
         alpha = []
         beta = []
         P = []
