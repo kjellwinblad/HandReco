@@ -7,7 +7,10 @@ Created on Jul 9, 2011
 import unittest
 import os
 import java
-from java.io import File, FileOutputStream
+from java.io import File, FileOutputStream, FileInputStream
+from javax.imageio import ImageIO
+import inspect
+
 
 class ImageExampleDir:
     '''
@@ -31,12 +34,38 @@ class ImageExampleDir:
             fileos.write(byte)
         fileos.flush()
         fileos.close()
+    
+    def __iter__(self):
+        class ImageExampleDirIter:
+            
+            def next(self):
+                image_file_name = self.iterator.next()
+                #Find example label
+                label = image_file_name[0:image_file_name.index('_')]
+                #Get the image as an image buffer
+                image_file = File(self.dir_path, image_file_name)
+                image_is = FileInputStream(image_file)
+                buffered_image = ImageIO.read(image_is)
+                #Return label and image tuple
+                return (label, buffered_image)
+            
+            def __init__(self, iter_list):
+                self.iterator = iter_list.__iter__()
+        
+        self.reload_elements()
+        return ImageExampleDirIter(self.example_list)
         
     
 class TestImageExampleDir(unittest.TestCase):
-    print("no test yet")
+    
+    def test_image_example_dir_iteration(self):
+        f = File(str(inspect.getfile( inspect.currentframe() )))
+        example_dir = File(File(f.getParentFile().getParentFile().getParentFile(),"character_examples"),"A")
+        image_example_dir = ImageExampleDir(example_dir)
+        for example in image_example_dir:
+            print(example)
 
-        
+
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.test_word_']
     unittest.main()

@@ -32,7 +32,7 @@ def select_random(massDist):
         result+=1
 
 
-class HMM:
+class HMM(object):
     # Variables, the notation is the same as in the Rabiner paper.
     # A = State Transition probability
     # B = Observation Probability Distribution

@@ -58,7 +58,7 @@ class SpecializedHMM(HMM):
         count_based = 2
 
     def __init__(self, pi, A, B, V):
-        super(HMM,self).__init__(pi, A, B, V)
+        super(SpecializedHMM,self).__init__(pi, A, B, V)
         
         
 class TestHMM(unittest.TestCase):

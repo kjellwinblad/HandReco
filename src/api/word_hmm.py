@@ -11,9 +11,11 @@ from specialized_hmm import random_list_with_sum
 from specialized_hmm import fill_list_with_zeros_in_beginning_to_size
 from specialized_hmm import zeros_and_random_with_sum1
 from word_examples_generator import get_example_alphabet
+from word_examples_generator import generate_examples_for_word
 
 import unittest
-from specialized_hmm import SpecializedHMM 
+from specialized_hmm import SpecializedHMM
+
 
 class WordHMM(SpecializedHMM):
     '''
@@ -33,7 +35,6 @@ class WordHMM(SpecializedHMM):
         '''
         Training examples is only used if InitMethod.count_based is used
         '''
-        print("running")
         self.word = word
         self.init_method = init_method
         #Construct the state transition matrix
@@ -51,7 +52,6 @@ class WordHMM(SpecializedHMM):
         last_state = zeros(self.number_of_states)
         last_state[0]=1
         A.append(last_state)
-        print(A)
         #init state emission probabilities...
         number_of_emissions = len(get_example_alphabet()) + 2
         B = []
@@ -67,16 +67,62 @@ class WordHMM(SpecializedHMM):
         #init the last row for specific probability for $
         B.append(zeros(number_of_emissions))
         B[self.number_of_states-1][number_of_emissions-1]=1
-        for row in B:
-            print(row)             
-        #super(HMM,self).__init__(pi, A, B, V)
-
+        #Set of emission symbols
+        V = ['@'] + get_example_alphabet() + ['$']
+        #Initial state
+        pi = zeros(self.number_of_states)
+        pi[0] = 1
+        super(WordHMM,self).__init__(pi, A, B, V)
     
+    def observation_from_word(self,word):
+        word_with_special_start_and_end = "@" +  word +  "$"
+        observation_list = []
+        for letter in word_with_special_start_and_end:
+            observation_list.append(self.V.index(letter))
+        return observation_list
+    
+    def train(self, training_examples):
+        observation_list = []
+        for word in training_examples:
+            observation_list = observation_list + self.observation_from_word(word)
+        self.baum_welch(observation_list)
+        
+    def test(self, word_list):
+        '''Returns the likelihood of the word given the model'''
+        probabilities_for_words = []
+        for word in word_list:
+            O = self.observation_from_word(word)
+            alpha_matrix = self.calc_forward(O)
+            last_row = alpha_matrix[len(alpha_matrix)-1]
+            probabilities_for_words.append(sum(last_row))
+        average = sum(probabilities_for_words)/len(probabilities_for_words)
+        return average
+         
+
 class TestHMM(unittest.TestCase):
+    
     
     def test_with_word(self):
         ''' not yet implemented'''
-        WordHMM("dog")
+        word_hmm = WordHMM("dog")
+        if len(word_hmm.A) == 5:
+            pass
+        else:
+            raise "The size of A is incorrect"
+    
+    def test_train(self):
+        ''' not yet implemented'''
+        word_hmm = WordHMM("dog")
+        examples = generate_examples_for_word(word="dog", number_of_examples=30)
+        test_examples = generate_examples_for_word(word="dog", number_of_examples=10)
+        other_test_examples = generate_examples_for_word(word="pig", number_of_examples=10)
+        before = word_hmm.test(test_examples)
+        word_hmm.train(examples)
+        after = word_hmm.test(test_examples)
+        other_test_examples_test = word_hmm.test(other_test_examples)
+        
+        print(["before", before, "after", after,"other_test_examples_test", other_test_examples_test])
+        
         
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.test_word_']
