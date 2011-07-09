@@ -10,6 +10,9 @@ import unittest
 
 example_alphabet=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 
+def get_example_alphabet():
+    return example_alphabet
+
 def generate_examples_for_word(word="dog", number_of_examples=100, poelap=0.03, poelenl=0.7, powlap=0.1, polmap=0.01, alphabet=example_alphabet):
     '''
     Function that generate misspelled versions of a word given propabilities
