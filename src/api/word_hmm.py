@@ -81,12 +81,46 @@ class WordHMM(SpecializedHMM):
             observation_list.append(self.V.index(letter))
         return observation_list
     
-    def train(self, training_examples):
+    
+    def train_baum_welch(self, training_examples):
         observation_list = []
         for word in training_examples:
             observation_list = observation_list + self.observation_from_word(word)
         self.baum_welch(observation_list)
         
+    def train_baum_welch_bakis(self, training_examples):
+        '''bakis does not seem to work, see autotest'''
+        observation_list = []
+        for word in training_examples:
+            observation_list.append(self.observation_from_word(word))
+        self.baum_welch_bakis(observation_list)
+        
+    def train_until_stop_condition_reached(self, training_examples, delta = 0.003, test_examples=None):
+        ''' Train the model using Baum Welch until stop condition is met.
+            stop condition improvement < delta
+           
+            Parameters:
+            training_examples - the example words to train with
+            delta - see stop condition
+            test_examples the examples used to test for improvement the training examples are used if
+            set to default None'''
+        actual_test_examples = []
+        if test_examples==None:
+            actual_test_examples = training_examples
+        else:
+            actual_test_examples = test_examples
+        
+        score = 0
+        old_score = -1
+        improvement = score - old_score
+        iter = 0
+        while improvement > delta and iter < 20:
+            iter = iter + 1
+            self.train_baum_welch(training_examples)
+            old_score = score
+            score = self.test(actual_test_examples)
+            improvement = score - old_score
+    
     def test(self, word_list):
         '''Returns the likelihood of the word given the model'''
         probabilities_for_words = []
@@ -109,7 +143,33 @@ class TestHMM(unittest.TestCase):
             pass
         else:
             raise "The size of A is incorrect"
-    
+
+    def test_train_until_stop_condition_reached(self):
+        word_hmm = WordHMM("dog")
+        examples = generate_examples_for_word(word="dog", number_of_examples=30)
+        test_examples = generate_examples_for_word(word="dog", number_of_examples=10)
+        before = word_hmm.test(test_examples)
+        word_hmm.train_until_stop_condition_reached(examples, delta = 0.0, test_examples = test_examples)
+        after = word_hmm.test(test_examples)
+        if(after > before):
+            pass
+        else:
+            raise "The training does not seem to work good before " + str(before) + " after " + str(after)
+        
+    def test_train_with_stop_condition_bakis(self):
+        word_hmm = WordHMM("dog")
+        examples = generate_examples_for_word(word="dog", number_of_examples=50)
+        test_examples = generate_examples_for_word(word="dog", number_of_examples=10)
+        score = 0
+        old_score = -1
+        print("bakis")
+        while score > old_score:
+            old_score = score
+            word_hmm.train_baum_welch_bakis(examples)
+            score = word_hmm.test(test_examples)
+            print("score " + str(score))
+        print("final score " + str(score))
+
     def test_train(self):
         ''' not yet implemented'''
         word_hmm = WordHMM("dog")
@@ -117,10 +177,14 @@ class TestHMM(unittest.TestCase):
         test_examples = generate_examples_for_word(word="dog", number_of_examples=10)
         other_test_examples = generate_examples_for_word(word="pig", number_of_examples=10)
         before = word_hmm.test(test_examples)
-        word_hmm.train(examples)
+        word_hmm.train_baum_welch(examples)
         after = word_hmm.test(test_examples)
         other_test_examples_test = word_hmm.test(other_test_examples)
-        
+        if(after > before and other_test_examples_test < after):
+            pass
+        else:
+            raise "The training does not seem to work good"
+            
         print(["before", before, "after", after,"other_test_examples_test", other_test_examples_test])
         
         
