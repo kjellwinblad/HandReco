@@ -1,7 +1,7 @@
 import unittest
 import logging
 import random
-
+import math
 def zeros_3d(x, y, z):
     matrix = []
     for i in range(x):
@@ -108,7 +108,8 @@ class HMM(object):
         #initialization
         t = 0
         for i in range(self.N):
-            delta[t][i] = self.pi[i] * self.B[i][O[t]]
+            #delta[t][i] = self.pi[i] * self.B[i][O[t]]
+            delta[t][i] = math.log10(self.pi[i]) + math.log10(self.B[i][O[t]])
             psi[t][i] = 0
         # recursion
         for t in range(1, T):
@@ -118,7 +119,15 @@ class HMM(object):
                     acc.append(delta[t-1][i] * self.A[i][j])
                 delta[t][j] = max(acc) * self.B[j][O[t]]
                 psi[t][j] = acc.index(max(acc))
-
+        # path backtracking
+        start_from_last=[acc.index(max(delta[t][-1]))]
+        psi[t].reverse()
+        for t in range(1,T):
+            start_from_last.append(psi[t][start_from_last[-1]])
+        path_backtracking = [self.A[i] for i in start_from_last]
+        path_backtracking()
+        return path_backtracking
+    
     def baum_welch(self, O):
         ''' Call with a sequence of observations, e.g. O = [0,1,0,1]. The function will
             calculate new model paramters according the baum welch formula. Will update
