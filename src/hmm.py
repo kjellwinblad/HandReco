@@ -2,6 +2,7 @@ import unittest
 import logging
 import random
 import math
+
 def zeros_3d(x, y, z):
     matrix = []
     for i in range(x):
@@ -116,8 +117,8 @@ class HMM(object):
             for j in range(self.N):
                 acc = []
                 for i in range(self.N):
-                    acc.append(delta[t-1][i] * self.A[i][j])
-                delta[t][j] = max(acc) * self.B[j][O[t]]
+                    acc.append(delta[t-1][i] + math.log10(self.A[i][j]))
+                delta[t][j] = max(acc) + math.log10(self.B[j][O[t]])
                 psi[t][j] = acc.index(max(acc))
         # path backtracking
         start_from_last=[acc.index(max(delta[t][-1]))]
