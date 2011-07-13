@@ -5,6 +5,7 @@ Created on Jul 10, 2011
 '''
 from api.word_hmm import WordHMM
 from api.word_examples_generator import generate_examples_for_words
+from api.specialized_hmm import SpecializedHMM
 import unittest
 
 
@@ -14,7 +15,10 @@ class WordClassifier(object):
     '''
 
 
-    def __init__(self, words_with_examples, nr_of_hmms_to_try = 3, fraction_of_examples_for_test = 0.1):
+    def __init__(self, 
+                 words_with_examples, 
+                 nr_of_hmms_to_try = 3, 
+                 fraction_of_examples_for_test = 0.1):
         '''
         Parameters:
         words_with_examples - is a list of tuples were the first element in the tuples
@@ -54,7 +58,9 @@ class WordClassifier(object):
         results=[]
         hmms=[]
         for i in range(nr_of_hmms_to_try):
-            hmm = WordHMM(word)
+            hmm = WordHMM(word, 
+                          SpecializedHMM.InitMethod.count_based,
+                          training_examples)
             try:
                 hmm.train_until_stop_condition_reached(training_examples, 0.0, test_examples)
             except ZeroDivisionError:
@@ -79,8 +85,8 @@ class WordClassifier(object):
 class TestWordClassifier(unittest.TestCase):
 
     def test_create_classifier(self):
-        examples = generate_examples_for_words(number_of_examples=30)
-        classifier = WordClassifier(examples, fraction_of_examples_for_test = 0.5)
+        examples = generate_examples_for_words(number_of_examples=70)
+        classifier = WordClassifier(examples, nr_of_hmms_to_try = 1, fraction_of_examples_for_test = 0)
         print("classification of dog " + classifier.classify("dog"))
         print("classification of dag " + classifier.classify("dag"))
         print("classification of cat " + classifier.classify("cat"))
