@@ -132,7 +132,11 @@ class WordHMM(SpecializedHMM):
             observation_list.append(self.observation_from_word(word))
         self.baum_welch_bakis(observation_list)
         
-    def train_until_stop_condition_reached(self, training_examples, delta = 0.003, test_examples=None):
+    def train_until_stop_condition_reached(self, 
+                                           training_examples, 
+                                           delta = 0.003, 
+                                           test_examples=None,
+                                           max_nr_of_iterations=1):
         ''' Train the model using Baum Welch until stop condition is met.
             stop condition improvement < delta
            
@@ -151,7 +155,7 @@ class WordHMM(SpecializedHMM):
         old_score = -1
         improvement = score - old_score
         iter = 0
-        while improvement > delta and iter < 20:
+        while improvement > delta and iter < max_nr_of_iterations:
             iter = iter + 1
             self.train_baum_welch(training_examples)
             old_score = score

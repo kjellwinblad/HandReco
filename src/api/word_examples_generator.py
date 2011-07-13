@@ -78,7 +78,7 @@ def generate_examples_for_word(word="dog", number_of_examples=100, poelap=0.03, 
 default_word_list = ["dog","cat","pig","love","hate",
                      "scala","python","summer","winter","night",
                      "daydream","nightmare","animal","happiness","sadness",
-                     "friendliness","feminism","fascism","socialism","capitalism"]
+                     "tennis","feminism","fascism","socialism","capitalism"]
 
 def generate_examples_for_words(words=default_word_list, number_of_examples=100, poelap=0.03, poelenl=0.7, powlap=0.1, polmap=0.01, alphabet=example_alphabet):
     '''

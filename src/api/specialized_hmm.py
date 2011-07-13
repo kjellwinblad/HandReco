@@ -45,6 +45,13 @@ def zeros(number_of_zeros):
         l.append(0)
     return l
 
+def list_with_sum_and_equal_elements(number_of_elements, sum):
+    l = []
+    element_value = sum / number_of_elements
+    for i in range(number_of_elements):
+        l.append(element_value)
+    return l
+
 
 
 class SpecializedHMM(HMM):
