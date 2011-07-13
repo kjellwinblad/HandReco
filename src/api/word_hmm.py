@@ -136,7 +136,7 @@ class WordHMM(SpecializedHMM):
                                            training_examples, 
                                            delta = 0.003, 
                                            test_examples=None,
-                                           max_nr_of_iterations=1):
+                                           max_nr_of_iterations=15):
         ''' Train the model using Baum Welch until stop condition is met.
             stop condition improvement < delta
            
