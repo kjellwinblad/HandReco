@@ -55,6 +55,7 @@ class HMM(object):
         self.q = select_random(self.pi)
         self.t = 0
         self.O = []
+        self.scaling_factor = []
         self.log = logging.getLogger('log')
         logging.basicConfig()
         self.log.debug(' Time is ' + str(self.t) + ', Initial State is ' + str(self.q) + ', Sequence is ' + str(self.O))
@@ -69,25 +70,31 @@ class HMM(object):
         self.log.debug(' Time is ' + str(self.t) + ', Observed ' + observation + ', New State is ' + str(self.q) + ', Sequence is ' + str(self.O))
 
     def calc_forward(self, O):
+        self.scaling_factor = []
         T = len(O)
         alpha = zeros(T, self.N)
         #initalize
-        t = 0
-        for i in range(self.N):
-            alpha[t][i] = self.pi[i] * self.B[i][O[t]]
-        #induction
+        t = 0  
+        alpha[t] = [self.pi[i] * self.B[i][O[t]] for i in range(self.N)]   
+        #induction         
         for t in range(1,T):
+            self.scaling_factor.append(1.0/sum(alpha[t-1]))
+            alpha[t-1] = [self.scaling_factor[-1] * alpha[t-1][i] for i in range(self.N)]
             for j in range(self.N):
-                prob_sum = 0
-                for i in range(self.N):
+                prob_sum = 0  
+                for i in range(self.N):    
                     prob_sum += alpha[t-1][i] * self.A[i][j]
                 self.log.debug('t is ' + str(t) + ', i = ' + str(i) + ', j = ' +str(j) + ', O[t] = ' + str(O[t]) + ', prob_sum = ' + str(prob_sum) + ', B[j][O[t]] = ' + str(self.B[j][O[t]]))
                 alpha[t][j] = prob_sum * self.B[j][O[t]]
+        self.scaling_factor.append(1.0/sum(alpha[T-1]))
+        alpha[T-1] = [self.scaling_factor[-1] * alpha[T-1][i] for i in range(self.N)]
         return alpha
 
     def calc_backward(self, O):
         T = len(O)
+        self.calc_forward(O)
         beta = zeros(T, self.N)
+        scaling_factor = self.scaling_factor
         #initialization
         for i in range(self.N):
             beta[T-1][i] = 1.0
@@ -97,7 +104,8 @@ class HMM(object):
             for i in range(self.N):
                 prob_sum = 0
                 for j in range(self.N):
-                    prob_sum += self.A[i][j] * self.B[j][O[t+1]] * beta[t+1][j]
+                    #print('scaling_factor=' + str(scaling_factor))
+                    prob_sum += self.A[i][j] * (scaling_factor[t+1] *self.B[j][O[t+1]]) * beta[t+1][j]
                 beta[t][i] = prob_sum
         self.log.debug(' beta is ' + str(beta))
         return beta
@@ -140,6 +148,7 @@ class HMM(object):
         # We need to calculate the xi and gamma tables before can find the update values
         xi = zeros_3d(len(O) - 1, self.N, self.N)
         gamma = zeros(len(O) - 1, self.N)
+       
         # Begin with xi
         for t in range(len(O) - 1):
             s = 0
@@ -193,7 +202,6 @@ class HMM(object):
         beta = []
         P = []
         K = len(O)
-        scaling_factor = []
         
         for k in range(K):
             alpha.append(self.calc_forward(O[k]))
@@ -299,7 +307,7 @@ class TestHMM(unittest.TestCase):
         h.log.setLevel(logging.DEBUG)
         h.viterbi([0, 0])
         #this is random set
-        self.assertEqual(h.viterbi(), [0,0])
+        self.assertEqual(h.viterbi([0,0]), [0,0])
 if __name__ == '__main__':
     unittest.main()
 
