@@ -109,7 +109,18 @@ class HMM(object):
                 beta[t][i] = prob_sum
         self.log.debug(' beta is ' + str(beta))
         return beta
-
+    
+    def probability_of_observation(self, O):
+        """O is an observation sequence."""
+        self.calc_forward(O)
+        def log(x):
+            return math.log10(x)
+        log_of_probability = -sum(map(log, self.scaling_factor))
+        probability = 10 ** log_of_probability
+        return probability
+        
+        
+    
     def viterbi(self, O):
         T = len(O)
         delta = zeros(T, self.N)

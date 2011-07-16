@@ -167,9 +167,9 @@ class WordHMM(SpecializedHMM):
         probabilities_for_words = []
         for word in word_list:
             O = self.observation_from_word(word)
-            alpha_matrix = self.calc_forward(O)
-            last_row = alpha_matrix[len(alpha_matrix)-1]
-            probabilities_for_words.append(sum(last_row))
+            #alpha_matrix = self.calc_forward(O)
+            #last_row = alpha_matrix[len(alpha_matrix)-1]
+            probabilities_for_words.append(self.probability_of_observation(O))
         average = sum(probabilities_for_words)/len(probabilities_for_words)
         return average
          
@@ -185,7 +185,7 @@ class TestHMM(unittest.TestCase):
             raise "The size of A is incorrect"
 
     def train_until_stop_condition_reached(self, word_hmm):
-        examples = generate_examples_for_word(word="dog", number_of_examples=40)
+        examples = generate_examples_for_word(word="dog", number_of_examples=1000)
         test_examples = generate_examples_for_word(word="dog", number_of_examples=40)
         before = word_hmm.test(test_examples)
         word_hmm.train_until_stop_condition_reached(examples, delta = 0.0, test_examples = test_examples)
@@ -205,23 +205,23 @@ class TestHMM(unittest.TestCase):
                                                         SpecializedHMM.InitMethod.count_based,
                                                         init_training_examples))
 
-    def test_train_with_stop_condition_bakis(self):
-        word_hmm = WordHMM("dog")
-        examples = generate_examples_for_word(word="dog", number_of_examples=50)
-        test_examples = generate_examples_for_word(word="dog", number_of_examples=10)
-        score = 0
-        old_score = -1
-        print("bakis")
-        while score > old_score:
-            old_score = score
-            word_hmm.train_baum_welch_bakis(examples)
-            score = word_hmm.test(test_examples)
-            print("score " + str(score))
-        print("final score " + str(score))
+#    def test_train_with_stop_condition_bakis(self):
+#        word_hmm = WordHMM("dog")
+#        examples = generate_examples_for_word(word="dog", number_of_examples=1000)
+#        test_examples = generate_examples_for_word(word="dog", number_of_examples=10)
+#        score = 0
+#        old_score = -1
+#        print("bakis")
+#        while score > old_score:
+#            old_score = score
+#            word_hmm.train_baum_welch_bakis(examples)
+#            score = word_hmm.test(test_examples)
+#            print("score " + str(score))
+#        print("final score " + str(score))
 
     def test_train(self):
         word_hmm = WordHMM("dog")
-        examples = generate_examples_for_word(word="dog", number_of_examples=30)
+        examples = generate_examples_for_word(word="dog", number_of_examples=1000)
         test_examples = generate_examples_for_word(word="dog", number_of_examples=10)
         other_test_examples = generate_examples_for_word(word="pig", number_of_examples=10)
         before = word_hmm.test(test_examples)

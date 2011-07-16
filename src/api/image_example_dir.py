@@ -24,7 +24,6 @@ class ImageExampleDir:
     def reload_elements(self):
         files_in_dir = os.listdir(self.dir_path)
         self.example_list = [elem for elem in files_in_dir if elem.endswith(".png") and ("_" in elem)]
-        print(self.example_list)
     
     def save_example(self, label, image_byte_array):
         output_file_name = label + "_" + str(java.lang.System.currentTimeMillis()) + ".png"
@@ -36,6 +35,7 @@ class ImageExampleDir:
         fileos.close()
     
     def __iter__(self):
+        dir_path = self.dir_path
         class ImageExampleDirIter:
             
             def next(self):
@@ -43,7 +43,7 @@ class ImageExampleDir:
                 #Find example label
                 label = image_file_name[0:image_file_name.index('_')]
                 #Get the image as an image buffer
-                image_file = File(self.dir_path, image_file_name)
+                image_file = File(dir_path, image_file_name)
                 image_is = FileInputStream(image_file)
                 buffered_image = ImageIO.read(image_is)
                 #Return label and image tuple
@@ -61,10 +61,10 @@ class TestImageExampleDir(unittest.TestCase):
     def test_image_example_dir_iteration(self):
         f = File(str(inspect.getfile( inspect.currentframe() )))
         example_dir = File(File(f.getParentFile().getParentFile().getParentFile(),"character_examples"),"A")
-        image_example_dir = ImageExampleDir(example_dir)
-        for example in image_example_dir:
-            print(example)
-
+        image_example_dir = ImageExampleDir(example_dir.getCanonicalPath())
+        for label, image in image_example_dir:
+            if label != "A":
+                raise "The label of the examples in this dir should be A"
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.test_word_']
