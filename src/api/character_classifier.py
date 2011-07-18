@@ -61,13 +61,12 @@ class TestCharacterClassifier(unittest.TestCase):
         b_dir = File(base_dir,"B")
         shutil.copytree(a_dir.getPath(), File(test_dir,"A").getPath())
         shutil.copytree(b_dir.getPath(), File(test_dir,"B").getPath())
-        print("files copied")
         extracor = SimpleImageFeatureExtractor(nr_of_divisions=7, 
                                                size_classification_factor=1.3)
         #Extract features
         training_examples, test_examples = extracor.extract_training_and_test_examples(test_dir.getPath(), 90, 10)
-        print("training examples", training_examples)
-        print("testing examples", test_examples)
+        #print("training examples", training_examples)
+        #print("testing examples", test_examples)
         classifier = CharacterClassifier(training_examples, 
                                          nr_of_hmms_to_try = 1, 
                                          fraction_of_examples_for_test = 0.3,
