@@ -5,12 +5,13 @@ Created on Jun 29, 2011
 '''
 
 from javax.swing import JComponent
-from java.awt import Color , Dimension
+from java.awt import Color , Dimension, RenderingHints
 from java.awt.event import MouseMotionListener, MouseListener, InputEvent
-from array import array
+import array
 from java.awt.image import BufferedImage
 from java.io import ByteArrayOutputStream
 from javax.imageio import ImageIO
+
 
 class PaintArea(JComponent):
     '''
@@ -29,6 +30,10 @@ class PaintArea(JComponent):
     
     def paint(self, g):
         #Paint background
+        #g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+        #                   RenderingHints.VALUE_ANTIALIAS_OFF)
+        #g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+        #                   RenderingHints.VALUE_STROKE_PURE)
         g.setColor(self.getBackground())
         g.fillRect(0, 0, self.getWidth(), self.getHeight())
         #Paint foreground
@@ -40,7 +45,7 @@ class PaintArea(JComponent):
             for (x,y) in stroke:
                 x_list.append(x)
                 y_list.append(y)
-            g.drawPolyline(array('i', x_list), array('i', y_list), len(stroke)) 
+            g.drawPolyline(array.array('i', x_list), array.array('i', y_list), len(stroke)) 
             
             
     def clear(self):
@@ -51,9 +56,22 @@ class PaintArea(JComponent):
     def image(self):
         w = self.getWidth();
         h = self.getHeight();
+        non_black_withe_image = BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB)
+        self.paint(non_black_withe_image.getGraphics())
+        raster=non_black_withe_image.getRaster()
         bi = BufferedImage(w, h, BufferedImage.TYPE_BYTE_BINARY)
-        g = bi.createGraphics();
-        self.paint(g);
+        write_raster = bi.getRaster()
+        c = array.zeros('i', 4)
+        on=wc = array.zeros('i', 1)
+        off=array.zeros('i', 1)
+        off[0]=1
+        for x in range(w):
+            for y in range(h):
+                c = raster.getPixel(x,y,c)
+                if sum(c)!=1020:
+                    write_raster.setPixel(x,y, on)
+                else:
+                    write_raster.setPixel(x,y, off)
         return bi;
     
     def image_byte_array(self):
