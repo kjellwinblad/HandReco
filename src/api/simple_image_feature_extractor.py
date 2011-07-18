@@ -9,6 +9,7 @@ import unittest
 from java.io import File
 import inspect
 from api.image_example_dir import ImageExampleDir
+import os
 
 class SimpleImageFeatureExtractor(object):
     '''
@@ -20,11 +21,12 @@ class SimpleImageFeatureExtractor(object):
                              "LLS":"b",
                              "LSS":"c",
                              "LSN":"d",
-                             "LNN":"e",
-                             "SSS":"f",
-                             "SSN":"g",
-                             "SNN":"h",
-                             "NNN":"i"}
+                             "LLN":"e",
+                             "LNN":"f",
+                             "SSS":"g",
+                             "SSN":"h",
+                             "SNN":"i",
+                             "NNN":"j"}
 
     def __init__(self,
                  nr_of_divisions=7, 
@@ -39,7 +41,7 @@ class SimpleImageFeatureExtractor(object):
         * nr_of_components_to_consider - The number of components to consider
         
         The 3 largest components in a segment are used to get a feature for that segment. 
-        There are 9 different possible features in every segment. The features are enumerated 
+        There are 10 different possible features in every segment. The features are enumerated 
         in the following list:
         
         feature id | comp. 1 | comp. 2 | comp. 3
@@ -47,11 +49,12 @@ class SimpleImageFeatureExtractor(object):
         b          | L       | L       | S       |
         c          | L       | S       | S       |
         d          | L       | S       | N       |
-        e          | L       | N       | N       |
-        f          | S       | S       | S       |
-        g          | S       | S       | N       |
-        h          | S       | N       | N       |
-        i          | N       | N       | N       |
+        e          | L       | L       | N       |
+        f          | L       | N       | N       |
+        g          | S       | S       | S       |
+        h          | S       | S       | N       |
+        i          | S       | N       | N       |
+        j          | N       | N       | N       |
         
         comp. = component
         L = large
@@ -98,6 +101,22 @@ class SimpleImageFeatureExtractor(object):
             feature_string = (feature_string + 
                               self.feature_pattern_to_id[segment_feature_string])
         return feature_string
+    
+    def extract_feature_strings_for_dir(self,dir_path):
+        image_dir = ImageExampleDir(dir_path)
+        images = [image for (label,image) in image_dir]
+        feature_strings = [self.extract_feature_string(image) for image in images]
+        return feature_strings
+    
+    def extract_label_examples_tuples_for_library(self,library_path):
+        example_dirs =  os.listdir(library_path)
+        label_example_tuples = []
+        for dir_name in example_dirs:
+            label = dir_name
+            dir = File(File(library_path), dir_name).getCanonicalPath()
+            examples = self.extract_feature_strings_for_dir(dir)
+            label_example_tuples.append((label, examples))
+        return label_example_tuples
                 
 class TestSimpleImageFeatureExtractor(unittest.TestCase):
     
@@ -113,7 +132,29 @@ class TestSimpleImageFeatureExtractor(unittest.TestCase):
         extractor = SimpleImageFeatureExtractor(nr_of_divisions=7, 
                                                 size_classification_factor=1.3)
         feature_string = extractor.extract_feature_string(image)
+        print("test_extract_feature_string")
         print(feature_string)
+        
+    def test_extract_feature_strings_for_dir(self):
+        extractor = SimpleImageFeatureExtractor(nr_of_divisions=7, 
+                                                size_classification_factor=1.3)
+        f = File(str(inspect.getfile( inspect.currentframe() )))
+        example_dir_path = File(File(f.getParentFile().getParentFile().getParentFile(),
+                                     "character_examples"),
+                                "A").getCanonicalPath()
+        feature_strings = extractor.extract_feature_strings_for_dir(example_dir_path)
+        print("test_extract_feature_strings_for_dir")
+        print(feature_strings)
+        
+    def test_extract_label_examples_tuples_for_library(self):
+        extractor = SimpleImageFeatureExtractor(nr_of_divisions=7, 
+                                                size_classification_factor=1.3)
+        f = File(str(inspect.getfile( inspect.currentframe() )))
+        library_path = File(f.getParentFile().getParentFile().getParentFile(),
+                                     "character_examples").getCanonicalPath()
+        training_examples = extractor.extract_label_examples_tuples_for_library(library_path)
+        print("test_extract_label_examples_tuples_for_library")
+        print(training_examples)
         
 
 
