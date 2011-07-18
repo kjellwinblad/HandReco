@@ -10,13 +10,15 @@ from java.io import File
 import inspect
 from api.image_example_dir import ImageExampleDir
 import os
+from random import random
+from sets import Set
 
 class SimpleImageFeatureExtractor(object):
     '''
     A class used to extract a sequence of features from an image that
     may be used as training observations for a HMM.
     '''
-    
+    feature_ids=['a','b','c','d','e','f','g','h','i','j']
     feature_pattern_to_id = {"LLL":"a",
                              "LLS":"b",
                              "LSS":"c",
@@ -102,11 +104,28 @@ class SimpleImageFeatureExtractor(object):
                               self.feature_pattern_to_id[segment_feature_string])
         return feature_string
     
-    def extract_feature_strings_for_dir(self,dir_path):
+    def extract_feature_strings_for_dir(self,
+                                        dir_path,
+                                        nr_of_training_examples=10000,
+                                        nr_of_test_examples=0):
         image_dir = ImageExampleDir(dir_path)
         images = [image for (label,image) in image_dir]
+        nr_of_training_examples = min([nr_of_training_examples, len(images)])
+        nr_of_images=len(images)
+        test_example_indices = [int(round(r*(nr_of_images-1)))
+                                for r in [random() for i in range(nr_of_test_examples)]]
+        test_example_indices.sort()
+        test_example_indices.reverse()
+
         feature_strings = [self.extract_feature_string(image) for image in images]
-        return feature_strings
+        #take out the test examples
+        test_examples = []
+        for i in test_example_indices:
+            test_examples.append(feature_strings.pop(i))
+        if len(feature_strings)>nr_of_training_examples:
+            feature_strings = feature_strings[0:nr_of_training_examples]
+        
+        return (feature_strings, test_examples)
     
     def extract_label_examples_tuples_for_library(self,library_path):
         example_dirs =  os.listdir(library_path)
@@ -114,9 +133,26 @@ class SimpleImageFeatureExtractor(object):
         for dir_name in example_dirs:
             label = dir_name
             dir = File(File(library_path), dir_name).getCanonicalPath()
-            examples = self.extract_feature_strings_for_dir(dir)
+            examples,test_examples = self.extract_feature_strings_for_dir(dir)
             label_example_tuples.append((label, examples))
         return label_example_tuples
+    
+    def extract_training_and_test_examples(self,
+                                           library_path,
+                                           nr_of_training_examples=5000,
+                                           nr_of_test_examples=10):
+        example_dirs =  os.listdir(library_path)
+        label_training_example_tuples = []
+        label_test_example_tuples = []
+        for dir_name in example_dirs:
+            label = dir_name
+            dir = File(File(library_path), dir_name).getCanonicalPath()
+            training_examples,test_examples = self.extract_feature_strings_for_dir(dir,
+                                                                          nr_of_training_examples,
+                                                                          nr_of_test_examples)
+            label_training_example_tuples.append((label, training_examples))
+            label_test_example_tuples.append((label, test_examples))
+        return (label_training_example_tuples,label_test_example_tuples)
                 
 class TestSimpleImageFeatureExtractor(unittest.TestCase):
     
@@ -142,9 +178,16 @@ class TestSimpleImageFeatureExtractor(unittest.TestCase):
         example_dir_path = File(File(f.getParentFile().getParentFile().getParentFile(),
                                      "character_examples"),
                                 "A").getCanonicalPath()
-        feature_strings = extractor.extract_feature_strings_for_dir(example_dir_path)
+        training_examples,test_examples = extractor.extract_feature_strings_for_dir(
+                                                                    example_dir_path,
+                                                                    nr_of_training_examples=90,
+                                                                    nr_of_test_examples=10)
+        if len(training_examples)==90 and len(test_examples) == 10:
+            pass
+        else:
+            raise "wrong number in retuned list"
         print("test_extract_feature_strings_for_dir")
-        print(feature_strings)
+        print(training_examples,test_examples )
         
     def test_extract_label_examples_tuples_for_library(self):
         extractor = SimpleImageFeatureExtractor(nr_of_divisions=7, 

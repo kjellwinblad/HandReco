@@ -43,7 +43,7 @@ class WordHMM(SpecializedHMM):
             return row
         elif(self.init_method==SpecializedHMM.InitMethod.count_based):
             nr_of_training_examples = len(self.training_examples)
-            alphabet = get_example_alphabet()
+            alphabet = self.alphabet
             alphabet_size = len(alphabet)
             def count_position(position):
                 #pseudocount
@@ -64,21 +64,24 @@ class WordHMM(SpecializedHMM):
         else:
             raise "Init Method Not Supported"
 
-    def __init__(self, word, 
+    def __init__(self, 
+                 word_length, 
                  init_method=SpecializedHMM.InitMethod.random, 
-                 training_examples=[]):
+                 training_examples=[],
+                 alphabet=get_example_alphabet()):
         '''
         Training examples is only used if InitMethod.count_based is used
         '''
-        self.word = word
+        self.word_length = word_length
         self.init_method = init_method
         self.training_examples = training_examples
+        self.alphabet = alphabet
         if(self.init_method==SpecializedHMM.InitMethod.count_based and
            len(self.training_examples)==0):
             raise "Training examples needs to be provided when init method is count based"
         
         #Construct the state transition matrix
-        self.number_of_states = len(word) + 2
+        self.number_of_states = word_length + 2
         #state transition matrix
         A = []
         #From state 1 to state 2 the probability is 
@@ -93,7 +96,7 @@ class WordHMM(SpecializedHMM):
         last_state[0]=1
         A.append(last_state)
         #init state emission probabilities...
-        self.number_of_emissions = len(get_example_alphabet()) + 2
+        self.number_of_emissions = len(self.alphabet) + 2
         B = []
         #init the first row with specific probability for @
         B.append(zeros(self.number_of_emissions))
@@ -105,7 +108,7 @@ class WordHMM(SpecializedHMM):
         B.append(zeros(self.number_of_emissions))
         B[self.number_of_states-1][self.number_of_emissions-1] = 1
         #Set of emission symbols
-        V = ['@'] + get_example_alphabet() + ['$']
+        V = ['@'] + self.alphabet + ['$']
         #Initial state
         pi = zeros(self.number_of_states)
         pi[0] = 1
@@ -178,7 +181,7 @@ class TestHMM(unittest.TestCase):
     
     
     def test_with_word(self):
-        word_hmm = WordHMM("dog")
+        word_hmm = WordHMM(word_length=3)
         if len(word_hmm.A) == 5:
             pass
         else:
@@ -198,10 +201,10 @@ class TestHMM(unittest.TestCase):
 
     def test_train_until_stop_condition_reached(self):
         print("random init")
-        self.train_until_stop_condition_reached(WordHMM("dog"))
+        self.train_until_stop_condition_reached(WordHMM(word_length=3))
         print("count based init")
         init_training_examples = generate_examples_for_word(word="dog", number_of_examples=40)
-        self.train_until_stop_condition_reached(WordHMM("dog", 
+        self.train_until_stop_condition_reached(WordHMM(3, 
                                                         SpecializedHMM.InitMethod.count_based,
                                                         init_training_examples))
 
@@ -220,7 +223,7 @@ class TestHMM(unittest.TestCase):
 #        print("final score " + str(score))
 
     def test_train(self):
-        word_hmm = WordHMM("dog")
+        word_hmm = WordHMM(word_length=3)
         examples = generate_examples_for_word(word="dog", number_of_examples=1000)
         test_examples = generate_examples_for_word(word="dog", number_of_examples=10)
         other_test_examples = generate_examples_for_word(word="pig", number_of_examples=10)
