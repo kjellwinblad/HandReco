@@ -91,9 +91,9 @@ class WordClassifier(object):
             hmms.append(hmm)
             result = hmm.test(test_examples)
             results.append(result)
-            print("hmm " + str(i) + " for word " + word + " result " + str(result))
+            #print("hmm " + str(i) + " for word " + word + " result " + str(result))
         max_result = max(results)
-        print("max hmm for word " + word + " max result " + str(max_result))
+        #print("max hmm for word " + word + " max result " + str(max_result))
         return hmms[results.index(max_result)]
     
     
@@ -135,7 +135,7 @@ class TestWordClassifier(unittest.TestCase):
 
     def test_create_classifier(self):
         words = ["pig","dog","cat","bee","ape","elk","hen","cow"]
-        examples = generate_examples_for_words(words,number_of_examples=200)
+        examples = generate_examples_for_words(words,number_of_examples=1000)
         classifier = WordClassifier(examples, 
                                     nr_of_hmms_to_try = 1, 
                                     fraction_of_examples_for_test = 0)

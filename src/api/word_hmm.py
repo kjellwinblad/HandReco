@@ -185,7 +185,7 @@ class TestHMM(unittest.TestCase):
             raise "The size of A is incorrect"
 
     def train_until_stop_condition_reached(self, word_hmm):
-        examples = generate_examples_for_word(word="dog", number_of_examples=1000)
+        examples = generate_examples_for_word(word="dog", number_of_examples=500)
         test_examples = generate_examples_for_word(word="dog", number_of_examples=40)
         before = word_hmm.test(test_examples)
         word_hmm.train_until_stop_condition_reached(examples, delta = 0.0, test_examples = test_examples)

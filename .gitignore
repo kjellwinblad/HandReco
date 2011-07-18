@@ -1,1 +1,5 @@
 src/gui/*.class
+src/api/*.class
+src/test/*.class
+src/src/*.class
+src/src/prepro/*.class

@@ -76,9 +76,15 @@ class HMM(object):
         #initalize
         t = 0  
         alpha[t] = [self.pi[i] * self.B[i][O[t]] for i in range(self.N)]   
+        def append_scaling_to_scaling_factor_for_t(t):
+            sum_alpha = sum(alpha[t-1])
+            if(sum_alpha==0):
+                self.scaling_factor.append(1)
+            else:
+                self.scaling_factor.append(1.0/sum_alpha)
         #induction         
         for t in range(1,T):
-            self.scaling_factor.append(1.0/sum(alpha[t-1]))
+            append_scaling_to_scaling_factor_for_t(t)
             alpha[t-1] = [self.scaling_factor[-1] * alpha[t-1][i] for i in range(self.N)]
             for j in range(self.N):
                 prob_sum = 0  
@@ -86,7 +92,7 @@ class HMM(object):
                     prob_sum += alpha[t-1][i] * self.A[i][j]
                 self.log.debug('t is ' + str(t) + ', i = ' + str(i) + ', j = ' +str(j) + ', O[t] = ' + str(O[t]) + ', prob_sum = ' + str(prob_sum) + ', B[j][O[t]] = ' + str(self.B[j][O[t]]))
                 alpha[t][j] = prob_sum * self.B[j][O[t]]
-        self.scaling_factor.append(1.0/sum(alpha[T-1]))
+        append_scaling_to_scaling_factor_for_t(T)
         alpha[T-1] = [self.scaling_factor[-1] * alpha[T-1][i] for i in range(self.N)]
         return alpha
 
@@ -115,7 +121,10 @@ class HMM(object):
         self.calc_forward(O)
         def log(x):
             return math.log10(x)
-        log_of_probability = -sum(map(log, self.scaling_factor))
+        try:
+            log_of_probability = -sum(map(log, self.scaling_factor))
+        except OverflowError:
+            return 0.0
         probability = 10 ** log_of_probability
         return probability
         
@@ -185,7 +194,7 @@ class HMM(object):
         for i in range(self.N):
             self.pi[i] = gamma[0][i]
         # Update A
-        print 'Updating A'
+        #print 'Updating A'
         for i in range(self.N):
             for j in range(self.N):
                 numerator = 0
