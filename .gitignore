@@ -3,3 +3,4 @@ src/api/*.class
 src/test/*.class
 src/*.class
 src/prepro/*.class
+.settings/*
