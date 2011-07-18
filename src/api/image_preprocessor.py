@@ -61,11 +61,16 @@ def divide_into_segments(nr_of_segments, image_buffer):
         end = start_pos + segment_width
         if end > width:
             this_segment_with = segment_width - (end-width)
+        elif (width - end - segment_width) < 0:
+            this_segment_with = width - start_pos
         else:
             this_segment_with = segment_width
         seg = image_buffer.getSubimage(start_pos,0,this_segment_with, height)
         return seg
-    segments = [create_segment(s) for s in range(0,width, segment_width)]
+    segment_starts = range(0,width, segment_width)
+    if len(segment_starts) > nr_of_segments:
+        del segment_starts[len(segment_starts)-1]
+    segments = [create_segment(s) for s in segment_starts]
     return segments
 
 def extract_sorted_component_size_list(image_buffer):
@@ -138,7 +143,8 @@ class TestImagePreprocessor(unittest.TestCase):
         self.write_image_to_disk("/tmp/test.png", scaled_image)
     
     def test_divide_into_segments(self):
-        image = self.get_example_image()
+        orginal_image = self.get_example_image()
+        image = scale_to_fill(orginal_image)
         segments = divide_into_segments(7, image)
         i = 0
         for s in segments:
@@ -146,7 +152,8 @@ class TestImagePreprocessor(unittest.TestCase):
             i = i +1
     
     def test_extract_sorted_component_size_list(self):
-        image = self.get_example_image()
+        orginal_image = self.get_example_image()
+        image = scale_to_fill(orginal_image)
         segments = divide_into_segments(7, image)
         for s in segments:
             component_size_list = extract_sorted_component_size_list(s)
