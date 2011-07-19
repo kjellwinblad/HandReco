@@ -59,7 +59,8 @@ class HMM(object):
         self.log = logging.getLogger('log')
         logging.basicConfig()
         self.log.debug(' Time is ' + str(self.t) + ', Initial State is ' + str(self.q) + ', Sequence is ' + str(self.O))
-
+        
+    
     def gen(self):
         '''Generate a new observation based on the current state and transition to a new state.'''
         index = select_random(self.B[self.q])
@@ -277,7 +278,20 @@ class HMM(object):
                     self.B[j][l] = sum_numerator / sum_denominator
 
         # We don't need to update because we are assuming a bakis HMM where one state will have pi[i] = 1.0
-
+    
+    def to_string(self):
+        '''
+        Returns a string representation of the HMM that can be used
+        to recreate the HMM with the from string class method
+        '''
+        return str((self.pi, self.A, self.B, self.V))
+    
+    @classmethod
+    def from_string(cls, string):
+        ''' Initalize the HMM with the HMM from string representation created with to_string'''
+        pi, A, B, V = eval(string)
+        return cls(pi, A, B, V)
+        
 
 class TestHMM(unittest.TestCase):
     def setUp(self):

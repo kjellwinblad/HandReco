@@ -25,53 +25,21 @@ class WordHMM(SpecializedHMM):
     Initial model selection for the Baum-Welch algorithm as applied to 
     HMMs of DNA sequences.
     '''
-    
-    def init_transition_matrix_row(self, row_index):
-        if(self.init_method==SpecializedHMM.InitMethod.random):
-            return zeros_and_random_with_sum1(self.number_of_states, self.number_of_states-row_index)
-        elif(self.init_method==SpecializedHMM.InitMethod.count_based):
-            row = (zeros(row_index) + 
-                   list_with_sum_and_equal_elements(self.number_of_states-row_index-1,0.2))
-            row.insert(row_index+1,0.8)
-            return row            
-        else:
-            raise "Init Method Not Supported"
-        
-    def init_emission_probablity_matrix_row(self, row_index):
-        if(self.init_method==SpecializedHMM.InitMethod.random):
-            row = [0] + random_list_with_sum(self.number_of_emissions-2, 1) + [0]
-            return row
-        elif(self.init_method==SpecializedHMM.InitMethod.count_based):
-            nr_of_training_examples = len(self.training_examples)
-            alphabet = self.alphabet
-            alphabet_size = len(alphabet)
-            def count_position(position):
-                #pseudocount
-                count_list = random_list_with_sum(alphabet_size,
-                                                  nr_of_training_examples*0.1)
-                #Do the counting
-                for e in self.training_examples:
-                    if position < len(e):
-                        character_index = alphabet.index(e[position])
-                        count_list[character_index] = count_list[character_index] + 1
-                return count_list
-            count_list = count_position(row_index-1)
-            total_count = sum(count_list)
-            def normalize_element(element):
-                return element / total_count
-            row = map(normalize_element, count_list)
-            return [0] + row + [0]
-        else:
-            raise "Init Method Not Supported"
 
     def __init__(self, 
-                 word_length, 
+                 word_length=7, 
                  init_method=SpecializedHMM.InitMethod.random, 
                  training_examples=[],
-                 alphabet=get_example_alphabet()):
+                 alphabet=get_example_alphabet(),
+                 from_string_string = None):
         '''
         Training examples is only used if InitMethod.count_based is used
         '''
+        if from_string_string != None:
+            #init from string
+            pi, A, B, V = eval(from_string_string)
+            super(WordHMM,self).__init__(pi, A, B, V)
+            return
         self.word_length = word_length
         self.init_method = init_method
         self.training_examples = training_examples
@@ -113,6 +81,44 @@ class WordHMM(SpecializedHMM):
         pi = zeros(self.number_of_states)
         pi[0] = 1
         super(WordHMM,self).__init__(pi, A, B, V)
+
+    def init_transition_matrix_row(self, row_index):
+        if(self.init_method==SpecializedHMM.InitMethod.random):
+            return zeros_and_random_with_sum1(self.number_of_states, self.number_of_states-row_index)
+        elif(self.init_method==SpecializedHMM.InitMethod.count_based):
+            row = (zeros(row_index) + 
+                   list_with_sum_and_equal_elements(self.number_of_states-row_index-1,0.2))
+            row.insert(row_index+1,0.8)
+            return row            
+        else:
+            raise "Init Method Not Supported"
+    
+    def init_emission_probablity_matrix_row(self, row_index):
+        if(self.init_method==SpecializedHMM.InitMethod.random):
+            row = [0] + random_list_with_sum(self.number_of_emissions-2, 1) + [0]
+            return row
+        elif(self.init_method==SpecializedHMM.InitMethod.count_based):
+            nr_of_training_examples = len(self.training_examples)
+            alphabet = self.alphabet
+            alphabet_size = len(alphabet)
+            def count_position(position):
+                #pseudocount
+                count_list = random_list_with_sum(alphabet_size,
+                                                  nr_of_training_examples*0.1)
+                #Do the counting
+                for e in self.training_examples:
+                    if position < len(e):
+                        character_index = alphabet.index(e[position])
+                        count_list[character_index] = count_list[character_index] + 1
+                return count_list
+            count_list = count_position(row_index-1)
+            total_count = sum(count_list)
+            def normalize_element(element):
+                return element / total_count
+            row = map(normalize_element, count_list)
+            return [0] + row + [0]
+        else:
+            raise "Init Method Not Supported"
     
     def observation_from_word(self,word):
         word_with_special_start_and_end = "@" +  word +  "$"
@@ -174,8 +180,7 @@ class WordHMM(SpecializedHMM):
             #last_row = alpha_matrix[len(alpha_matrix)-1]
             probabilities_for_words.append(self.probability_of_observation(O))
         average = sum(probabilities_for_words)/len(probabilities_for_words)
-        return average
-         
+        return average    
 
 class TestHMM(unittest.TestCase):
     
