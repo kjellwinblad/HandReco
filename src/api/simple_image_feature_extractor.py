@@ -3,6 +3,12 @@ Created on Jul 18, 2011
 
 @author: kjell
 '''
+
+import sys
+sys.path.append("../gui")
+sys.path.append("../api")
+sys.path.append("..")
+
 from api.image_preprocessor import scale_to_fill, divide_into_segments,\
     extract_sorted_component_size_list
 import unittest
