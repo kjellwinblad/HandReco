@@ -118,8 +118,17 @@ class SimpleImageFeatureExtractor(object):
         images = [image for (label,image) in image_dir]
         nr_of_training_examples = min([nr_of_training_examples, len(images)])
         nr_of_images=len(images)
-        test_example_indices = [int(round(r*(nr_of_images-1)))
-                                for r in [random() for i in range(nr_of_test_examples)]]
+        
+        test_example_indices = []
+        for i in range(nr_of_test_examples):
+            random_value_selected = False
+            random_number = 0
+            while not random_value_selected:
+                random_number = int(round(random()*(nr_of_images-1)))
+                if not random_number in test_example_indices:
+                    random_value_selected = True
+            test_example_indices.append(random_number)
+            
         test_example_indices.sort()
         test_example_indices.reverse()
 

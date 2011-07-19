@@ -59,6 +59,11 @@ class TestCharacterClassifier(TestBase):
         #../../../../jython2.5.2/bin/jython -J-Xmx1024m character_classifier_tester.py 
         #('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
         #(90, 0.225, 0.7875, 0.4625, 0.3875, 136794L, 61550L)
+        
+        #With 90 training examples with all letters A to Z and 10 test examples for every letter
+        #../../../../jython2.5.2/bin/jython -J-Xmx1024m character_classifier_tester.py 
+        #('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+        #(90, 0.04230769230769231, 0.5346153846153846, 0.16153846153846155, 0.16153846153846155, 448497L, 205477L)
 
 
 if __name__ == "__main__":
