@@ -4,6 +4,9 @@ Created on Jun 29, 2011
 @author: kjellw
 '''
 
+import sys
+sys.path.append("..")
+
 from javax.swing import JFrame, JTextField, JFileChooser, JOptionPane
 from javax.swing import BoxLayout
 from javax.swing import JButton
@@ -31,6 +34,7 @@ class ExampleRecorder(JFrame):
         #Set up window
         self.setTitle("Example Recorder")
         self.setLocationRelativeTo(None)
+        self.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
         self.setLayout(BoxLayout(self.getContentPane(), BoxLayout.Y_AXIS))
         #Add content to window
         record_file_label_panel = JPanel(FlowLayout())
@@ -87,7 +91,6 @@ class ExampleRecorder(JFrame):
                                               "Could not Save", 
                                               JOptionPane.ERROR_MESSAGE)
             else:
-                print("SAVE EXAMPLE")
                 label = self.example_label_text_field.getText()
                 image_byte_array = self.example_paint_area.image_byte_array()
                 self.example_paint_area.clear()
