@@ -12,28 +12,60 @@ Hello.
 \end{abstract}
 
 \section{Introduction}
+1. Give general introduction to area.
+2. Describe why it's important.
+3. Applications.
+4. Contributions.
+
 \cite{trec}
+Fabian
 \input{introduction}
+
 \section{Previous work}
+Write about other papers and how they have solved the problem.
 
 \section{Problem}
+Describe our limited version of the problem.
+Describe the two problems, one is recognizing characters and the other is to recognize words.
+1. Images have strokes of width 1.
+2. Assume characters segment in word.
 
 \section{Method}
+2. General overview of our implementation.   Kjell
+	Two classifiers
+		What they are doing
+3. Add picture describing implementation.  Kjell
 
-\subsection{Preprocessing}
+1. Describe HMM, short overview. Chongyang
+1 Picture of HMM topology
+4. Describe the different initialization algos, advantages and disadvantages. Chongyang
+1.1Topology of HMM Chongyang
+1.2 prevention of underflow. Chongyang
+1.3 Handle zeros in denominator. Chongyang 
 
-\subsection{Feature Extraction}
+
+
 
 \subsection{Dataset}\label{sec:dataset}
+1. Write about creation of sample data. Chongyang
+2. Could not find good dataset. Chongyang
+3. Write down how much data we had. Chongyang
 
+\subsection{Preprocessing}
+1. Write about scaling of picture. Kjell
+2. Segmentation of picture. Kjell
 
 \section{Result}\label{sec:result}
-
+1. Maybe result from character test using different initialization algos.
+2. Basic results from testing the implementation
+3. Depending on how much other results we have, discuss experience of playing around with the gui.
 
 \section{Discussion}
+1. Discuss the results.
+2. Discuss importance of amount of training data and the effects on performance.
 
 \section{Future Work}
-
+1. 
 
 \bibliographystyle{plain}	% (uses file "plain.bst")
 \bibliography{myrefs}		% expects file "myrefs.bib"
