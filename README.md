@@ -11,7 +11,7 @@ These instructions help you set up the system so you can test it's basic handwri
 3.  Install jython 2.5.2 ([www.jython.org](http://www.jython.org/))
 4.  Make sure jython is in your "PATH" variable so you can run jython in your system terminal
 5.  Open your system terminal and change current directory to where you cloned HandReco (cd path/to/HandReco)
-6.  Run the HandReco Writer by running "<div>jython src/__run__.py</div>" in the terminal
+6.  Run the HandReco Writer by running "jython src/\_\_run\_\_.py" in the terminal
 7.  Write characters and let the system recognise them!
 
 
