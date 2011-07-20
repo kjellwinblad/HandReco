@@ -22,7 +22,7 @@ def select_random(massDist):
     ''' Given a discrete distribution, for example [0.2, 0.5, 0.3], select an element.
         Note that the probabilities need to sum up to 1.0
     '''
-    assert(sum(massDist) == 1.0)
+    assert(sum(massDist) > 0.99 and sum(massDist) < 1.01)
     randRoll = random.random() # in [0,1)
     s = 0
     result = 0

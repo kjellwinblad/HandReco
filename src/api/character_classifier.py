@@ -30,7 +30,8 @@ class CharacterClassifier(WordClassifier):
         '''
         if from_string_string != None:
             #init from string
-            feature_extractor_parameters,classifer_string = eval(from_string_string)
+            #"\n\n"+ in the next row is for jython bug 1469
+            feature_extractor_parameters,classifer_string = eval("\n\n"+from_string_string)
             nr_of_divisions,size_classification_factor = feature_extractor_parameters
             self.feature_extractor = SimpleImageFeatureExtractor(nr_of_divisions, 
                                                                  size_classification_factor)
@@ -55,7 +56,6 @@ class CharacterClassifier(WordClassifier):
                                                  alphabet=SimpleImageFeatureExtractor.feature_ids)
     
     def classify_character_string(self,string):
-        print("character classify called")
         classification = super(CharacterClassifier, self).classify(string)
         return classification[0]
     

@@ -1,9 +1,10 @@
 
 
 import sys
+sys.path.append(".")
+sys.path.append("api")
 sys.path.append("gui")
-sys.path.append("utilities")
 
-from gui.example_recorder import ExampleRecorder
+from gui.hand_reco_writer import HandRecoWriter
 
-ExampleRecorder()
+HandRecoWriter()

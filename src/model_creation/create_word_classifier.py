@@ -29,4 +29,4 @@ if __name__ == '__main__':
                  "scala","python","summer","winter","night",
                  "daydream","nightmare","animal","happiness","sadness",
                  "tennis","feminism","fascism","socialism","capitalism"]
-    create_word_classifier(word_list, "./word_classifier.dat")
+    create_word_classifier(word_list, "word_classifier.dat")

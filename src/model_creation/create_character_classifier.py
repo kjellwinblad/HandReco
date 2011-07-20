@@ -24,8 +24,6 @@ def create_character_classifier(save_to_file_path):
     training_examples, test_examples = extractor.extract_training_and_test_examples(example_dir, 
                                                                                    nr_of_training_examples, 
                                                                                    nr_of_test_examples)
-    print(training_examples)
-    print(test_examples)
     classifier = CharacterClassifier(training_examples,
                                      nr_of_hmms_to_try=1,
                                      fraction_of_examples_for_test=0,
@@ -38,7 +36,4 @@ def create_character_classifier(save_to_file_path):
     file.close()
 
 if __name__ == '__main__':
-    create_character_classifier("./character_classifier.dat")
-    file = open("./character_classifier.dat",'r')
-    eval(file.read())
-    file.close()
+    create_character_classifier("character_classifier.dat")

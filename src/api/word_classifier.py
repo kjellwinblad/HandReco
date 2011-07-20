@@ -37,7 +37,8 @@ class WordClassifier(object):
         '''
         if from_string_string != None:
             #init from string
-            words,stringified_hmms = eval(from_string_string)
+            #"\n\n"+ in the next row is for jython bug 1469
+            words,stringified_hmms = eval("\n\n"+from_string_string)
             def destringify_hmm(hmm_string):
                 return WordHMM(from_string_string=hmm_string)
             hmms = map(destringify_hmm,stringified_hmms)
