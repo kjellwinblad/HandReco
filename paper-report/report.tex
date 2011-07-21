@@ -9,7 +9,7 @@
 
 
 \section{Introduction}
-The lifetime value(LTV) of a customer is the net present value of the cash flows attributed to the relationship with a customer.
+The lifetime value (LTV) of a customer is the net present value of the cash flows attributed to the relationship with a customer.
 Phillip E. Pfeifer and Robert L. Carraway \cite{customer} explains how the LTV concept can be used together with Markov Chains Models (MCM) to make managerial decisions on an individual customer basis.
 The advantage MCM has over traditional methods include its flexibility and that it is a probabilistic model.
 A probabilistic model explicitly accounts for the uncertainty surrounding customer relationships.
@@ -23,9 +23,9 @@ These concepts are used to define the states in the MCM.
 
 The MCM consists of the following vectors and matrixes: 
 \begin{enumerate}
-\item The one-step transition matrix \textbf{P} that defines the state transition probabilities.
-\item The reward vector \textbf{R}  that describes the reward received in each state. This value depends on customer purchases and marketing expenditures.
-\item The value vector \textbf{V} that describes  the expected present value of a customer in a specific sate. If the value is negative then that customer is effectively a loss for the company.
+\item The one-step transition matrix \textbf{P} defines the state transition probabilities.
+\item The reward vector \textbf{R}  describes the reward received in each state. This value is a function of customer purchases and expenditures.
+\item The value vector \textbf{V} describes  the expected present value of a customer in a specific sate. If the value is negative then that customer is effectively a loss for the company.
 \end{enumerate}
 
 Equation \ref{eq1} shows how the value vector \textbf{V} is defined in terms of the transition matrix  \textbf{P} and reward vector  \textbf{R} with a finite time horizon T.
@@ -36,9 +36,10 @@ The discount factor $d$ sets how much future rewards are discounted when calcula
 
 When considering an infinite time horizon, the equation changes to Equation \ref{eq2}.
 \begin{equation}\label{eq2}
-\textbf{V} \equiv \lim_{T \rightarrow \infty} \textbf{V}^T = \{\textbf{I} - (1 + d)^-1 \cdot \textbf{P} \}^{-1} \cdot \textbf{R}
+\textbf{V} \equiv \lim_{T \rightarrow \infty} \textbf{V}^T = \{\textbf{I} - (1 + d)^{-1} \cdot \textbf{P} \}^{-1} \cdot \textbf{R}
 \end{equation}
 
+<<<<<<< HEAD
 Therefore, given the economic and probabilistic assumptions of the model, the firm can evaluate the expected present values from $\textbf{V}$, such as, the last recency with the negtive value in the vector $\textbf{V}$ telling that the firm can do relatively better when curtailing its relationships with this customer after such recency.
 
 According to the above observation, one can modify the Markov decision model with ease and reformulate the model easily by using less states and setting $\textbf{p}_t$ with negative values equal to zeros and the corresponding elements $\textbf{r}_t$ in $\textbf{R}$ equal to zeros as well.
@@ -50,8 +51,14 @@ The MCM can not only be used for customer migration situations, but also for cus
 The last case discussed in the paper illustrates how to apply MCM to a situation where the firm believes that purchase probabilities, net contribution, and remarketing expenditures all depend on the recency, frequency and monetary value of past purchases.The MCM uses states defined by $\textbf{(r, f, m)}$ where the elements are integers with some upper bounds. Particularly, monetary values categories are paid much attention and single last purchase amount is chosen to avoid its non-Markovian nature instead of moving average.
 
 
+=======
+>>>>>>> ea5dba97fde516e6b0246276511526c0733ffd4c
 
 \section{Discussion}
+The main advantage of using MCM for customer relationship problems seem to be that the MCM naturally account for the stochasticity in customer relationships.
+Because the MCM are so flexible they can be used for many different scenarios including customer retention and customer migration.
+However, they have some critical assumptions underlying them. 
+For example, the time period for purchases are assumed to be the same and fixed.
 
 \bibliographystyle{plain}	% (uses file "plain.bst")
 \bibliography{myrefs}		% expects file "myrefs.bib"
