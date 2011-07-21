@@ -3,6 +3,10 @@ Created on Jul 19, 2011
 
 @author: kjell
 '''
+
+import sys
+sys.path.append("..")
+
 from javax.swing import JFrame, BoxLayout, JPanel, BorderFactory, JTextArea,\
     JButton, JOptionPane, JScrollPane, JMenuBar, JMenu, JMenuItem, JDialog
 from gui.paint_area import PaintArea

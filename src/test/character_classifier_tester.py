@@ -22,7 +22,10 @@ class TestCharacterClassifier(TestBase):
     A tester for the word classifer
     '''
     
-    def test_init_method(self):
+    def test_init_method(self, 
+                         nr_of_segments=7, 
+                         size_classification_factor=1.3,
+                         only_count_based_init=False):
         '''Test with different number of training examples and compare
         random init with count based init'''
         
@@ -30,8 +33,8 @@ class TestCharacterClassifier(TestBase):
         nr_of_training_examples = 90
         nr_of_test_examples = 10
         
-        extracor = SimpleImageFeatureExtractor(nr_of_divisions=7, 
-                                               size_classification_factor=1.3)
+        extracor = SimpleImageFeatureExtractor(nr_of_divisions=nr_of_segments, 
+                                               size_classification_factor=size_classification_factor)
         
         training_examples, test_examples = extracor.extract_training_and_test_examples(test_dir, 
                                                                                        nr_of_training_examples, 
@@ -54,7 +57,8 @@ class TestCharacterClassifier(TestBase):
         self.test_init_method_with_classifier(get_examples, 
                                               get_character_classifier_with_init_method,
                                               test_examples,
-                                              [90])
+                                              [90],
+                                              only_count_based_init=only_count_based_init)
         #With 90 training examples with letters A to H and 10 test examples for every letter
         #../../../../jython2.5.2/bin/jython -J-Xmx1024m character_classifier_tester.py 
         #('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
@@ -64,8 +68,27 @@ class TestCharacterClassifier(TestBase):
         #../../../../jython2.5.2/bin/jython -J-Xmx1024m character_classifier_tester.py 
         #('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
         #(90, 0.04230769230769231, 0.5346153846153846, 0.16153846153846155, 0.16153846153846155, 448497L, 205477L)
+    
+    def test_feature_extractor_parameters(self):
+        #http://stackoverflow.com/questions/477486/python-decimal-range-step-value
+        def drange(start, stop, step):
+            r = start
+            while r < stop:
+                yield r
+                r += step
+        
+        for nr_of_segs in range(5,20):
+            print("SEGMENT_SIZE="+str(nr_of_segs))
+            for classification_factor in drange(0.7, 3.8, 0.3):
+                print("CLASSIFICATION_FACTOR="+str(classification_factor))
+                self.test_init_method(nr_of_segments=nr_of_segs, 
+                                      size_classification_factor=classification_factor,
+                                      only_count_based_init=True)
+
+
 
 
 if __name__ == "__main__":
     character_classifer_tester = TestCharacterClassifier()
-    character_classifer_tester.test_init_method()
+    #character_classifer_tester.test_init_method()
+    character_classifer_tester.test_feature_extractor_parameters()

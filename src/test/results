@@ -1,0 +1,254 @@
+SEGMENT_SIZE=4
+CLASSIFICATION_FACTOR=0.1
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.25384615384615383, None, 0.08846153846153847, 0L, 73110L)
+CLASSIFICATION_FACTOR=0.4
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.3038461538461538, None, 0.11153846153846154, 0L, 71374L)
+CLASSIFICATION_FACTOR=0.7
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.35384615384615387, None, 0.1423076923076923, 0L, 72200L)
+CLASSIFICATION_FACTOR=1.0
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.40384615384615385, None, 0.057692307692307696, 0L, 71927L)
+CLASSIFICATION_FACTOR=1.3
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.41923076923076924, None, 0.11153846153846154, 0L, 73162L)
+CLASSIFICATION_FACTOR=1.6
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.47307692307692306, None, 0.1076923076923077, 0L, 69164L)
+CLASSIFICATION_FACTOR=1.9
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5038461538461538, None, 0.16538461538461538, 1L, 68263L)
+CLASSIFICATION_FACTOR=2.2
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5192307692307693, None, 0.12692307692307692, 0L, 68199L)
+CLASSIFICATION_FACTOR=2.5
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5961538461538461, None, 0.2423076923076923, 0L, 68440L)
+CLASSIFICATION_FACTOR=2.8
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6076923076923076, None, 0.25, 0L, 68219L)
+
+SEGMENT_SIZE=5
+CLASSIFICATION_FACTOR=0.7
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.40384615384615385, None, 0.20384615384615384, 0L, 104183L)
+CLASSIFICATION_FACTOR=1.0
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.38846153846153847, None, 0.18076923076923077, 0L, 101430L)
+CLASSIFICATION_FACTOR=1.3
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.45, None, 0.15384615384615385, 0L, 97631L)
+CLASSIFICATION_FACTOR=1.6
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.48846153846153845, None, 0.17692307692307693, 0L, 100357L)
+CLASSIFICATION_FACTOR=1.9
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.55, None, 0.2, 0L, 102861L)
+CLASSIFICATION_FACTOR=2.2
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5769230769230769, None, 0.25769230769230766, 0L, 101010L)
+CLASSIFICATION_FACTOR=2.5
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5923076923076923, None, 0.23846153846153847, 0L, 100962L)
+CLASSIFICATION_FACTOR=2.8
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6, None, 0.25, 0L, 104280L)
+CLASSIFICATION_FACTOR=3.1
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5884615384615385, None, 0.21923076923076923, 0L, 102032L)
+CLASSIFICATION_FACTOR=3.4
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5961538461538461, None, 0.24615384615384617, 0L, 102432L)
+CLASSIFICATION_FACTOR=3.7
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6307692307692307, None, 0.2692307692307692, 1L, 101814L)
+SEGMENT_SIZE=6
+CLASSIFICATION_FACTOR=0.7
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.4076923076923077, None, 0.2153846153846154, 0L, 154936L)
+CLASSIFICATION_FACTOR=1.0
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.3923076923076923, None, 0.05, 0L, 153189L)
+CLASSIFICATION_FACTOR=1.3
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.49230769230769234, None, 0.23846153846153847, 0L, 152495L)
+CLASSIFICATION_FACTOR=1.6
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.55, None, 0.18076923076923077, 0L, 154957L)
+CLASSIFICATION_FACTOR=1.9
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5192307692307693, None, 0.19230769230769232, 0L, 148211L)
+CLASSIFICATION_FACTOR=2.2
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5692307692307692, None, 0.23076923076923078, 0L, 145107L)
+CLASSIFICATION_FACTOR=2.5
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6076923076923076, None, 0.23461538461538461, 0L, 153384L)
+CLASSIFICATION_FACTOR=2.8
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6307692307692307, None, 0.2230769230769231, 0L, 157543L)
+CLASSIFICATION_FACTOR=3.1
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5346153846153846, None, 0.24615384615384617, 0L, 155730L)
+CLASSIFICATION_FACTOR=3.4
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6153846153846154, None, 0.2653846153846154, 0L, 157533L)
+CLASSIFICATION_FACTOR=3.7
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5961538461538461, None, 0.17307692307692307, 0L, 158343L)
+SEGMENT_SIZE=7
+CLASSIFICATION_FACTOR=0.7
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.36538461538461536, None, 0.15, 1L, 214849L)
+CLASSIFICATION_FACTOR=1.0
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.48846153846153845, None, 0.21923076923076923, 0L, 219299L)
+CLASSIFICATION_FACTOR=1.3
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5692307692307692, None, 0.17692307692307693, 0L, 220654L)
+CLASSIFICATION_FACTOR=1.6
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5653846153846154, None, 0.18461538461538463, 0L, 195859L)
+CLASSIFICATION_FACTOR=1.9
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6192307692307693, None, 0.2153846153846154, 0L, 200337L)
+CLASSIFICATION_FACTOR=2.2
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.65, None, 0.16923076923076924, 0L, 201567L)
+CLASSIFICATION_FACTOR=2.5
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6, None, 0.1576923076923077, 0L, 207520L)
+CLASSIFICATION_FACTOR=2.8
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6038461538461538, None, 0.2153846153846154, 0L, 212849L)
+CLASSIFICATION_FACTOR=3.1
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6384615384615384, None, 0.21153846153846154, 0L, 221677L)
+CLASSIFICATION_FACTOR=3.4
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6538461538461539, None, 0.14615384615384616, 0L, 209019L)
+CLASSIFICATION_FACTOR=3.7
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5846153846153846, None, 0.17692307692307693, 0L, 200383L)
+SEGMENT_SIZE=8
+CLASSIFICATION_FACTOR=0.7
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.45, None, 0.18076923076923077, 0L, 291243L)
+CLASSIFICATION_FACTOR=1.0
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.4461538461538462, None, 0.20384615384615384, 0L, 275352L)
+CLASSIFICATION_FACTOR=1.3
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5653846153846154, None, 0.18076923076923077, 0L, 273848L)
+CLASSIFICATION_FACTOR=1.6
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5576923076923077, None, 0.19230769230769232, 0L, 253325L)
+CLASSIFICATION_FACTOR=1.9
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5769230769230769, None, 0.16153846153846155, 0L, 274206L)
+CLASSIFICATION_FACTOR=2.2
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.65, None, 0.13846153846153847, 0L, 278118L)
+CLASSIFICATION_FACTOR=2.5
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6076923076923076, None, 0.06153846153846154, 0L, 280839L)
+CLASSIFICATION_FACTOR=2.8
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5961538461538461, None, 0.18846153846153846, 0L, 275242L)
+CLASSIFICATION_FACTOR=3.1
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6538461538461539, None, 0.21153846153846154, 0L, 275398L)
+CLASSIFICATION_FACTOR=3.4
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6346153846153846, None, 0.11923076923076924, 0L, 283812L)
+CLASSIFICATION_FACTOR=3.7
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6307692307692307, None, 0.0038461538461538464, 0L, 270698L)
+SEGMENT_SIZE=9
+CLASSIFICATION_FACTOR=0.7
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.4423076923076923, None, 0.20384615384615384, 0L, 383255L)
+CLASSIFICATION_FACTOR=1.0
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.4423076923076923, None, 0.2, 0L, 370184L)
+CLASSIFICATION_FACTOR=1.3
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5923076923076923, None, 0.2153846153846154, 0L, 333634L)
+CLASSIFICATION_FACTOR=1.6
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5692307692307692, None, 0.2230769230769231, 0L, 352007L)
+CLASSIFICATION_FACTOR=1.9
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5923076923076923, None, 0.16923076923076924, 0L, 357188L)
+CLASSIFICATION_FACTOR=2.2
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5923076923076923, None, 0.23846153846153847, 0L, 351624L)
+CLASSIFICATION_FACTOR=2.5
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6346153846153846, None, 0.14615384615384616, 0L, 355745L)
+CLASSIFICATION_FACTOR=2.8
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6230769230769231, None, 0.15, 0L, 360919L)
+CLASSIFICATION_FACTOR=3.1
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6269230769230769, None, 0.12692307692307692, 0L, 379673L)
+CLASSIFICATION_FACTOR=3.4
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6692307692307692, None, 0.16153846153846155, 0L, 377596L)
+CLASSIFICATION_FACTOR=3.7
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6730769230769231, None, 0.2076923076923077, 0L, 355474L)
+SEGMENT_SIZE=10
+CLASSIFICATION_FACTOR=0.7
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.4807692307692308, None, 0.24615384615384617, 0L, 464402L)
+CLASSIFICATION_FACTOR=1.0
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.47307692307692306, None, 0.20384615384615384, 0L, 464766L)
+CLASSIFICATION_FACTOR=1.3
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5346153846153846, None, 0.18076923076923077, 0L, 466316L)
+CLASSIFICATION_FACTOR=1.6
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5423076923076923, None, 0.16153846153846155, 0L, 487414L)
+CLASSIFICATION_FACTOR=1.9
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.573076923076923, None, 0.2230769230769231, 0L, 462140L)
+CLASSIFICATION_FACTOR=2.2
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6192307692307693, None, 0.15384615384615385, 0L, 441739L)
+CLASSIFICATION_FACTOR=2.5
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6461538461538462, None, 0.1346153846153846, 0L, 442169L)
+CLASSIFICATION_FACTOR=2.8
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6230769230769231, None, 0.1423076923076923, 0L, 453207L)
+CLASSIFICATION_FACTOR=3.1
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6538461538461539, None, 0.18076923076923077, 0L, 466662L)
+CLASSIFICATION_FACTOR=3.4
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6884615384615385, None, 0.27692307692307694, 0L, 498910L)
+CLASSIFICATION_FACTOR=3.7
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6692307692307692, None, 0.2653846153846154, 0L, 453792L)
+SEGMENT_SIZE=11
+CLASSIFICATION_FACTOR=0.7
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.46923076923076923, None, 0.25384615384615383, 0L, 572779L)
+CLASSIFICATION_FACTOR=1.0
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.47307692307692306, None, 0.2153846153846154, 0L, 589652L)
+CLASSIFICATION_FACTOR=1.3
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5923076923076923, None, 0.19615384615384615, 0L, 600679L)
+CLASSIFICATION_FACTOR=1.6
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.6038461538461538, None, 0.2923076923076923, 0L, 592432L)
+CLASSIFICATION_FACTOR=1.9
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
+(90, None, 0.5230769230769231, None, 0.03076923076923077, 0L, 578894L)
+CLASSIFICATION_FACTOR=2.2
+('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
