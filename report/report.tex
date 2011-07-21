@@ -12,62 +12,68 @@ Hello.
 \end{abstract}
 
 \section{Introduction}
-1. Give general introduction to area.
-2. Describe why it's important.
-3. Applications.
-4. Contributions.
+%1. Give general introduction to area.
+%2. Describe why it's important.
+%3. Applications.
+%4. Contributions.
 
 \cite{trec}
-Fabian
+%Fabian
 \input{introduction}
 
 \section{Previous work}
-Write about other papers and how they have solved the problem.
+%Write about other papers and how they have solved the problem.
 
 \section{Problem}
-Describe our limited version of the problem.
-Describe the two problems, one is recognizing characters and the other is to recognize words.
-1. Images have strokes of width 1.
-2. Assume characters segment in word.
+%Describe our limited version of the problem.
+%Describe the two problems, one is recognizing characters and the other is to recognize words.
+%1. Images have strokes of width 1.
+%2. Assume characters segment in word.
 
 \section{Method}\label{sec:method}
-2. General overview of our implementation.   Kjell
-	Two classifiers
-		What they are doing
-3. Add picture describing implementation.  Kjell
+%2. General overview of our implementation.   Kjell
+%	Two classifiers
+%		What they are doing
+%3. Add picture describing implementation.  Kjell
 
-1. Describe HMM, short overview. Chongyang
-1 Picture of HMM topology
-4. Describe the different initialization algos, advantages and disadvantages. Chongyang
-1.1Topology of HMM Chongyang
-1.2 prevention of underflow. Chongyang
-1.3 Handle zeros in denominator. Chongyang 
+%1. Describe HMM, short overview. Chongyang
+%1 Picture of HMM topology
+%4. Describe the different initialization algos, advantages and disadvantages. Chongyang
+%1.1Topology of HMM Chongyang
+%1.2 prevention of underflow. Chongyang
+%1.3 Handle zeros in denominator. Chongyang 
 
 
 
 
 \subsection{Dataset}\label{sec:dataset}
-1. Write about creation of sample data. Chongyang
-2. Could not find good dataset. Chongyang
-3. Write down how much data we had. Chongyang
+%1. Write about creation of sample data. Chongyang
+%2. Could not find good dataset. Chongyang
+%3. Write down how much data we had. Chongyang
+%4. Write about how the word examples are generated
 
 \subsection{Preprocessing}
-1. Write about scaling of picture. Kjell
-2. Segmentation of picture. Kjell
+%1. Write about scaling of picture. Kjell
+%2. Segmentation of picture. Kjell
 
 \section{Result}\label{sec:result}
-1. Maybe result from character test using different initialization algos.
-2. Basic results from testing the implementation
-3. Depending on how much other results we have, discuss experience of playing around with the gui.
+%1. (Started Kjell) Test of different initialization methods and number of training examples for word recognition 
+%1. (Started Kjell) Test of different initialization methods and number of training examples for word recognition
+%1. Maybe result from character test using different initialization algos.
+%2. Basic results from testing the implementation
+%3. (Better to do in appendix? Kjell) Depending on how much other results we have, discuss experience of playing around with the gui.
 
 \input{result}
 
 \section{Discussion}
-1. Discuss the results.
-2. Discuss importance of amount of training data and the effects on performance.
+%1. Discuss the results.
+%2. Discuss importance of amount of training data and the effects on performance.
+%3. Discuss possibility of training words with data from character classification
+%4. Discuss how our approach might work for word recognition
 
 \section{Future Work}
-1. 
+%1. Discuss what other test would be interesting to perform
+%2. How can the classifier be improved. More features and real training data for the words?
 
 \bibliographystyle{plain}	% (uses file "plain.bst")
 \bibliography{myrefs}		% expects file "myrefs.bib"
@@ -75,7 +81,7 @@ Describe the two problems, one is recognizing characters and the other is to rec
 \appendix
 
 \section{Reproduce Results}
-
+%Kjell Describe how to run the tests
 \section{Testing Handwriting Recognition in Graphical User Interface}
-
+%Kjell Describe the GUI for running the HandReco Writer and perhaps some comments on how it works
 \end{document}
