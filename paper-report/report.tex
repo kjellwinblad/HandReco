@@ -21,7 +21,7 @@ Frequency describes how many times the customer has bought something from the fi
 Monetary value describes the average value of the customer purchase.
 These concepts are used to define the states in the MCM.
 
-The MCM consists of the following vectors and matrixes: 
+The MCM consists of the following vectors and matrices: 
 \begin{enumerate}
 \item The one-step transition matrix \textbf{P} defines the state transition probabilities.
 \item The reward vector \textbf{R}  describes the reward received in each state. This value is a function of customer purchases and expenditures.
@@ -54,10 +54,12 @@ The last case discussed in the paper illustrates how to apply MCM to a situation
 
 
 \section{Discussion}
-The authors main points with the paper seem to be to show that MCMs can be used to model many different customer relationship scenarios. They do that by showing some examples of scenarios that can be modeled with MCM. They also show with examples how the models can be used to change a company's relationship policy. They argue that MCM can be very useful due to it's flexibility. This is clearly illustrated by the examples. For example MCMs can be used to model customer retention and customer migration scenarios. One advantage of using MCM for customer relationship problems seem to be that the MCM naturally account for the stochasticity in customer relationships.
 
-The authors do not write anything about the validity of the assumptions underlying the models. 
-For example, the time period for purchases are assumed to be the same and fixed.
+%Write a report on the article. The report must summarize the material (in no more than 2 pages), and then also include your own judgement and ideas. What are the authors main points? Do you agree?
+
+The authors' main purpose with the paper is to show that MCMs can be used to model many different customer relationship scenarios. It is done by some examples of scenarios that can be modeled with MCM. They also show with examples how the models can be used to change a company's relationship policy. They argue that MCMs can be useful due to it's flexibility. This is illustrated by the examples. For example MCMs can be used to model customer retention and customer migration scenarios. One advantage of using MCM for customer relationship problems seem to be that the MCM naturally account for the stochasticity in customer relationships.
+
+The authors do not write anything about the validity of the assumptions underlying the models. For example, they assume that ending a relationship with a customer is to prefer, if the expected value of the customer's future purchases will be less than the cost of the relationship. This and other assumptions made in the models may be oversimplification in some cases. For example if the customer relationship is about sending out commercial, the relatives of the customer might see the commercial, so even if the targeted customer will not purchase anything the relationship might create new customers. However, the purpose of the paper is not to present a very accurate model but to show some use cases of MCMs.
 
 \bibliographystyle{plain}	% (uses file "plain.bst")
 \bibliography{myrefs}		% expects file "myrefs.bib"
