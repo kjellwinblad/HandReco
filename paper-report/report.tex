@@ -9,7 +9,7 @@
 
 
 \section{Introduction}
-The lifetime value(LTV) of a customer is the net present value of the cash flows attributed to the relationship with a customer.
+The lifetime value (LTV) of a customer is the net present value of the cash flows attributed to the relationship with a customer.
 Phillip E. Pfeifer and Robert L. Carraway \cite{customer} explains how the LTV concept can be used together with Markov Chains Models (MCM) to make managerial decisions on an individual customer basis.
 The advantage MCM has over traditional methods include its flexibility and that it is a probabilistic model.
 A probabilistic model explicitly accounts for the uncertainty surrounding customer relationships.
@@ -23,9 +23,9 @@ These concepts are used to define the states in the MCM.
 
 The MCM consists of the following vectors and matrixes: 
 \begin{enumerate}
-\item The one-step transition matrix \textbf{P} that defines the state transition probabilities.
-\item The reward vector \textbf{R}  that describes the reward received in each state. This value depends on customer purchases and marketing expenditures.
-\item The value vector \textbf{V} that describes  the expected present value of a customer in a specific sate. If the value is negative then that customer is effectively a loss for the company.
+\item The one-step transition matrix \textbf{P} defines the state transition probabilities.
+\item The reward vector \textbf{R}  describes the reward received in each state. This value is a function of customer purchases and expenditures.
+\item The value vector \textbf{V} describes  the expected present value of a customer in a specific sate. If the value is negative then that customer is effectively a loss for the company.
 \end{enumerate}
 
 Equation \ref{eq1} shows how the value vector \textbf{V} is defined in terms of the transition matrix  \textbf{P} and reward vector  \textbf{R} with a finite time horizon T.
@@ -36,8 +36,9 @@ The discount factor $d$ sets how much future rewards are discounted when calcula
 
 When considering an infinite time horizon, the equation changes to Equation \ref{eq2}.
 \begin{equation}\label{eq2}
-\textbf{V} \equiv \lim_{T \rightarrow \infty} \textbf{V}^T = \{\textbf{I} - (1 + d)^-1 \cdot \textbf{P} \}^{-1} \cdot \textbf{R}
+\textbf{V} \equiv \lim_{T \rightarrow \infty} \textbf{V}^T = \{\textbf{I} - (1 + d)^{-1} \cdot \textbf{P} \}^{-1} \cdot \textbf{R}
 \end{equation}
+
 
 \section{Discussion}
 
