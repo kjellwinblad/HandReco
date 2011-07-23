@@ -23,7 +23,7 @@ Hello.
 \section{Previous work}
 %Write about other papers and how they have solved the problem.
 
-\section{Problem}
+\section{Problem}\label{sec:problem}
 %Describe our limited version of the problem.
 %Describe the two problems, one is recognizing characters and the other is to recognize words.
 %1. Images have strokes of width 1.
@@ -37,6 +37,8 @@ This section describes the handwritten text recognition system. It starts by giv
 %	Two classifiers
 %		What they are doing
 %3. Add picture describing implementation.  Kjell
+
+\subsection{General Overview of Classifiers}\label{sec:overview_of_classifiers}
 
 \input{general_overview_of_classifiers}
 
@@ -59,13 +61,14 @@ This section describes the handwritten text recognition system. It starts by giv
 \subsection{Image Preprocessing and Feature Extraction}\label{sec:image_preprocessing}
 %1. Write about scaling of picture. Kjell
 %2. Segmentation of picture. Kjell
+\input{image_preprocessing_and_feature_extraction}
 
 \section{Result}\label{sec:result}
 %1. (Started Kjell) Test of different initialization methods and number of training examples for word recognition 
 %1. (Started Kjell) Test of different initialization methods and number of training examples for word recognition
 %1. Maybe result from character test using different initialization algos.
 %2. Basic results from testing the implementation
-%3. (Better to do in appendix? Kjell) Depending on how much other results we have, discuss experience of playing around with the gui.
+%3. Better to do in appendix? Depending on how much other results we have, discuss experience of playing around with the gui.
 
 \input{result}
 
