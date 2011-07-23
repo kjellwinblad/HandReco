@@ -2,7 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{graphicx}
-\author{Fabian Alenius, Kjell Winblad and Chongyang Sun} \title{Handwritten Character Recgonition}
+\author{Fabian Alenius, Kjell Winblad and Chongyang Sun} \title{Handwritten Text Recgonition}
 \begin{document}
 \maketitle
 
@@ -17,7 +17,6 @@ Hello.
 %3. Applications.
 %4. Contributions.
 
-\cite{trec}
 %Fabian
 \input{introduction}
 
@@ -31,10 +30,15 @@ Hello.
 %2. Assume characters segment in word.
 
 \section{Method}\label{sec:method}
+
+This section describes the handwritten text recognition system. It starts by giving a top level overview of the system and then it describes the details such as the HMM implementation, feature extraction and the datasets used for training. 
+
 %2. General overview of our implementation.   Kjell
 %	Two classifiers
 %		What they are doing
 %3. Add picture describing implementation.  Kjell
+
+\input{general_overview_of_classifiers}
 
 %1. Describe HMM, short overview. Chongyang
 %1 Picture of HMM topology
@@ -46,13 +50,13 @@ Hello.
 
 
 
-\subsection{Dataset}\label{sec:dataset}
+\subsection{Datasets}\label{sec:dataset}
 %1. Write about creation of sample data. Chongyang
 %2. Could not find good dataset. Chongyang
 %3. Write down how much data we had. Chongyang
 %4. Write about how the word examples are generated
 
-\subsection{Preprocessing}
+\subsection{Image Preprocessing and Feature Extraction}\label{sec:image_preprocessing}
 %1. Write about scaling of picture. Kjell
 %2. Segmentation of picture. Kjell
 
@@ -77,6 +81,8 @@ Hello.
 
 \bibliographystyle{plain}	% (uses file "plain.bst")
 \bibliography{myrefs}		% expects file "myrefs.bib"
+
+\pagebreak
 
 \appendix
 

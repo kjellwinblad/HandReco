@@ -1,0 +1,24 @@
+\subsection{General Overview of Classifiers}
+The handwriting recognition system have two levels of classifiers. The first classifier is a function that takes an image as input and outputs a character. The second classifier is a function that takes a string of characters as input and outputs a word. A flowchart that shows the classification process can be seen in figure~\ref{fig:classification_system_overview}. 
+
+    \begin{figure}[htb] 
+      \begin{center}
+	\leavevmode
+	\includegraphics[width=110mm]{classification_system_overview.eps}%width=115mm,height=40mm
+      \end{center}
+      \caption{Flowchart of classification process.}
+      \label{fig:classification_system_overview}
+    \end{figure}
+
+The classifiers contains HMMs for all elements in the set of possible outputs. So if the character classifier is trained to recognize the 26 Latin characters, it will contain 26 HMMs. One HMM for every character. When the classifiers are trained they are given input examples for all possible outputs. If the input $I$ is given to one of the classifiers the following steps are performed to calculate the output:
+
+\begin{enumerate}
+  \item The probability of $I$ is calculated for all HMMs contained in the classifier:
+    \begin{enumerate}
+      \item $I$ is translated to a sequence of observation symbols $\mathbf{O} = O_{1},O_{2},...,O_{n}$. If $I$ is a string of characters and the output of the classifier shall be a word, the translation is straight forward. Every character in the string is simply translated to a corresponding observation symbol. There are also special observations for the start and end states. More about that is explained in the following sections. If $I$ is an image, the image is first segmented to a sequence of segments. An observation symbol is then obtained from all segments. See section~\ref{sec:image_preprocessing} for more information about the image feature extraction.
+      \item The forward calculation algorithm \cite{Rabiner1989} is then used to calculate the probability of $\mathbf{O}$ given the HMM.
+    \end{enumerate}
+  \item The output symbol for the HMM that have the highest probability in the previous step is given as output.
+\end{enumerate}
+ 
+When a classifier is created some different parameters must be given, such as a set of possible output symbols and training examples for them, the initialization method that shall be used for the HMMs and if the training examples shall be used to train the model with the Baum-Welch \cite{Rabiner1989} training algorithm\footnote{A few more parameters can be given but are not listed here because of lack of importance. See the source code of the system for information about other parameters. How the source code can be obtained is explained in appendix~\ref{app:source_code}.}.
