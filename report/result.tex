@@ -1,10 +1,6 @@
-            
-
-
 \subsection{Word Classifier and Different Initialization Methods}
 
-
-In this section classification results for the words in table~\ref{tab:words_supported_by_classifier} will be presented. See section~\ref{sec:method}, for a description of the implementation of the classifiers. The training and test example words were randomly generated with the a generator using the properties in table~\ref{tab:word_generator_properties}. See section~\ref{sec:dataset}, for more information about the word example generator. To test the accuracy of the created classifiers, 100 test examples were used. Five test examples for every words. The test examples were generated using the same properties as the training examples. The two initialization methods count based initialization and random initialization were tested with 100, 200, 400, 800 and 1600 training examples. The results of the test is presented in table~\ref{tab:word_classifier_results_generated_data}.
+In this section classification results for the words in table~\ref{tab:words_supported_by_classifier} will be presented. See section~\ref{sec:method}, for a description of the implementation of the classifiers. The training and test example words were randomly generated with the a generator using the properties in table~\ref{tab:word_generator_properties}. See section~\ref{sec:dataset}, for more information about the word example generator. To test the accuracy of the created classifiers, 100 test examples were used. Five test examples for every word. The test examples were generated using the same properties as the training examples. The two initialization methods count based initialization and random initialization were tested with 100, 200, 400, 800 and 1600 training examples. The results of the test is presented in table~\ref{tab:word_classifier_results_generated_data}. It contains the test scores for the two initialization methods before and after training with the Baum-Welch algorithm. The test score is defined as the number of correctly classified test examples divided by the total number of test examples.
 
 \begin{table}[htb]
   \begin{center}
@@ -35,7 +31,7 @@ In this section classification results for the words in table~\ref{tab:words_sup
 \begin{table}[htb]
   \begin{center}
   \begin{tabular}{ l l l l l l l }
-    NOE    & RIBF   & CBIBT  & RIAT    & CBIAT  & RITT & CBITT \\ \hline
+    NOE    & RIBF   & CBIBT  & RIAT    & CBIAT  & RITT & CBITT\\ \hline
     $100$  & $0.03$ & $0.99$ & $0.01$  & $0.0$  & $6$  & $3$\\ 
     $200$  & $0.02$ & $1.0$  & $0.13$  & $0.36$ & $12$ & $5$\\ 
     $400$  & $0.02$ & $1.0$  & $0.9$   & $0.95$ & $23$ & $7$\\
