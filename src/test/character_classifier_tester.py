@@ -16,12 +16,49 @@ from api.specialized_hmm import SpecializedHMM
 from java.lang import System
 from java.io import File
 from test_base import TestBase
+import random
+from math import floor
+
+#http://stackoverflow.com/questions/477486/python-decimal-range-step-value
+def drange(start, stop, step):
+    r = start
+    while r < stop:
+        yield r
+        r += step
 
 class TestCharacterClassifier(TestBase):
     '''
     A tester for the word classifer
     '''
-    
+    def test_init_method_different_parameters(self):
+        test_dir = File("../../character_examples").getPath()
+        nr_of_training_examples = 90
+        nr_of_test_examples = 10
+        for size_classification_factor in drange(0.7, 6.0, 0.3):
+            print str(size_classification_factor) + ' &',
+            for nr_of_segs in range(4,13):
+                #print(nr_of_segs)
+                test_scores = []
+                for test_nr in range(10):
+                    #print(test_nr)
+                    extracor = SimpleImageFeatureExtractor(nr_of_divisions=nr_of_segs, 
+                                                           size_classification_factor=size_classification_factor)
+                    training_examples, test_examples = extracor.extract_training_and_test_examples(test_dir, 
+                                                                                                   nr_of_training_examples, 
+                                                                                                   nr_of_test_examples)
+                    classifier = CharacterClassifier(training_examples,
+                                                     nr_of_hmms_to_try=1,
+                                                     fraction_of_examples_for_test=0,
+                                                     train_with_examples=False,
+                                                     initialisation_method=SpecializedHMM.InitMethod.count_based)
+                    test_scores.append(classifier.test(test_examples))
+                score = sum(test_scores) / len(test_scores)
+                print ' $' + str(score) +'$ ',
+                if nr_of_segs == 12:
+                    print '\\'
+                else:
+                    print '&',
+                 
     def test_init_method(self, 
                          nr_of_segments=7, 
                          size_classification_factor=1.3,
@@ -32,10 +69,8 @@ class TestCharacterClassifier(TestBase):
         test_dir = File("../../character_examples").getPath()
         nr_of_training_examples = 90
         nr_of_test_examples = 10
-        
         extracor = SimpleImageFeatureExtractor(nr_of_divisions=nr_of_segments, 
                                                size_classification_factor=size_classification_factor)
-        
         training_examples, test_examples = extracor.extract_training_and_test_examples(test_dir, 
                                                                                        nr_of_training_examples, 
                                                                                        nr_of_test_examples)
@@ -69,21 +104,15 @@ class TestCharacterClassifier(TestBase):
         #('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
         #(90, 0.04230769230769231, 0.5346153846153846, 0.16153846153846155, 0.16153846153846155, 448497L, 205477L)
     
-    def test_feature_extractor_parameters(self):
-        #http://stackoverflow.com/questions/477486/python-decimal-range-step-value
-        def drange(start, stop, step):
-            r = start
-            while r < stop:
-                yield r
-                r += step
-        
-        for nr_of_segs in range(5,20):
-            print("SEGMENT_SIZE="+str(nr_of_segs))
-            for classification_factor in drange(0.7, 3.8, 0.3):
-                print("CLASSIFICATION_FACTOR="+str(classification_factor))
-                self.test_init_method(nr_of_segments=nr_of_segs, 
-                                      size_classification_factor=classification_factor,
-                                      only_count_based_init=True)
+#    def test_feature_extractor_parameters(self):
+#        
+#        for nr_of_segs in range(12,13):
+#            print("SEGMENT_SIZE="+str(nr_of_segs))
+#            for classification_factor in drange(4.0, 5.0, 0.3):
+#                print("CLASSIFICATION_FACTOR="+str(classification_factor))
+#                self.test_init_method(nr_of_segments=nr_of_segs, 
+#                                      size_classification_factor=classification_factor,
+#                                      only_count_based_init=True)
 
 
 
@@ -91,4 +120,4 @@ class TestCharacterClassifier(TestBase):
 if __name__ == "__main__":
     character_classifer_tester = TestCharacterClassifier()
     #character_classifer_tester.test_init_method()
-    character_classifer_tester.test_feature_extractor_parameters()
+    character_classifer_tester.test_init_method_different_parameters()
