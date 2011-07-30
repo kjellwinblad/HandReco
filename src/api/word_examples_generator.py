@@ -99,7 +99,7 @@ class TestWordExampleGenerator(unittest.TestCase):
         pass
     
     def test_words_example_generator(self):
-        print(generate_examples_for_words(words=default_word_list,number_of_examples=100))
+        print(generate_examples_for_words(words = default_word_list,number_of_examples=100))
         pass
 
 
