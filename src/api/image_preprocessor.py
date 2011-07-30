@@ -107,6 +107,7 @@ def extract_sorted_component_size_list(image_buffer):
         else:
             processed_colored_pixels.add(start_pixel)
             neighbours = neighbour_pixels(start_pixel)
+            
             lengths_of_neighbour_components = [find_component_length(p)
                                               for p in neighbours]
             return 1 + sum(lengths_of_neighbour_components)
