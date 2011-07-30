@@ -2,16 +2,18 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{graphicx}
-\author{Fabian Alenius, Kjell Winblad and Chongyang Sun} \title{Handwritten Text Recgonition}
+\author{Fabian Alenius, Kjell Winblad and Chongyang Sun} \title{Handwritten Recognition}
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Hello.
+Recognizing handwritten text means transforming a graphical representation of text into its symbolic representation.
+Handwritten recognition is used in a wide variety of applications.
+This paper describes and empirically evaluates a handwritten text recognition system based on Hidden Markov Models.
+The results show that Hidden Markov Models can successfully be used for handwritten recognition.
 
 \end{abstract}
 
-\section{Introduction}
 %1. Give general introduction to area.
 %2. Describe why it's important.
 %3. Applications.
@@ -20,10 +22,8 @@ Hello.
 %Fabian
 \input{introduction}
 
-\section{Previous work}
 %Write about other papers and how they have solved the problem.
 
-\section{Problem}\label{sec:problem}
 %Describe our limited version of the problem.
 %Describe the two problems, one is recognizing characters and the other is to recognize words.
 %1. Images have strokes of width 1.
@@ -65,7 +65,7 @@ This section describes the handwritten text recognition system. It starts by giv
 
 \section{Result}\label{sec:result}
 %1. (Started Kjell) Test of different initialization methods and number of training examples for word recognition 
-%1. (Started Kjell) Test of different initialization methods and number of training examples for word recognition
+%1. (Started Kjell) Test different feature extraction parameters
 %1. Maybe result from character test using different initialization algos.
 %2. Basic results from testing the implementation
 %3. Better to do in appendix? Depending on how much other results we have, discuss experience of playing around with the gui.
