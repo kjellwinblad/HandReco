@@ -136,7 +136,7 @@ class TestImagePreprocessor(unittest.TestCase):
         os.flush()
         os.close()
     
-    def test_image_example_dir_iteration(self):
+    def test_image_scale_image(self):
         image = self.get_example_image()
         scaled_image = scale_to_fill(image)
         #Print image to disk to test how it looks like
@@ -145,7 +145,7 @@ class TestImagePreprocessor(unittest.TestCase):
     def test_divide_into_segments(self):
         orginal_image = self.get_example_image()
         image = scale_to_fill(orginal_image)
-        segments = divide_into_segments(7, image)
+        segments = divide_into_segments(5, image)
         i = 0
         for s in segments:
             self.write_image_to_disk("/tmp/segment"+str(i)+".png", s)
@@ -154,7 +154,7 @@ class TestImagePreprocessor(unittest.TestCase):
     def test_extract_sorted_component_size_list(self):
         orginal_image = self.get_example_image()
         image = scale_to_fill(orginal_image)
-        segments = divide_into_segments(7, image)
+        segments = divide_into_segments(5, image)
         for s in segments:
             component_size_list = extract_sorted_component_size_list(s)
             print(component_size_list)
