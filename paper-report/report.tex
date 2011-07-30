@@ -10,10 +10,11 @@
 
 \section{Introduction}
 The lifetime value (LTV) of a customer is the net present value of the cash flows attributed to the relationship with a customer.
-Phillip E. Pfeifer and Robert L. Carraway \cite{customer} explain how the LTV concept can be used together with Markov Chain Models (MCM) to make managerial decisions on an individual customer basis. %explains or explain?
+Phillip E. Pfeifer and Robert L. Carraway \cite{customer} explain how the LTV concept can be used together with Markov Chain Models (MCM) to make managerial decisions on an individual customer basis. %explains or explain? - Because the subject is plural in present tense it's explain. -Fabian
 The advantages MCM has over traditional methods include its flexibility and that it is a probabilistic model.
 A probabilistic model explicitly accounts for the uncertainty surrounding customer relationships.
-It also allows the use of the language of probability and expected value when reasoning about a firm's future relationship with an individual customer.
+%% There is no "the" in the the original paper, there is a rule that you don't use articles before languages although this specific case is a bit tricky.
+It also allows the use of language of probability and expected value when reasoning about a firm's future relationship with an individual customer.
 
 In marketing, the Recency Frequency Monetary (RFM) framework is commonly used and it fits nicely with MCM.
 Recency describes how long ago the customer purchased something.
@@ -24,8 +25,8 @@ These concepts are used to define the states in the MCM.
 The MCM consists of the following vectors and matrices: 
 \begin{enumerate}
 \item The one-step transition matrix \textbf{P} defines the state transition probabilities.
-\item The reward vector \textbf{R} describes the reward received in each state. The reward can also be negative which means that the company spends more on the customer than the customer gives.
-\item The value vector \textbf{V} describes the expected present value of a customer in a specific sate. If the value is negative then that customer is effectively a loss for the company.
+\item The reward vector \textbf{R} describes the reward received in each state. The reward can also be negative which means that the company spends more on the customer than the customer pays.
+\item The value vector \textbf{V} describes the expected present value of a customer in a specific state. If the value is negative then that customer is effectively a loss for the company.
 \end{enumerate}
 
 Equation \ref{eq1} shows how the value vector \textbf{V} is defined in terms of the transition matrix \textbf{P} and reward vector \textbf{R} with a finite time horizon T.
@@ -40,13 +41,15 @@ When considering an infinite time horizon, the equation changes to Equation \ref
 \end{equation}
 
 
-Therefore, given the economic and probabilistic assumptions of the model, the firm can evaluate the expected present values by calculating $\textbf{V}$. For example, if the last value in the vector $\textbf{V}$ is negative, it tells that the firm can do relatively better when curtailing its relationships with this customer earlier.
+Therefore, given the economic and probabilistic assumptions of the model, the firm can evaluate the expected present values by calculating $\textbf{V}$. For example, if the last value in the vector $\textbf{V}$ is negative, the firm can do relatively better by curtailing its relationships with the customer earlier.
 
-According to the observation above, one can modify the Markov decision model model easily. Possible ways to do that are to use less states or to set the $\textbf{p}_t$ values with corresponding negative values $\textbf{v}_t$ in $\textbf{V}$ to zeros and the corresponding elements $\textbf{r}_t$ in $\textbf{R}$ to zeros as well.%$\textbf{v}_t$ one value but equal to zeros?
+In accordance with the observation above, one can easily modify the Markov decision model. Two possible ways to do this is to use less states or to set the $\textbf{p}_t$ values with corresponding negative values $\textbf{v}_t$ in $\textbf{V}$ to zeros and the corresponding elements $\textbf{r}_t$ in $\textbf{R}$ to zeros as well.%$\textbf{v}_t$ one value but equal to zeros?
 
-Furthermore, whenever purchase probabilities, remarketing expenditures and net contributions depending on recency are considered in the model, MCM can be adjusted to it by expanding the state space and breaking out the original recency 1 state into several new states. The states are  corresponding to the listed affecting factors which depend on customer recency at the time of purchase. 
+Furthermore, it's possible to  adjust the MCM to have the purchase probabilities, remarketing expenditures and net contributions depend on recency. 
+This is accomplished by expanding the state space and breaking out the original recency 1 state into several new states. 
+The states correspond to the previously listed factors which depend on customer recency at the time of purchase. 
 
-The MCM can not only be used for customer migration situations, but also for customer retention situations. For customer retention, the firm could start with a fairly simple model by assigning MCM to have three states:  \textit{Prospect}, \textit{Customer} and \textit{Former Customer}. 
+The MCM can not only be used for customer migration situations, but also for customer retention situations. For customer retention, the firm could start with a fairly simple model by creating a MCM with three states:  \textit{Prospect}, \textit{Customer} and \textit{Former Customer}. %%  I think we should add one more sentence here perhaps
 
 The last case discussed in the paper illustrates how to apply MCM to a situation where the firm believes that purchase probabilities, net contribution, and remarketing expenditures all depend on the recency, frequency and monetary value of past purchases. The MCM uses states defined by $\textbf{(r, f, m)}$ where the elements are integers with some upper bounds. Particularly, monetary value categories are paid much attention and single last purchase amount is chosen instead of a moving average to avoid its non-Markovian nature.
 
@@ -57,9 +60,15 @@ The last case discussed in the paper illustrates how to apply MCM to a situation
 
 %Write a report on the article. The report must summarize the material (in no more than 2 pages), and then also include your own judgement and ideas. What are the authors main points? Do you agree?
 
-The authors' main purpose with the paper is to show that MCMs can be used to model many different customer relationship scenarios. It is done by some examples of scenarios that can be modeled with MCM. They also show with examples how the models can be used to change a company's relationship policy. They argue that MCMs can be useful due to it's flexibility. This is illustrated by the examples. For example MCMs can be used to model customer retention and customer migration scenarios. One advantage of using MCM for customer relationship problems seems to be that the MCM naturally account for the stochasticity in customer relationships. %What is stochasticity and why does the model naturally account for it?
+The authors' main purpose with the paper is to show that MCMs can be used to model many different customer relationship scenarios. 
+This is done by providing some example-scenarios that can be modeled with MCM. They also show with examples how the models can be used to change a company's relationship policy. They argue that MCMs can be useful due to their flexibility. This is illustrated by the examples. 
+%% we already mentioned this in the previous section, I don't think we need to restate it: For example, MCMs can be used to model customer retention and customer migration scenarios. 
+One advantage of using MCM for customer relationship problems seems to be that the MCM naturally account for the randomness  in customer relationships. 
+%What is stochasticity and why does the model naturally account for it?  - stochasticity is randomness, because we make transitions based on probability it's a good model. not sure if we want to add something.
 
-The authors do not write anything about the validity of the assumptions underlying the models. For example, they assume that ending a relationship with a customer is to prefer, if the expected value of the customer's future purchases will be less than the cost of the relationship. This and other assumptions made in the models may be oversimplification in some cases. For example if the customer relationship is about sending out commercial, the relatives of the customer might see the commercial, so even if the targeted customer will not purchase anything the relationship might create new customers. However, the purpose of the paper is not to present a very accurate model or to discuss all problems that the models can have but to show some use cases for MCMs.
+The authors do not write anything about the validity of the assumptions underlying the models. For example, they assume that ending a relationship with a customer is preferable if the expected value of the customer's future purchases will be less than the cost of the relationship. This and other assumptions made in the models may be oversimplification in some cases. 
+For example, if the customer relationship is about sending out marketing material, the relatives of the customer might see the material.
+So even if the targeted customer don't purchase anything, the relationship might create new customers. However, the purpose of the paper is not to present very accurate models or to discuss all problems associated with the models but to show some use cases for MCMs.
 
 \bibliographystyle{plain}	% (uses file "plain.bst")
 \bibliography{myrefs}		% expects file "myrefs.bib"
