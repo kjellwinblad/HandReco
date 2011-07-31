@@ -1,6 +1,6 @@
 \section{Introduction}
 
-Recognition of handwritten text has been a popular research area for decades because it can be used in so many different applications. % I'm not sure if a source is necessary for that statment?
+Recognition of handwritten text has been a popular research area for decades because it can be used in many different applications  \cite{intro1}. % I'm not sure if a source is necessary for that statment?
 There are two different approaches to handwritten recognition, \textit{online} and \textit{offline}.
 In the online approach we know the order in which the strokes and individual points were drawn.
 This information can easily be captured if the text is recorded by a digital pen or on a touchscreen.
@@ -19,11 +19,12 @@ This paper is focused on offline handwritten recognition.
 We attempt to tackle both character and word recognition.
 To simplify the word recognition problem, we assume that the images containing the words have already been explicitly segmented into new images containing the separated characters.
 For word recognition, we also assume that the words come from a finite lexicon.
-These assumptions were made due to the limited time available for this project.
-In the following sections we describe how a handwritten text recognition system was developed based on Hidden Markov Models and evaluate it's performance.
+Finally, we assume that the strokes that together compose a character has a width of 1 pixel.
+These simplifying assumptions were made due to the limited time available for this project.
+In the following sections we describe how a handwritten text recognition system was developed based on Hidden Markov Models and evaluate its performance.
 
 \section{Previous work}
-Because handwritten recognition is such a well-researched area there is a wealth of literature available.% I'm not sure if a source is necessary for that statment?
+Because handwritten recognition is such a well-researched area there is a wealth of literature available.% I'm not sure if a source is necessary for that statment? - I added a quote for the other statement so I don't think we need one for this statement as they sort of go hand in hand.
 We mention only a few references that we found helpful.
 Cheriet et al. \cite{Cheriet} gives a good review of the development of handwritten recognition.
 They also go on to give a broad overview of feature extraction and classification using a plethora of different techniques.

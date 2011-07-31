@@ -1,11 +1,13 @@
 \subsection{Word Classifier and Different Initialization Methods}\label{sec:word_classifier_results}
-
-In this section classification results for the words in Table~\ref{tab:words_supported_by_classifier} will be presented. 
-See section~\ref{sec:method} for a description of the implementation of the classifiers.
+%% general comment - normally I think you use capital letters for figures, equations, tables and chapters. e.g. Figure 1, Equation 2, Table 3 etc.
+In this subsection the classification results for the words in Table~\ref{tab:words_supported_by_classifier} will be presented. 
+%% Is the following reference really necessary? I think it's pretty obvious where to find the information.
+See Section~\ref{sec:method} for a description of the implementation of the classifiers.
 The training and test example words were randomly generated with the generator having the properties in Table~\ref{tab:word_generator_properties}.
-See section~\ref{sec:dataset}, for more information about the word example generator. 
-To test the accuracy of the created classifiers, 100 test examples were used. 
-Five test examples for every word. 
+See Section~\ref{sec:dataset}, for more information about the word example generator. 
+
+We used a total of 100 test examples to test the accuracy of the created classifiers.
+Five test examples each for the 20 words. 
 The test examples were generated using the same properties as the training examples.
 Two initialization methods, count based initialization and random initialization, were tested with 100, 200, 400, 800 and 1600 training examples. 
 The results of the test is presented in Table~\ref{tab:word_classifier_results_generated_data}. 
@@ -62,11 +64,11 @@ The test score is defined as the percentage of correctly classified test example
 
 \subsection{Character Classification with Different Parameters}\label{sec:character_classifier_results}
 
-As described in section~\ref{sec:image_preprocessing} the image feature extraction step in the character classifier takes two parameters.
+As described in Section~\ref{sec:image_preprocessing} the image feature extraction step in the character classifier takes two parameters.
 The first parameter is the number of segments that shall be created. 
 The second parameter is the size classification factor which is used in equation~\ref{eq:classification_function}. 
 For the experiment we only had 100 examples for each of the 26 characters. 
-How the examples are produced is described in section~\ref{sec:dataset}. 
+How the examples are produced is described in Section~\ref{sec:dataset}. 
 An initial experiment was performed to test count based initialization and random initialization before and after training with the Baum-Welch algorithm.
 The initial experiment shows that there is probably too few training examples for the training to have any positive effect for count based initialization. 
 This could possible be fixed to some extend with some kind of smoothening of the model produced by the training. 
