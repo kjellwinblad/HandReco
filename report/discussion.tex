@@ -14,3 +14,11 @@ This is easy to see if one consider that the classifier contains one HMM for eve
 When the training examples are generated as previously described it's probably not very useful in real applications.
 For most applications it would be better to use a spell-checking algorithm that can find words similar to a string in an effective way.
 However, if the training data instead is the result of a handwritten recognition system it could be more useful, because then the model could learn to correct mistakes that the handwritten recognition system does.
+
+In section~\ref{sec:character_classifier_results} the test results for the character classifier is described.
+For the character classifier the amount of available training examples is probably a limiting factor, since training with the Baum-Welch algorithm gives worse accuracy than without any training, when using the count based initialization method.
+If the classifier shall be accurate for a random persons handwriting it would be beneficial to let more people paint training examples to get more variation.
+Our approach will always have problem with characters that look similar to other characters when turned upside down.
+For example ''M'' and ''W'' look exactly like the other if they are turned upside down for some handwriting styles.
+Why this problem occur is obvious if one looks at the feature extraction process.
+One way to improve this would be to not only do segmentation from left to right but also from top to bottom.
