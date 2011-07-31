@@ -29,8 +29,6 @@ The results show that Hidden Markov Models can successfully be used for handwrit
 %1. Images have strokes of width 1.
 %2. Assume characters segment in word.
 
-\section{Describe HMM, short overview}
-\input{HMMshortoverview_ImplementIssues_Datasets}
 %1. Describe HMM, short overview. Chongyang
 %1 Picture of HMM topology
 %4. Describe the different initialization algos, advantages and disadvantages. Chongyang
@@ -47,9 +45,14 @@ This section describes the handwritten text recognition system. It starts by giv
 %		What they are doing
 %3. Add picture describing implementation.  Kjell
 
-\subsection{General Overview of Classifiers}\label{sec:overview_of_classifiers}
 
+
+\subsection{Overview of Hidden Markov Models}
+\input{hmm-overview}
+
+\subsection{General Overview of Classifiers}\label{sec:overview_of_classifiers}
 \input{general_overview_of_classifiers}
+
 
 %\subsection{Datasets}\label{sec:dataset}
 %1. Write about creation of sample data. Chongyang
@@ -61,6 +64,10 @@ This section describes the handwritten text recognition system. It starts by giv
 %1. Write about scaling of picture. Kjell
 %2. Segmentation of picture. Kjell
 \input{image_preprocessing_and_feature_extraction}
+
+\subsection{Dataset}
+\input{dataset}
+\input{HMMshortoverview_ImplementIssues_Datasets}
 
 \section{Result}\label{sec:result}
 

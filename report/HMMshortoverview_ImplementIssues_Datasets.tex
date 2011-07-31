@@ -1,19 +1,4 @@
 
-For pattern recognition problem, like handwritten image recognition, there has  always been some randomness and uncertainty from the source recognition data. Stocastic modeling is known to deal with these problem efficiently by using probabilistic models \cite{Cho1995}.  Among such stochastic approaches, Hidden Markov Models have been widely used to model dynamic signals.
-The Hidden Markov Model treats the data as a sequence of observations, while consisting hidden states connected to each other by transition probabilities.
- 
-An HMM is characterized by the following\cite{Rabiner1989}:
-\begin{enumerate}
-\item	N, the number of states in the model.
-\item	M, the number of distinct observation symbols per state.
-\item	A, the transition probability distribution.
-\item	B, the observation symbol probability distribution in state
-\item	Pi, the initial state distribution.
-\end{enumerate}
-
-In contrast to knowledge-based approach, HMMs use statistical algorithms that can automatically extract knowledge from the samples. Also, HMMs model the pattern implicitly by different paths in the stochastic work. The strength of modeling power can be enhanced by showing more samples
-\cite{Cho1995}.
-
 \section{Implementation Issues}
 
 While implementing HMM for both character recognition and word recognition, we encounter some practical issues.
@@ -68,14 +53,6 @@ To escape the underflow situation in viterbi algorithm, in order to give the max
 
 \subsection{Handling null transitions}
 Another problem may occur when training HMM parameters is that transition probability is very likely to be null. In our implementation, we initialze them to very small number, such as \textbf{ $10^{-10}$}.
-
-\section{Dataset}
-
-Actually, we tried very hard to find datasets of handwritten from the internet at the very beginning. But it turns out many of them are not available. And the rest of them, like following image example(Figure 2), they need very much image processing work before we got down to the core part of our project for this course, like baseline slant normalization, skew correction, skeleton and so on.
-
-Therefore, instead of consuming plenty of time in the preprocessing the datasets, we implement a Graphic User Interface to create data sets by ourselves. The most advantage of this solution is that it records directly one pixel wide letters which the letters are already separated. The crucial part of work, image processing, is reduced significantly.
-
-Furthermore, if the vocabulary is relatively large, we found out it can be easier for us to test our HMM, because our word training data is made up randomly chosen from the 26 character files.
 
 
 
