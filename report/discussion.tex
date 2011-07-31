@@ -1,6 +1,6 @@
 %% I think this reference is unnecessary. In section~\ref{sec:word_classifier_results} the test results for the word classifier is presented.
 The results in Section~\ref{sec:word_classifier_results} clearly show the importance of having enough training data.
-When using the count based initialization method, the accuracy actually becomes worse after training the model with Baum-Welch for all test runs when using less than 800 training examples.
+When using the count based initialization method, the accuracy actually becomes worse after training the model with Baum-Welch when using less than 800 training examples.
 The effects of not having enough training data when using the Baum-Welch algorithm is further discussed in~\cite{Rabiner1989}.
 One way to potentially solve this problem is to use some kind of smoothening of the probability matrices after training.
 The smoothening could be done by for example setting all transitions with probability zero to a small value greater than zero.
@@ -15,10 +15,12 @@ When the training examples are generated as previously described it's probably n
 For most applications it would be better to use a spell-checking algorithm that can find words similar to a string in an effective way.
 However, if the training data instead is the result of a handwritten recognition system it could be more useful, because then the model could learn to correct mistakes that the handwritten recognition system does.
 
-In section~\ref{sec:character_classifier_results} the test results for the character classifier is described.
-For the character classifier the amount of available training examples is probably a limiting factor, since training with the Baum-Welch algorithm gives worse accuracy than without any training, when using the count based initialization method.
-If the classifier shall be accurate for a random persons handwriting it would be beneficial to let more people paint training examples to get more variation.
+% In Section~\ref{sec:character_classifier_results} the test results for the character classifier is described. unnecessary reference imo.
+We believe that the amount of available training data is a liming factor for the character classifier.
+Because when we train the system, after it has been initialized with the count based method, with the Baum-Welch algorithm the performance becomes worse.
+If the classifier is to be accurate for a random person's handwriting it would be beneficial to let more people paint training examples to get a more generalized solution.
+
 Our approach will always have problem with characters that look similar to other characters when turned upside down.
-For example ''M'' and ''W'' look exactly like the other if they are turned upside down for some handwriting styles.
+For example ''M'' and ''W'' look exactly alike if they are turned upside down for some handwriting styles.
 Why this problem occur is obvious if one looks at the feature extraction process.
 One way to improve this would be to not only do segmentation from left to right but also from top to bottom.
