@@ -143,29 +143,31 @@ class TestWordClassifier(unittest.TestCase):
         words = ["pig","dog","cat","bee","ape","elk","hen","cow"]
         alphabet =['a','b','c','d','e','f','g','h','i','j','k','l',
                    'm','n','o','p','q','r','s','t','u','v','w','x','y','z']
-        # extractor = SimpleImageFeatureExtractor(nr_of_divisions=17, 
-        #                             size_classification_factor=3.4)
-        # training_examples, test_examples = extractor.extract_training_and_test_examples(File(File(".."),"word_examples_for_test").getCanonicalPath(), 
-        #                                                                            nr_of_training_examples=0,
-        #                                                                         nr_of_test_examples=10)
-                                                                            
-        # output = open('datatest.pkl', 'wb')
-        # pickle.dump(test_examples, output)
-        # output.close()   
+        #extractor = SimpleImageFeatureExtractor(nr_of_divisions=17, 
+        #                            size_classification_factor=3.4)
+        #examples_dir = File(File(File(File(str(inspect.getfile( inspect.currentframe() ))).getParent(),".."),".."),"word_examples_for_test").getCanonicalPath()
+        #empty, character_test_examples = extractor.extract_training_and_test_examples(examples_dir, #character_examples word_examples_for_test
+        #                                                                    nr_of_training_examples=0,
+        #                                                                    nr_of_test_examples=10)
+        #                                                                    
+        #output = open('datatest_segments_17_cf_3_4.pkl', 'wb')
+        #pickle.dump(character_test_examples, output)
+        #output.close()   
         
         # the same effect to create the word testing data
-        pkl_file = open('datatest.pkl', 'rb')
-        training_examples = pickle.load(pkl_file)
+        pkl_file = open('datatest_segments_17_cf_3_4.pkl', 'rb')
+        character_test_examples = pickle.load(pkl_file)
+        character_test_examples.sort()
         #pprint.pprint(training_examples)
         pkl_file.close()
         
         def gernerateCharacterFeatures(character):
             '''randomly choice the features of the character from the training_examples'''
-            allFeatures = training_examples[alphabet.index(character)][1]
+            allFeatures = character_test_examples[alphabet.index(character)][1]
             return random.choice(allFeatures)
         
         path_to_this_dir = File(str(inspect.getfile( inspect.currentframe() ))).getParent()
-        character_classifier_file = open(File(path_to_this_dir,"character_classifier.dat").getPath(),'r')
+        character_classifier_file = open(File(path_to_this_dir,"character_classifier_17_segments_cf_3_4_correct_54.dat").getPath(),'r')
         character_classifier = CharacterClassifier(from_string_string=character_classifier_file.read())
         character_classifier_file.close()
 
@@ -174,7 +176,8 @@ class TestWordClassifier(unittest.TestCase):
         def testWordOnce(word):
             observations = []
             for eachCharacter in word:
-                observation = character_classifier.classify_character_string(gernerateCharacterFeatures(eachCharacter))
+                character_features = gernerateCharacterFeatures(eachCharacter)
+                observation = character_classifier.classify_character_string(character_features)
                 observations.append(str(observation))
 
                 #transfer the list of characters to their corresponding string
