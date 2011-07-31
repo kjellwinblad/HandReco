@@ -17,33 +17,48 @@ This process is called feature extraction.
 As mentioned in section~\ref{sec:problem}, our system assumes that there is one image per character, that the lines in the characters consists of a single color and that the lines are one pixel wide. The feature extraction process can be divided into the following steps:
 
 \begin{enumerate}
-  \item The scaling step makes sure that the character fills the whole image. Because of this step, it does not matter where in the given image the character is painted. 
+  \item The scaling step makes sure that the character fills the whole image. 
+  Because of this step, it does not matter where in the given image the character is painted. 
   The scaling may cause the problem that the lines are getting thicker than one pixel after scaling if the original painted character just fills a small part of the image\footnote{The standard Java image scaling algorithm is used for the scaling.}. 
   %% Shouldn't the following sentence be 'a large part' ??? -- Fabian
-  This problem will be avoided if the training examples contain images where the character fills a small part of the image. The following algorithm is used to do the scaling:
+  This problem will be avoided if the training examples contain images where the character fills a small part of the image. 
+  The following algorithm is used to do the scaling:
   \begin{enumerate}
     \item The minimum rectangle $R$ in the image that contains the whole character is found.
-    \item The rectangle $R$ is scaled to fill the size of the original image. The scaled version of $R$ is returned as the scaled image.
+    \item The rectangle $R$ is scaled to fill the size of the original image. 
+    The scaled version of $R$ is returned as the scaled image.
   \end{enumerate}
   \item The new scaled image is sliced into $N$ vertical segments of the same size.
   \item An observation symbol is extracted from every segment in the following way:
   \begin{enumerate}
-  %% The first item is hard to understand, I think an example to illustrate would be helpful
-    \item The number of pixels in the three largest components in the segment are found and put into a triple $(s_{1},s_{2},s_{3})$ which is sorted so that the largest number is first. A component is defined as a set of colored pixels that are connected and that contains all pixels that are connected to one of the pixels in the set. Two colored pixels are connected if they are neighbors or if it is possible to create a path of colored connected pixels between them. All pixels except the border pixels have 8 neighbors. If the segment contains less than three components, the triple is filled with zeros.
-    \item The elements in the triple is classified as $Large$, $Small$ or $None$. The classification function $c$ is defined as in Equation~\ref{eq:classification_function}.
+    \item The number of pixels in the three largest components in the segment are found and put into a triple $(s_{1},s_{2},s_{3})$ which is sorted so that the largest number is first. 
+    A component is defined as a set of colored pixels that are connected and that contains all pixels that are connected to one of the pixels in the set. 
+    Two colored pixels are connected if they are neighbors or if it is possible to create a path of colored connected pixels between them. 
+    All pixels except the border pixels have 8 neighbors. 
+    If the segment contains less than three components, the triple is filled with zeros. 
+    
+    So for example if a segment contains two lines. 
+    One line containing 10 pixels and another line containing 5 pixels. 
+    Then the resulting triple will be $(10,5,0)$.
+    \item The elements in the triple is classified as $Large$, $Small$ or $None$. 
+    The classification function $c$ is defined as in Equation~\ref{eq:classification_function}. 
+    The constant $d$ in the equation is given as a parameter to the feature extraction.
     \begin{equation}\label{eq:classification_function}
-    c(s) = None \text{ if } s = 0, Large \text{ if } s > d \text{ and } Small \text{ otherwise}
-    %% What's going on here? The sentence starts with a comma.
-    \end{equation}, where $d$ is a classification constant. The triple $(s_{1},s_{2},s_{3})$ is translated to a triple of classes $(c_{1},c_{2},c_{3})$ by applying the function $c$ to all elements in the triple.
-    \item The triple of classes is mapped to an observation symbol. The mapping is defined by the set of relations that can be found in Equation~\ref{eq:class_triple_to_observation_symbol_mappings}.
-
-    \begin{equation}\label{eq:class_triple_to_observation_symbol_mappings}
-     \substack{ LLL\rightarrow a,LLS\rightarrow b,LSS\rightarrow c,LSN\rightarrow d,LLN\rightarrow e,LNN\rightarrow f,\\
-    SSS\rightarrow g,SSN\rightarrow h,SNN\rightarrow i,NNN,\rightarrow j }
+    c(s) = None \text{ if } s = 0, Large \text{ if } s > d \text{ and } Small \text{ otherwise}.
     \end{equation}
+    The triple $(s_{1},s_{2},s_{3})$ is translated to a triple of classes $(c_{1},c_{2},c_{3})$ by applying the function $c$ to all elements in the triple.
+    \item The triple of classes is mapped to an observation symbol.
+    In total there are 10 different triples of classes and there is one observation symbol per triple of classes. 
+    So in total there are 10 different observation symbols. 
+%The mapping is defined by the set of relations that can be found in Equation~\ref{eq:class_triple_to_observation_symbol_mappings}.
+    %\begin{equation}\label{eq:class_triple_to_observation_symbol_mappings}
+    % \substack{ LLL\rightarrow a,LLS\rightarrow b,LSS\rightarrow c,LSN\rightarrow d,LLN\rightarrow e,LNN\rightarrow f,\\
+    %SSS\rightarrow g,SSN\rightarrow h,SNN\rightarrow i,NNN,\rightarrow j }
+    %\end{equation}
     %% This looks weird imo.
-    , where $LSN$ is a short form of $(Large,Small,None)$ and so on.
+     %$LSN$ is a short form of $(Large,Small,None)$ and so on.
   \end{enumerate}  
 \end{enumerate}
 
-The classification constant $c$ and the number of segments $N$ are parameters to the feature extractor. An example of feature extraction for an image can be seen in figure~\ref{fig:image_feature_extraction}.
+The classification constant $c$ and the number of segments $N$ are parameters to the feature extractor. 
+An example of feature extraction for an image can be seen in figure~\ref{fig:image_feature_extraction}.

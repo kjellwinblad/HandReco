@@ -1,6 +1,15 @@
 \subsection{Word Classifier and Different Initialization Methods}
 
-In this section classification results for the words in Table~\ref{tab:words_supported_by_classifier} will be presented. See section~\ref{sec:method} for a description of the implementation of the classifiers. The training and test example words were randomly generated with the generator having the properties in Table~\ref{tab:word_generator_properties}. See section~\ref{sec:dataset}, for more information about the word example generator. To test the accuracy of the created classifiers, 100 test examples were used. Five test examples for every word. The test examples were generated using the same properties as the training examples. Two initialization methods, count based initialization and random initialization, were tested with 100, 200, 400, 800 and 1600 training examples. The results of the test is presented in Table~\ref{tab:word_classifier_results_generated_data}. It contains the test scores for the two initialization methods before and after training with the Baum-Welch algorithm. The test score is defined as the number of correctly classified test examples divided by the total number of test examples.
+In this section classification results for the words in Table~\ref{tab:words_supported_by_classifier} will be presented. 
+See section~\ref{sec:method} for a description of the implementation of the classifiers.
+The training and test example words were randomly generated with the generator having the properties in Table~\ref{tab:word_generator_properties}.
+See section~\ref{sec:dataset}, for more information about the word example generator. 
+To test the accuracy of the created classifiers, 100 test examples were used. Five test examples for every word. 
+The test examples were generated using the same properties as the training examples. T
+wo initialization methods, count based initialization and random initialization, were tested with 100, 200, 400, 800 and 1600 training examples. 
+The results of the test is presented in Table~\ref{tab:word_classifier_results_generated_data}. 
+It contains the test scores for the two initialization methods before and after training with the Baum-Welch algorithm. 
+The test score is defined as the number of correctly classified test examples divided by the total number of test examples.
 
 \begin{table}[htb]
   \begin{center}
@@ -52,7 +61,17 @@ In this section classification results for the words in Table~\ref{tab:words_sup
 
 \subsection{Character Classification With Different Parameters}
 
-As described in section~\ref{sec:image_preprocessing} the image feature extraction step in the character classifier takes two parameters. The frist parameter is the number of segments that shall be created. The second parameter is the size classification factor which is defined in equation~\ref{eq:classification_function} which can be found in section~\ref{sec:image_preprocessing}. For the experiment we only had 100 examples for each of the 26 characters. How the examples are produced is described in section~\ref{sec:dataset}. An inital experiment that was performed with count based initalisation and random initalisation before and after training with the Baum-Welch algorithm shows that there is probably to few training examples for training to have any positive effect for count based intitalisation. This could possible be fixed with some kind of smothening of the model produced by the training, but the time constraints of the project prevented us from testing that. Ten test examples and 90 training examples for every character were selected randomly from the example set for the experiments. The results from the inital experiment can be found in table~\ref{tab:character_classifier_initial_experiment}. In the inital experiment $1.3$ was used as the size classification factor and the number of segments was set to $7$.
+As described in section~\ref{sec:image_preprocessing} the image feature extraction step in the character classifier takes two parameters.
+The first parameter is the number of segments that shall be created. 
+The second parameter is the size classification factor which is used in equation~\ref{eq:classification_function}. 
+For the experiment we only had 100 examples for each of the 26 characters. 
+How the examples are produced is described in section~\ref{sec:dataset}. 
+An initial experiment was performed to test count based initialization and random initialization before and after training with the Baum-Welch algorithm.
+The initial experiment shows that there is probably too few training examples for the training to have any positive effect for count based initialization. 
+This could possible be fixed to some extend with some kind of smoothening of the model produced by the training. 
+10 test examples and 90 training examples for every character were selected randomly from the example set for the experiments. 
+The results from the initial experiment can be found in table~\ref{tab:character_classifier_initial_experiment}. 
+In the initial experiment $1.3$ was used as the size classification factor and the number of segments was set to $7$.
 
 
 \begin{table}[htb]
@@ -71,12 +90,17 @@ As described in section~\ref{sec:image_preprocessing} the image feature extracti
 \label{tab:character_classifier_initial_experiment} 
 \end{table}
 
-Only count based intialisation is looked upon in the experiment of diffenrent parameters, because the inital experiment showed that the best result seems to be given when just using count based intitalisation and no training. When testing the parameters, 5 models were created in the same way as described for the intial experiment. The the average accuracy of these models when testing them with their own exaple set was recorded as the accuracy for the configuration. For all 5 modesl that were created with the same parameters different training example sets and test example sets were randomly selected. 90 training examples and 10 test examples were used as in the inital experiment. The results of experiment can be seen in table~\ref{tab:character_classifier_results_different_parameters}.
+Only count based initialization is looked upon in the experiment of different parameters, because the initial experiment showed that the best result seems to be produced when just using count based initialization and no training.
+When testing the parameters, 5 models were created in the same way as in the initial experiment. 
+The average accuracy for these 5 models when testing them with their own test example set was recorded as the accuracy for the configuration. 
+For all 5 models that were created, different training example sets and test example sets were randomly selected. 
+90 training examples and 10 test examples were used for every character as in the initial experiment. 
+The results of the experiment can be seen in table~\ref{tab:character_classifier_results_different_parameters}.
 
 \begin{table}[htb]
   \begin{center}
-  \begin{tabular}{ l | l l l l l l l l l }
-CCF/NOS &    4   & 5      & 6      & 7      & 8      & 9      & 10     & 11     & 12 \\ \hline
+  \begin{tabular}{ c | l l l l l l l l l }
+CCF\textbackslash NOS &    4   & 5      & 6      & 7      & 8      & 9      & 10     & 11     & 12 \\ \hline
 0.7     &  $32$  &  $38$  &  $43$  &  $42$  &  $44$  &  $44$  &  $45$  &  $48$  &  $48$  \\
 1.0     &  $35$  &  $39$  &  $42$  &  $41$  &  $44$  &  $49$  &  $48$  &  $47$  &  $48$  \\
 1.3     &  $43$  &  $47$  &  $53$  &  $53$  &  $53$  &  $56$  &  $57$  &  $56$  &  $59$  \\
@@ -85,12 +109,12 @@ CCF/NOS &    4   & 5      & 6      & 7      & 8      & 9      & 10     & 11     
 2.2     &  $55$  &  $57$  &  $60$  &  $60$  &  $62$  &  $62$  &  $62$  &  $65$  &  $63$  \\
 2.5     &  $57$  &  $59$  &  $60$  &  $61$  &  $62$  &  $62$  &  $65$  &  $65$  &  $63$  \\
 2.8     &  $55$  &  $60$  &  $61$  &  $62$  &  $64$  &  $65$  &  $66$  &  $64$  &  $65$  \\
-3.1     &  $55$  &  $59$  &  $64$  &  $63$  &  $65$  &  $66$  &  $65$  &  $67$  &  $68$  \\
+3.1     &  $55$  &  $59$  &  $64$  &  $63$  &  $65$  &  $66$  &  $65$  &  $67$  &  $\textbf{68}$  \\
 3.4     &  $56$  &  $60$  &  $62$  &  $64$  &  $64$  &  $65$  &  $65$  &  $67$  &  $65$  \\
 3.7     &  $55$  &  $62$  &  $62$  &  $64$  &  $63$  &  $64$  &  $67$  &  $67$  &  $67$  \\
 4.0     &  $56$  &  $61$  &  $61$  &  $65$  &  $64$  &  $64$  &  $66$  &  $66$  &  $65$  \\
 4.3     &  $56$  &  $61$  &  $63$  &  $65$  &  $65$  &  $65$  &  $66$  &  $67$  &  $66$  \\
-4.6     &  $55$  &  $60$  &  $62$  &  $65$  &  $65$  &  $65$  &  $67$  &  $68$  &  $66$  \\
+4.6     &  $55$  &  $60$  &  $62$  &  $65$  &  $65$  &  $65$  &  $67$  &  $\textbf{68}$  &  $66$  \\
 4.9     &  $55$  &  $60$  &  $63$  &  $67$  &  $67$  &  $66$  &  $67$  &  $67$  &  $66$  \\
 5.2     &  $54$  &  $60$  &  $63$  &  $65$  &  $64$  &  $67$  &  $66$  &  $65$  &  $65$  \\
 5.5     &  $53$  &  $59$  &  $63$  &  $63$  &  $66$  &  $66$  &  $67$  &  $67$  &  $66$  \\
