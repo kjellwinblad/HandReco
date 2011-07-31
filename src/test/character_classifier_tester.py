@@ -30,6 +30,7 @@ class TestCharacterClassifier(TestBase):
     '''
     A tester for the word classifer
     '''
+    
     def test_init_method_different_parameters(self):
         test_dir = File("../../character_examples").getPath()
         nr_of_training_examples = 90
@@ -55,7 +56,7 @@ class TestCharacterClassifier(TestBase):
                 score = sum(test_scores) / len(test_scores)
                 print ' $' + str(score) +'$ ',
                 if nr_of_segs == 12:
-                    print '\\'
+                    print '\\\\'
                 else:
                     print '&',
                  
@@ -103,21 +104,8 @@ class TestCharacterClassifier(TestBase):
         #../../../../jython2.5.2/bin/jython -J-Xmx1024m character_classifier_tester.py 
         #('number of training examples', 'random init score before training', 'count based init score before training', 'random init score after training', 'count based init score after training', 'random init training time', 'count based init training time')
         #(90, 0.04230769230769231, 0.5346153846153846, 0.16153846153846155, 0.16153846153846155, 448497L, 205477L)
-    
-#    def test_feature_extractor_parameters(self):
-#        
-#        for nr_of_segs in range(12,13):
-#            print("SEGMENT_SIZE="+str(nr_of_segs))
-#            for classification_factor in drange(4.0, 5.0, 0.3):
-#                print("CLASSIFICATION_FACTOR="+str(classification_factor))
-#                self.test_init_method(nr_of_segments=nr_of_segs, 
-#                                      size_classification_factor=classification_factor,
-#                                      only_count_based_init=True)
-
-
-
 
 if __name__ == "__main__":
     character_classifer_tester = TestCharacterClassifier()
-    #character_classifer_tester.test_init_method()
+    character_classifer_tester.test_init_method()
     character_classifer_tester.test_init_method_different_parameters()

@@ -28,7 +28,7 @@ class HandRecoWriter(JFrame):
         #Create classifiers
         #Character classifier
         path_to_this_dir = File(str(inspect.getfile( inspect.currentframe() ))).getParent()
-        character_classifier_file = open(File(path_to_this_dir,"character_classifier.dat").getPath(),'r')
+        character_classifier_file = open(File(path_to_this_dir,"character_classifier_11_segments_4_6_cf.dat").getPath(),'r')
         self.character_classifier = CharacterClassifier(from_string_string=character_classifier_file.read())
         character_classifier_file.close()
         #Word classifier

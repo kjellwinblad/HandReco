@@ -103,8 +103,18 @@ class WordHMM(SpecializedHMM):
             alphabet_size = len(alphabet)
             def count_position(position):
                 #pseudocount
-                count_list = random_list_with_sum(alphabet_size,
-                                                  nr_of_training_examples*0.1)
+                use_pseudocount = True
+                uniform_pseudocount = False
+                if use_pseudocount:
+                    if uniform_pseudocount:
+                        count_list = zeros(alphabet_size)
+                        for i in range(0,alphabet_size):
+                            count_list[i]= (nr_of_training_examples*0.1)/alphabet_size
+                    else:
+                        count_list = random_list_with_sum(alphabet_size,
+                                                          nr_of_training_examples*0.1)
+                else:
+                    count_list = zeros(alphabet_size)
                 #Do the counting
                 for e in self.training_examples:
                     if position < len(e):

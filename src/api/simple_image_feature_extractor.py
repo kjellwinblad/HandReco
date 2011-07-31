@@ -180,8 +180,8 @@ class TestSimpleImageFeatureExtractor(unittest.TestCase):
     
     def test_extract_feature_string(self):
         image = self.get_example_image()
-        extractor = SimpleImageFeatureExtractor(nr_of_divisions=7, 
-                                                size_classification_factor=1.3)
+        extractor = SimpleImageFeatureExtractor(nr_of_divisions=5, 
+                                                size_classification_factor=4.3)
         feature_string = extractor.extract_feature_string(image)
         print("test_extract_feature_string")
         print(feature_string)
