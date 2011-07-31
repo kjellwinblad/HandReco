@@ -1,16 +1,16 @@
-In section~\ref{sec:word_classifier_results} the test results for the word classifier is presented.
-From these results it is possible to see the effect of not having enough training data.
-The count based initialization method got worse accuracy after training the model with Baum-Welch for all test runs with less than 800 training examples.
-The effect of not having enough training data when using the Baum-Welch algorithm is discussed in~\cite{Rabiner1989}.
-This could be dealt with by doing some kind of smoothening of the probability matrices after training.
+%% I think this reference is unnecessary. In section~\ref{sec:word_classifier_results} the test results for the word classifier is presented.
+The results in Section~\ref{sec:word_classifier_results} clearly show the importance of having enough training data.
+When using the count based initialization method, the accuracy actually becomes worse after training the model with Baum-Welch for all test runs when using less than 800 training examples.
+The effects of not having enough training data when using the Baum-Welch algorithm is further discussed in~\cite{Rabiner1989}.
+One way to potentially solve this problem is to use some kind of smoothening of the probability matrices after training.
 The smoothening could be done by for example setting all transitions with probability zero to a small value greater than zero.
 The count based initialization method gives almost perfect accuracy on the test set without the Baum-Welch training.
-The vocabulary that the classifier supports is quite small with only 20 words.
-The accuracy would probably be worse with a larger vocabulary that have many words that are similar to each other.
-The classifier implementation would also have permanence problems for many applications with large vocabularies.
+
+The vocabulary used by the classifier is quite small as it only contains 20 words.
+The accuracy would probably be worse with a larger vocabulary with many words that are similar to each other.
+The classifier implementation would also have performance problems for many applications with large vocabularies.
 This is because the time complexity of classifying an example grows linearly with the size of the vocabulary.
-This is easy to see if one consider that the classifier contains one HMM for every word in the vocabulary and that the forward calculation algorithm needs to run for all HMMs when an example shall be classified.
-It is also possible to question the usefulness of the word classifier when the training examples are generated as they have been in the test.
+This is easy to see if one consider that the classifier contains one HMM for every word in the vocabulary and that the forward calculation algorithm needs to run for all HMMs when an example is to be classified.
+When the training examples are generated as previously described it's probably not very useful in real applications.
 For most applications it would be better to use a spell-checking algorithm that can find words similar to a string in an effective way.
 However, if the training data instead is the result of a handwritten recognition system it could be more useful, because then the model could learn to correct mistakes that the handwritten recognition system does.
-
