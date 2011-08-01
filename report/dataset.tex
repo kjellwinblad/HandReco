@@ -4,6 +4,13 @@ The datasets that were found would require a lot of preprocessing.
 Figure~\ref{figure:wordsexamples} shows a sample from that kind of dataset.
 To get good result from that kind of dataset it would be necessary to implement baseline slant normalization, skew correction, skeleton and so on.
 
+\begin{figure}[h!]
+\centering
+ \includegraphics[width=3in]{datasets_examples}
+\caption{Word image examples}
+\label{figure:wordsexamples}
+\end{figure}
+
 Therefore, instead of spending a lot of time preprocessing the datasets, we implemented a Graphical User Interface to create our own dataset.
 The largest advantages of this solution is that our solution records one pixel wide lines and the characters are already separated. 
 The large part of the work, image processing, was thus reduced significantly.
@@ -14,10 +21,3 @@ An example image from our character image dataset can be found in Figure~\ref{fi
 To get a dataset for training the word classifier a generator was created\footnote{Please, see HandReco\/src\/api\/word\_examples\_generator.py in the source code for documentation of the word example generator. See appendix~\ref{app:source_code}.}.
 The generator creates random errors in the words given as input.
 To generate the dataset is obviously not optimal for practical applications, but it is good enough to test the implementation.
-
-\begin{figure}[h!]
-\centering
- \includegraphics[width=5in]{datasets_examples}
-\caption{Word image examples}
-\label{figure:wordsexamples}
-\end{figure}

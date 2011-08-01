@@ -1,18 +1,144 @@
-\documentclass[11pt]{article}
+%______________________________________________________
+%
+%   LaTeX-mall fr nybrjare
+%
+%   Konstruerad av Marcus Bergner, bergner@cs.umu.se
+%
+%   Vid funderingar titta lngst ned i denna fil,
+%   eller skicka ett mail
+%______________________________________________________
+%
+
+% lite instllningar
+\documentclass[10pt, titlepage, oneside, a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath, amsthm, amssymb}
 \usepackage{graphicx}
-\author{Fabian Alenius, Kjell Winblad and Chongyang Sun} \title{Handwritten Recognition}
+\usepackage{amssymb, graphicx, fancyheadings}
+
+\addtolength{\textheight}{20mm}
+\addtolength{\voffset}{-5mm}
+\renewcommand{\sectionmark}[1]{\markleft{#1}}
+
+% \Section ger mindre spillutrymme, anvnd dem om du vill
+\newcommand{\Section}[1]{\section{#1}\vspace{-8pt}}
+\newcommand{\Subsection}[1]{\vspace{-4pt}\subsection{#1}\vspace{-8pt}}
+\newcommand{\Subsubsection}[1]{\vspace{-4pt}\subsubsection{#1}\vspace{-8pt}}
+	
+% appendices, \appitem och \appsubitem r fr bilagor
+\newcounter{appendixpage}
+
+\newenvironment{appendices}{
+	\setcounter{appendixpage}{\arabic{page}}
+	\stepcounter{appendixpage}
+}{
+}
+
+\newcommand{\appitem}[2]{
+	\stepcounter{section}
+	\addtocontents{toc}{\protect\contentsline{section}{\numberline{\Alph{section}}#1}{\arabic{appendixpage}}}
+	\addtocounter{appendixpage}{#2}
+}
+
+\newcommand{\appsubitem}[2]{
+	\stepcounter{subsection}
+	\addtocontents{toc}{\protect\contentsline{subsection}{\numberline{\Alph{section}.\arabic{subsection}}#1}{\arabic{appendixpage}}}
+	\addtocounter{appendixpage}{#2}
+}
+
+% ndra de rader som behver ndras
+\def\inst{Department of Information Technology}
+\def\typeofdoc{}
+\def\course{Handwritten Recognition}
+\def\pretitle{}
+\def\title{Artificial Intelligence Using Statistical Methods}
+\def\name{Fabian Alenius, Kjell Winblad and Chongyang Sun}
+\def\username{}
+\def\email{}
+\def\path{}
+\def\graders{}
+
+
+% om du vill referera till katalogen dr dina filer ligger kan du 
+% anvnda \fullpath som kommer att vara "~username/edu..." o.s.v.
+\def\fullpath{}
+
+
+% Hr brjar sjlva dokumentet
 \begin{document}
-\maketitle
+
+	% skapar framsidan (om den inte duger: gr helt enkelt en egen)
+	\begin{titlepage}
+		\thispagestyle{empty}
+		\begin{large}
+			\begin{tabular}{@{}p{\textwidth}@{}}
+				\textbf{UPPSALA UNIVERSITY \hfill \today} \\
+				\textbf{\inst} \\
+				\textbf{\typeofdoc} \\
+			\end{tabular}
+		\end{large}
+		\vspace{10mm}
+		\begin{center}
+			\LARGE{\pretitle} 
+			\huge{\textbf{\course}}\\
+			\vspace{10mm}
+			\LARGE{\title} \\
+			\vspace{15mm}
+			\begin{large}
+				\begin{tabular}{ll}
+					\textbf{} & \name \\
+					\textbf{} & \texttt{\email} \\
+					\textbf{} & \texttt{\fullpath} \\
+				\end{tabular}
+			\end{large}
+
+			\vfill
+			\large{\textbf{}}\\
+			\mbox{\large{\graders}}
+		\end{center}
+	\end{titlepage}
+
+
+	% fixar sidfot
+	%\lfoot{\footnotesize{\name, \email}}
+	\lhead{\sc\footnotesize\course}
+	\rhead{\nouppercase{\sc\footnotesize\leftmark}}
+	\pagestyle{fancy}
+	\renewcommand{\headrulewidth}{0.2pt}
+	\renewcommand{\footrulewidth}{0.2pt}
+
+	% skapar innehllsfrteckning.
+	% Tnk p att kra latex 2ggr fr att uppdatera allt
 
 \begin{abstract}
 Recognizing handwritten text means transforming a graphical representation of text into its symbolic representation.
 Handwritten recognition is used in a wide variety of applications.
 This paper describes and empirically evaluates a handwritten text recognition system based on Hidden Markov Models.
 The results show that Hidden Markov Models can successfully be used for handwritten recognition.
-
 \end{abstract}
+
+	\pagenumbering{roman}
+	\tableofcontents
+	
+	% och lgger in en sidbrytning
+	\newpage
+
+	\pagenumbering{arabic}
+
+	% i Sverige har vi normalt inget indrag vid nytt stycke
+	\setlength{\parindent}{0pt}
+	% men dremot lite mellanrum
+	\setlength{\parskip}{10pt}
+
+
+
+
+
+
+
+
+
+
 
 %1. Give general introduction to area.
 %2. Describe why it's important.
