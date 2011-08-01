@@ -144,12 +144,12 @@ class TestWordClassifier(unittest.TestCase):
         alphabet =['a','b','c','d','e','f','g','h','i','j','k','l',
                    'm','n','o','p','q','r','s','t','u','v','w','x','y','z']
         #extractor = SimpleImageFeatureExtractor(nr_of_divisions=17, 
-                                    size_classification_factor=3.4)
+        #                            size_classification_factor=3.4)
         #examples_dir = File(File(File(File(str(inspect.getfile( inspect.currentframe() ))).getParent(),".."),".."),"word_examples_for_test").getCanonicalPath()
         #empty, character_test_examples = extractor.extract_training_and_test_examples(examples_dir, #character_examples word_examples_for_test
-                                                                            #nr_of_training_examples=0,
-                                                                            #nr_of_test_examples=10)
-                                                                            
+        #                                                                    nr_of_training_examples=0,
+        #                                                                    nr_of_test_examples=10)
+        #                                                                    
         #output = open('datatest_segments_17_cf_3_4.pkl', 'wb')
         #pickle.dump(character_test_examples, output)
         #output.close()   
