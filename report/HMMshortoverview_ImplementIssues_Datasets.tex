@@ -52,15 +52,24 @@ Each state's observation is the letter we observed from the character classifier
 
 \end{enumerate}
 
-\subsection{prevention of underflow}
+\subsection{Floating Point Precision}
 
-For sufficiently large t states, forward variable $\textbf{a}_t(i)$ and backward variable  $\textbf{b}_t(i)$ head exponentially to zero and exceed the precision range of computer. The only reasonable way of performing the computation is by incorporating a scaling procedure[rabineer].
-For each t, first we compute $\textbf{a}_t(i)$ according to the induction fomula(20) in rabiner's paper \cite{Rabiner1989},and then multiply it by a scaling factor  $\textbf{c}_t$, where c is equal to $ \frac{1}{ \displaystyle\sum_{i=1}^N \textbf{a}_t(i)}$.
+When the number of states \textbf{t} grows sufficiently large, the forward variable $\textbf{a}_t(i)$ and backward variable  $\textbf{b}_t(i)$  exponentially approaches zero and exceed the precision range of floating point numbers. 
+One way to solve this problem is by incorporating a scaling procedure.
+For each \textbf{t}, we first compute $\textbf{a}_t(i)$ according to the induction equation (20) in  \cite{Rabiner1989}, and then multiply it by a scaling factor  $\textbf{c}_t$, calculated by Equation \ref{eq:rabiner-scaling}.
+% Maybe we should the explain the equation in more detail.. For example what  N is.
 
-To escape the underflow situation in viterbi algorithm, in order to give the maximum likelihood state sequence, we can simply adopt adding log probability rather than multiplying probabilities. Then no scaling is required.
+\begin{equation}\label{eq:rabiner-scaling}
+\textbf{c}_t = \frac{1}{ \displaystyle\sum_{i=1}^N \textbf{a}_t(i)}
+\end{equation}
 
-\subsection{Handling null transitions}
-Another problem may occur when training HMM parameters is that transition probability is very likely to be null. In our implementation, we initialze them to very small number, such as \textbf{ $10^{-10}$}.
+To avoid the underflow problem in the Viterbi algorithm, which calculates the maximum likelihood state sequence, we add log probabilities instead of multiplying probabilities.
+With this change, no scaling is required.
+
+\subsection{Zero Probability Transitions}
+% We should explain WHY this is a problem.
+Another problem that may occur when training HMM parameters is that state transition probabilities are likely to be zero.
+In our implementation, we initialize them to a very small number, such as \textbf{ $10^{-10}$}.
 
 
 
