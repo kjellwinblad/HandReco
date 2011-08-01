@@ -25,7 +25,14 @@ Furthermore, We specialized our beginning and ending states denoted by b and e r
 Special beginning and ending states are included generally because then the multiple observation training sequences are concatenated together to form one observation sequence for input into the Baum-Welch algorithm\cite{Laan}.
 
 In the concatenated string, the original segments of character images sequences are connected by the special observation symbols "@" and \$.
- Also the special beginning state always transitions to the first normal state, and the special ending state always transitions to the special beginning state. Then forward and backward algorithm is used to choose the model that has the most probability of the observation sequence. See Figure 1
+ Also the special beginning state always transitions to the first normal state, and the special ending state always transitions to the special beginning state. Then forward and backward algorithm is used to choose the model that has the most probability of the observation sequence. See Figure \ref{figure:DNAHMM}\cite{Laan}.
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=5in]{topolopy_for_training}
+  \caption{HMM topology for a DNA sequence of length three.}
+  \label{figure:DNAHMM}
+\end{figure}
 
 
 
@@ -37,7 +44,16 @@ Generally it’s natural to implement Hidden Markov Models for each of the word 
 
 However, it is time consuming and not realistic to generate HMMs for every word when the vocabulary is relatively large. Therefore, later on we came up with another HMM topology to ideally describe unconstrained words of mixed style.
 
-To be specific, a Hmm  with a topology that is a complete directed graph is modeled. It has 28 hidden states(26 for 26 letters and 2 for @ and \$). 
+To be specific, a Hmm  with a topology that is a complete directed graph is modeled. It has 28 hidden states(26 for 26 letters and 2 for @ and \$). See Fiture \ref{figure:wordtopology}. 
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=5in]{wordtopology}
+  \caption{Word HMM topology for a three-letter alphabet.}
+  \label{figure:wordtopology}
+\end{figure}
+
+
 Transition matrix is a 28 * 28 matrix, which is estimated from the lexicon analysis. For example if there's only three words in our vocabulary: dog cat cap for "A to T is set to 0.5 and A to P is set to 0.5" and "A to other letters is set to 0".
 
 Each state's observation is the letter we observed from the character classifier in the previous step. For setting the observation probability matrix, it's reasonable to set them to the probabilities from the test results from word classifier. For example, if we have 10 test examples , for A and 5 of them are classified to be A, 3 to B and 2 to C by the character classifier, then P(observation A)=0.5, P(observation B)=0.3 and P(observation C)=0.2. Then we will assign the row for A as"0.5 0.3 0.2 0 0 ......0 0".

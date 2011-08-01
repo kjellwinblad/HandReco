@@ -1,0 +1,36 @@
+This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2010.11.13)  31 JUL 2011 19:09
+entering extended mode
+**C:/Users/Lenovo/workspace/HandReco/report/general_overview_of_classifiers.tex
+
+(C:/Users/Lenovo/workspace/HandReco/report/general_overview_of_classifiers.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman, ngerman, german-x-2009-06-19, ngerman-x-2009-06-19, french, loaded.
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.2 T
+     he handwriting recognition system has two levels of classifiers.
+? 
+! Emergency stop.
+ ...                                              
+                                                  
+l.2 T
+     he handwriting recognition system has two levels of classifiers.
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+ 
+Here is how much of TeX's memory you used:
+ 8 strings out of 495285
+ 466 string characters out of 3180339
+ 45037 words of memory out of 3000000
+ 3306 multiletter control sequences out of 15000+200000
+ 3640 words of font info for 14 fonts, out of 3000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 5i,0n,4p,147b,14s stack positions out of 5000i,500n,10000p,200000b,50000s
+!  ==> Fatal error occurred, no output PDF file produced!

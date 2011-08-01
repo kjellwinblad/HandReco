@@ -1,0 +1,54 @@
+\begin{thebibliography}{1}
+
+\bibitem{Cheriet}
+Mohamed Cheriet, Nawwaf Kharma, Cheng-Lin Liu, and Ching~Y. Suen.
+\newblock {\em Character Recognition Systems. A Guide for Students and
+  Practioners}.
+\newblock Wiley-Interscience. Wiley, 2007.
+
+\bibitem{Cho1995}
+Wongyu Cho, Seong-Whan Lee, and Jin~H. Kim.
+\newblock {Modeling and recognition of cursive words with hidden Markov
+  models}.
+\newblock {\em Pattern Recognition}, 28(12):1941--1953, December 1995.
+
+\bibitem{intro-Yacoubi}
+A.~El-Yacoubi, R.~Sabourin, C.~Y. Suen, and M.~Gilloux.
+\newblock An hmm-based approach for off-line unconstrained handwritten word
+  modeling and recognition.
+\newblock {\em IEEE Trans. Pattern Anal. Mach. Intell.}, 21:752--760, August
+  1999.
+
+\bibitem{initialmodel}
+Nicholas~C. Laan, Danielle~F. Pace, and Hagit Shatkay.
+\newblock Initial model selection for the baum-welch algorithm as applied to
+  hmms of dna sequences.
+
+\bibitem{Laan}
+Nicholas~C Laan, Danielle~F Pace, and Hagit Shatkay.
+\newblock {Initial model selection for the Baum-Welch algorithm as applied to
+  HMMs of DNA sequences .}
+\newblock {\em DNA Sequence}.
+
+\bibitem{intro1}
+Umapada Pal, Tetsushi Wakabayashi, and Fumitaka Kimura.
+\newblock {Comparative Study of Devnagari Handwritten Character Recognition
+  Using Different Feature and Classifiers}.
+\newblock pages 1111--1115, 2009.
+
+\bibitem{introsurvey}
+R{\'e}jean Plamondon and Sargur~N. Srihari.
+\newblock On-line and off-line handwriting recognition: A comprehensive survey.
+\newblock {\em IEEE Trans. Pattern Anal. Mach. Intell.}, 22(1):63--84, 2000.
+
+\bibitem{Rabiner1989}
+L.~R. Rabiner.
+\newblock A tutorial on hidden markov models and selected applications in
+  speech recognition.
+\newblock 77(2):257--286, 1989.
+
+\bibitem{Suen}
+Ching~Y Suen.
+\newblock {CHARACTER RECOGNITION SYSTEMS A Guide for Students and Practioners}.
+
+\end{thebibliography}
