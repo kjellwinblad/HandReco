@@ -15,12 +15,15 @@ The advantages MCM has over traditional methods include its flexibility and that
 A probabilistic model explicitly accounts for the uncertainty surrounding customer relationships.
 %% There is no "the" in the the original paper, there is a rule that you don't use articles before languages although this specific case is a bit tricky.
 It also allows the use of language of probability and expected value when reasoning about a firm's future relationship with an individual customer.
+As direct marketers are moving towards one-to-one relationships with their customers, this is a big advantage.
 
 In marketing, the Recency Frequency Monetary (RFM) framework is commonly used and it fits nicely with MCM.
 Recency describes how long ago the customer purchased something.
 Frequency describes how many times the customer has bought something from the firm.
 Monetary value describes the average value of the customer purchases.
 These concepts are used to define the states in the MCM.
+For example, recency can be used to specify the states so that there are \textbf{N} states corresponding to  \textbf{N}  levels of recency.
+If a customer in state \textbf{i} does not buy something during a time period, the customer will move to state \textbf{i + 1}.
 
 The MCM consists of the following vectors and matrices: 
 \begin{enumerate}
@@ -45,7 +48,7 @@ Therefore, given the economic and probabilistic assumptions of the model, the fi
 
 In accordance with the observation above, one can easily modify the Markov decision model. Two possible ways to do this is to use less states or to set the $\textbf{p}_t$ values with corresponding negative values $\textbf{v}_t$ in $\textbf{V}$ to zeros and the corresponding elements $\textbf{r}_t$ in $\textbf{R}$ to zeros as well.%$\textbf{v}_t$ one value but equal to zeros?
 
-Furthermore, it's possible to  adjust the MCM to have the purchase probabilities, remarketing expenditures and net contributions depend on recency. 
+Furthermore, it is possible to  adjust the MCM to have the purchase probabilities, remarketing expenditures and net contributions depend on recency. 
 This is accomplished by expanding the state space and breaking out the original recency 1 state into several new states. 
 The states correspond to the previously listed factors which depend on customer recency at the time of purchase. 
 
@@ -66,9 +69,13 @@ This is done by providing some example-scenarios that can be modeled with MCM. T
 One advantage of using MCM for customer relationship problems seems to be that the MCM naturally account for the randomness  in customer relationships. 
 %What is stochasticity and why does the model naturally account for it?  - stochasticity is randomness, because we make transitions based on probability it's a good model. not sure if we want to add something.
 
-The authors do not write anything about the validity of the assumptions underlying the models. For example, they assume that ending a relationship with a customer is preferable if the expected value of the customer's future purchases will be less than the cost of the relationship. This and other assumptions made in the models may be oversimplification in some cases. 
+The authors do not write anything about the validity of the assumptions underlying the models. 
+For example, they assume that ending a relationship with a customer is preferable if the expected value of the customer's future purchases will be less than the cost of the relationship. 
+This and other assumptions made in the models may be oversimplification in some cases. 
 For example, if the customer relationship is about sending out marketing material, the relatives of the customer might see the material.
-So even if the targeted customer don't purchase anything, the relationship might create new customers. However, the purpose of the paper is not to present very accurate models or to discuss all problems associated with the models but to show some use cases for MCMs.
+So even if the targeted customer don't purchase anything, the relationship might create new customers. 
+However, the purpose of the paper is not to present very accurate models or to discuss all problems associated with the models but to show some use cases for MCMs.
+Finally, the paper does not contain any real world experiments that empirically tries verify or refute the model.
 
 \bibliographystyle{plain}	% (uses file "plain.bst")
 \bibliography{myrefs}		% expects file "myrefs.bib"
