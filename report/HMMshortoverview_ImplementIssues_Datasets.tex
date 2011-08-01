@@ -33,8 +33,14 @@ In the concatenated string, we also used special beginning and end observation s
 The  beginning state   \textit{b} always transitions to the first normal state, and the  ending state \textit{e} always transitions back to \textit{b}.
 Finally, the forward-backward algorithm is used to choose the model that has the most probability of generating the observation sequence. 
 % TODO: Missing figure again
-See Figure 1
+See \ref{figure:wordtopology}.
 
+\begin{figure}[h!]
+\centering
+\includegraphics[width=5in]{wordtopology}
+\caption{Word HMM topology for a three-letter alphabet.}
+\label{figure:wordtopology}
+\end{figure}
 
 
 \item	Word classifier: A single model is constructed for the whole vocabulary. 
