@@ -1,35 +1,29 @@
 
 \section{Implementation Issues}
 
-While implementing HMM for both character recognition and word recognition, we encountered some practical issues.
+While implementing HMM for both character recognition and word recognition, we encounter some practical issues.
 
 \subsection{Initial Model Selection}
 %4.1. Describe the different initialization algos, advantages and disadvantages. Chongyang
 
 
-Hidden Markov models can be efficiently trained by Baum-Welch (BW) algorithm, which is an iterative process for estimating parameters for HMMs. 
-As an iterative algorithm, BW starts from an initial model and estimates transition and emission probability parameters by computing expectations via the Forward-Backward algorithm.
-The algorithm sums over all paths containing a given event until convergence is reached.
+Hidden Markov models can be efficiently trained by Baum Welch algorithm, which is an iterative process for estimating parameters for HMMs. As an iterative algorithm, BW starts from an initial model and estimates transition and emission probability parameters by computing expectations via Forward and Backward, which sums over all paths containing a given event until convergence is reached.
 
-Since the Baum-Welch algorithm is a local iterative method, the resulting HMM and the number of required iterations depend heavily on the initial model. 
-There are many ways to generate an initial model, some techniques consider the training data while others do not \cite{Laan}.
-Similar to Laan et al. \cite{Laan}, we tried three initialization strategies,  count-based, random and uniform. % not sure what's meant by this: tested on the training data for character HMM model.
+Since the Baum-Welch algorithm is a local iterative method, the resulting HMM and the number of required iterations depend heavily on the initial model. Of the many ways to generate an initial model, some techniques consider the training data while others do not \cite{Laan}.
+
+According to the paper \cite{Laan}, we tried the three initialization strategies as well, namely, count-based, random and uniform tested on the training data for character HMM model.
 
 \subsection{Topology of HMM}
 
-Because the EM algorithm assumes that the model is correct, it is important to devise a suitable topology before training starts. 
-The topology of the model is usually built by using a prior knowledge of the data \cite{Suen}. 
-For handwritten signals, a left-to-right HMM is often used where no back transitions from right to left are allowed.
+Since EM method assumes that the model is correct, it is important to devise a suitable topology before training starts. The topology of the model is usually built by using a prior knowledge on the data \cite{Suen}. Generally, for machine learning or handwriting signals, a left-to-right HMM is often carried out, which no back transitions from right to left are allowed.
 
 \begin{enumerate}
-\item	Character classifier: A model is created for each character in the training phase.
+\item	Character classifier: A model is created for each class in the training phase.
 
-Because the English alphabet only contains 26 characters, it is not too computationally costly to train a separate model for each character.
-We used special beginning and end states denoted by \textit{b} and \textit{e} respectively, similar to the model suggested by Laan et al. \cite{Laan}.
-Special beginning and end states are included because multiple training observation sequences are concatenated to form one observation sequence.
-The sequence is then used as input for the BW algorithm.
+Since alphabet in English is limited, up to 26, we can take the cost that each separated model is trained for each character using segmented word images.
+Furthermore, We specialized our beginning and ending states denoted by b and e respectively according to one suggested model for training \cite{Laan}.
+Special beginning and ending states are included generally because then the multiple observation training sequences are concatenated together to form one observation sequence for input into the Baum-Welch algorithm\cite{Laan}.
 
-<<<<<<< HEAD
 In the concatenated string, the original segments of character images sequences are connected by the special observation symbols "@" and \$.
  Also the special beginning state always transitions to the first normal state, and the special ending state always transitions to the special beginning state. Then forward and backward algorithm is used to choose the model that has the most probability of the observation sequence. See Figure \ref{figure:DNAHMM}\cite{Laan}.
 
@@ -39,13 +33,6 @@ In the concatenated string, the original segments of character images sequences 
   \caption{HMM topology for a DNA sequence of length three.}
   \label{figure:DNAHMM}
 \end{figure}
-=======
-In the concatenated string, we also used special beginning and end observation symbols @ and \$.
-The  beginning state   \textit{b} always transitions to the first normal state, and the  ending state \textit{e} always transitions back to \textit{b}.
-Finally, the forward-backward algorithm is used to choose the model that has the most probability of generating the observation sequence. 
-% TODO: Missing figure again
-See Figure 1
->>>>>>> d935813eac1a2d6a074043f16334890b2e4298be
 
 
 
@@ -73,24 +60,15 @@ Each state's observation is the letter we observed from the character classifier
 
 \end{enumerate}
 
-\subsection{Floating Point Precision}
+\subsection{prevention of underflow}
 
-When the number of states \textbf{t} grows sufficiently large, the forward variable $\textbf{a}_t(i)$ and backward variable  $\textbf{b}_t(i)$  exponentially approaches zero and exceed the precision range of floating point numbers. 
-One way to solve this problem is by incorporating a scaling procedure.
-For each \textbf{t}, we first compute $\textbf{a}_t(i)$ according to the induction equation (20) in  \cite{Rabiner1989}, and then multiply it by a scaling factor  $\textbf{c}_t$, calculated by Equation \ref{eq:rabiner-scaling}.
-% Maybe we should the explain the equation in more detail.. For example what  N is.
+For sufficiently large t states, forward variable $\textbf{a}_t(i)$ and backward variable  $\textbf{b}_t(i)$ head exponentially to zero and exceed the precision range of computer. The only reasonable way of performing the computation is by incorporating a scaling procedure[rabineer].
+For each t, first we compute $\textbf{a}_t(i)$ according to the induction fomula(20) in rabiner's paper \cite{Rabiner1989},and then multiply it by a scaling factor  $\textbf{c}_t$, where c is equal to $ \frac{1}{ \displaystyle\sum_{i=1}^N \textbf{a}_t(i)}$.
 
-\begin{equation}\label{eq:rabiner-scaling}
-\textbf{c}_t = \frac{1}{ \displaystyle\sum_{i=1}^N \textbf{a}_t(i)}
-\end{equation}
+To escape the underflow situation in viterbi algorithm, in order to give the maximum likelihood state sequence, we can simply adopt adding log probability rather than multiplying probabilities. Then no scaling is required.
 
-To avoid the underflow problem in the Viterbi algorithm, which calculates the maximum likelihood state sequence, we add log probabilities instead of multiplying probabilities.
-With this change, no scaling is required.
-
-\subsection{Zero Probability Transitions}
-% We should explain WHY this is a problem.
-Another problem that may occur when training HMM parameters is that state transition probabilities are likely to be zero.
-In our implementation, we initialize them to a very small number, such as \textbf{ $10^{-10}$}.
+\subsection{Handling null transitions}
+Another problem may occur when training HMM parameters is that transition probability is very likely to be null. In our implementation, we initialze them to very small number, such as \textbf{ $10^{-10}$}.
 
 
 
