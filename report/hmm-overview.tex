@@ -1,19 +1,19 @@
 
-For pattern recognition problem, like handwritten image recognition, there will  always be some randomness and uncertainty from the source recognition data. 
-Stocastic modeling deals with these problem efficiently by using probabilistic models \cite{Cho1995}.  
+For pattern recognition problems, like handwritten character recognition, there will  always be some randomness and uncertainty from the source. 
+Stochastic modeling deals with these problem efficiently by using probabilistic models \cite{Cho1995}.  
 Among such stochastic approaches, Hidden Markov Models have been widely used to model dynamic signals.
-The Hidden Markov Model treats the data as a sequence of observations, while using hidden states that are connected to each other by transition probabilities.
+The Hidden Markov Model treats data as a sequence of observations, while using hidden states that are connected to each other by transition probabilities.
  
 An HMM is characterized by the following \cite{Rabiner1989}:
 \begin{enumerate}
 \item	N, the number of states in the model.
 \item	M, the number of distinct observation symbols. % per state. I'm pretty sure this is not per state, but global?
 \item	A, the transition probability distribution.
-\item	B, the observation symbol probability distribution for each state
+\item	B, the observation symbol probability distribution for each state.
 \item	$\pi$, the initial state state distribution.
 \end{enumerate}
 
 In contrast to a knowledge-based approach, HMMs use statistical algorithms that can automatically extract knowledge from samples. 
 %% I think the following sentence is a little unclear what is meant
 Also, HMMs model patterns implicitly with different paths in the stochastic work. 
-The modeling power can be enhanced by adding more samples \cite{Cho1995}.
+The performance of the model can be enhanced by adding more samples \cite{Cho1995}.

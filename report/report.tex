@@ -49,7 +49,7 @@
 % ndra de rader som behver ndras
 \def\inst{Department of Information Technology}
 \def\typeofdoc{}
-\def\course{Handwritten Recognition}
+\def\course{Handwriting Recognition}
 \def\pretitle{}
 \def\title{Artificial Intelligence Using Statistical Methods}
 \def\name{Fabian Alenius, Kjell Winblad and Chongyang Sun}
@@ -112,9 +112,9 @@
 
 \begin{abstract}
 Recognizing handwritten text means transforming a graphical representation of text into its symbolic representation.
-Handwritten recognition is used in a wide variety of applications.
+Handwriting recognition is used in a wide variety of applications.
 This paper describes and empirically evaluates a handwritten text recognition system based on Hidden Markov Models.
-The results show that Hidden Markov Models can successfully be used for handwritten recognition.
+The results show that Hidden Markov Models can successfully be used for handwriting recognition.
 \end{abstract}
 
 	\pagenumbering{roman}
@@ -156,14 +156,15 @@ The results show that Hidden Markov Models can successfully be used for handwrit
 
 \section{Method}\label{sec:method}
 
-This section describes the handwritten text recognition system. It starts by giving a top level overview of the system and then it describes the details such as the HMM implementation, feature extraction and the datasets used for training. 
+This section describes the handwritten text recognition system we developed. 
+The section starts by giving a top level overview of the system and then it describes the details such as the HMM implementation, feature extraction and the datasets used for training. 
 
 %2. General overview of our implementation.   Kjell
 %	Two classifiers
 %		What they are doing
 %3. Add picture describing implementation.  Kjell
 
-\subsection{General Overview of Classifiers}\label{sec:overview_of_classifiers}
+\subsection{Overview of Classifiers}\label{sec:overview-of-classifiers}
 \input{general_overview_of_classifiers}
 
 
@@ -175,12 +176,12 @@ This section describes the handwritten text recognition system. It starts by giv
 
 \input{hmm_implementation}
 
-\subsection{Image Preprocessing and Feature Extraction}\label{sec:image_preprocessing}
+\subsection{Image Preprocessing and Feature Extraction}\label{sec:image-preprocessing}
 %1. Write about scaling of picture. Kjell
 %2. Segmentation of picture. Kjell
 \input{image_preprocessing_and_feature_extraction}
 
-\subsection{Dataset}
+\subsection{Dataset}\label{sec:dataset}
 \input{dataset}
 
 \section{Result}\label{sec:result}

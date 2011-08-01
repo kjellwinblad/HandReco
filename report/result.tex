@@ -1,8 +1,7 @@
 \subsection{Word Classifier and Different Initialization Methods}\label{sec:word_classifier_results}
 %% general comment - normally I think you use capital letters for figures, equations, tables and chapters. e.g. Figure 1, Equation 2, Table 3 etc.
-In this subsection the classification results for the words in Table~\ref{tab:words_supported_by_classifier} will be presented. 
+In this subsection the classification results for running with the words in Table~\ref{tab:words_supported_by_classifier} will be presented. 
 %% Is the following reference really necessary? I think it's pretty obvious where to find the information.
-See Section~\ref{sec:method} for a description of the implementation of the classifiers.
 The training and test example words were randomly generated with the generator having the properties in Table~\ref{tab:word_generator_properties}.
 See Section~\ref{sec:dataset}, for more information about the word example generator. 
 
@@ -62,11 +61,15 @@ The test score is defined as the percentage of correctly classified test example
 \label{tab:word_classifier_results_generated_data} 
 \end{table}
 
+\subsection{Test of Single HMM Word Classifier}
+\textbf{TODO:} Here results for the word classifier called \textit{Word HMM} in the Topology of Word Classifier Section will be presented.
+
+
 \subsection{Character Classification with Different Parameters}\label{sec:character_classifier_results}
 
 As described in Section~\ref{sec:image_preprocessing} the image feature extraction step in the character classifier takes two parameters.
-The first parameter is the number of segments that shall be created. 
-The second parameter is the size classification factor which is used in equation~\ref{eq:classification_function}. 
+The first parameter is the \textit{number of segments} that shall be created. 
+The second parameter is the \textit{size classification factor} which is used in equation~\ref{eq:classification_function}. 
 For the experiment we only had 100 examples for each of the 26 characters. 
 How the examples are produced is described in Section~\ref{sec:dataset}. 
 An initial experiment was performed to test count based initialization and random initialization before and after training with the Baum-Welch algorithm.
@@ -129,3 +132,4 @@ CCF\textbackslash NOS &    4   & 5      & 6      & 7      & 8      & 9      & 10
          CCF=''component classification factor''}
 \label{tab:character_classifier_results_different_parameters} 
 \end{table}
+
