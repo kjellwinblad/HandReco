@@ -1,7 +1,13 @@
 
-Actually, we tried very hard to find datasets of handwritten from the internet at the very beginning. But it turns out many of them are not available. And the rest of them, like following image example(Figure 2), they need very much image processing work before we got down to the core part of our project for this course, like baseline slant normalization, skew correction, skeleton and so on.
+We tried to find a dataset with handwritten text at the beginning of the project, but it turns out there are not that many available. 
+% Not sure what Image is supposed to be referenced here.
+The datasets that do exist, like following image example(Figure 2), they would have needed a lot of preprocessing before we could use them in our project.
+We would have had to implement baseline slant normalization, skew correction, skeleton and so on.
 
-Therefore, instead of consuming plenty of time in the preprocessing the datasets, we implement a Graphic User Interface to create data sets by ourselves. The most advantage of this solution is that it records directly one pixel wide letters which the letters are already separated. The crucial part of work, image processing, is reduced significantly.
+Therefore, instead of spending a lot of time preprocessing the datasets, we implemented a Graphic User Interface to create our own dataset.
+The biggest advantages of this solution is that our solution records one pixel wide letters and the characters are already separated. 
+The most important part of the work, image processing, was thus reduced significantly.
 
-Furthermore, if the vocabulary is relatively large, we found out it can be easier for us to test our HMM, because our word training data is made up randomly chosen from the 26 character files.
+Furthermore, if the vocabulary is relatively large, we found that it became easier for us to test the HMM.
+This is because our word training data is made up of randomly chosen samples.
 
