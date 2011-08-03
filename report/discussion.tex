@@ -1,4 +1,13 @@
-%% I think this reference is unnecessary. In section~\ref{sec:word_classifier_results} the test results for the word classifier is presented.
+\subsection{Character Classifier}
+We believe that the amount of available training data is a liming factor for the character classifier.
+Because when we train the system, after it has been initialized with the count-based method, with the Baum-Welch algorithm the performance becomes worse.
+If the classifier is to be accurate for a random person's handwriting, it would be beneficial to let more people paint training examples to get a more generalized classifier.
+
+Our approach will always have problems with characters that look similar to other characters when turned upside down.
+For example ''M'' and ''W'' look exactly alike if they are turned upside down for some handwriting styles.
+Why this problem occur is obvious if one looks at the feature extraction process.
+
+\subsection{Forward-classifier}
 The results in Section~\ref{sec:word_classifier_results} clearly show the importance of having enough training data.
 When using the count-based initialization method, the accuracy actually becomes worse after training the model with Baum-Welch when using less than 800 training examples.
 The effects of not having enough training data when using the Baum-Welch algorithm is further discussed in~\cite{Rabiner1989}.
@@ -6,7 +15,7 @@ One way to potentially solve this problem is add some kind of smoothening of the
 The smoothening could be done by for example setting all transitions with probability zero to a small value that is greater than zero.
 The count-based initialization method gives almost perfect accuracy on the test set without training with Baum-Welch.
 
-The vocabulary used by the classifier is quite small as it only contains 20 words.
+The vocabulary used by the Forward-classifier is quite small as it only contains 20 words.
 The accuracy would probably be worse with a larger vocabulary with many words that are similar to each other.
 The classifier implementation would also have performance problems for many applications with large vocabularies.
 This is because the time complexity of classifying an example grows linearly with the size of the vocabulary.
@@ -15,11 +24,9 @@ When the training examples are generated as previously described, it is probably
 For most applications it would be better to use a spell-checking algorithm that can find words similar to a string in an effective way.
 However, if the training data instead is the result of a handwritten recognition system it could be more useful, because then the model could learn to correct mistakes that the handwritten recognition system does.
 
-% In Section~\ref{sec:character_classifier_results} the test results for the character classifier is described. unnecessary reference imo.
-We believe that the amount of available training data is a liming factor for the character classifier.
-Because when we train the system, after it has been initialized with the count-based method, with the Baum-Welch algorithm the performance becomes worse.
-If the classifier is to be accurate for a random person's handwriting, it would be beneficial to let more people paint training examples to get a more generalized classifier.
-
-Our approach will always have problems with characters that look similar to other characters when turned upside down.
-For example ''M'' and ''W'' look exactly alike if they are turned upside down for some handwriting styles.
-Why this problem occur is obvious if one looks at the feature extraction process.
+\subsection{Viterbi-classifier}
+In general, the Viterbi-classifier performs well.
+However, when we evaluated with a lexicon that contains long words, the performance improvement is very small compared to just using the output from the character classifier directly.
+But for the lexicon that contains shorter words, the performance improvement is larger. 
+We believe this is because all the letters are of the same length and therefore the classification becomes harder.
+With shorter words, a single extra letter that is correct can make a big difference.
