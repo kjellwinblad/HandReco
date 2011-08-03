@@ -111,14 +111,14 @@ For every letter in the string a corresponding character image was chosen random
 
  Two experiments were ran with two different set of possible output words.
  These sets can be seen in appendix~\ref{app:examples_sets_viterbi_classifier}.
- \emph{Example set 1} contains 151 unconstrained English words chosen from common prefix and root word examples in the dictionary.
- \emph{Example set 2} contains 8 words with 3 letters in each.
+ \emph{Example set 1} contains 8 words with 3 letters in each.
+ \emph{Example set 2} contains 151 unconstrained English words chosen from common prefix and root word examples in the dictionary.
  To test the difference between using the viterbi correction and simply the similarity measurement we performed tests both with and without the viterbi correction.
  For every word in the list 10 test examples were created.
- With the viterbi correction the score was 91\% for \emph{example set 1} and 96\% for \emph{example set 2}.
- Without the viterbi correction the score was 91\% for \emph{example set 1} and 70\% for \emph{example set 2}.
+ With the viterbi correction the score was 96\% for \emph{example set 1} and 91\% for \emph{example set 2}.
+ Without the viterbi correction the score was 70\% for \emph{example set 1} and 91\% for \emph{example set 2}.
 
- The results for the \emph{example set 1} are almost the same, with and without the viterbi step respectively.
+ The results for \emph{example set 2} are almost the same, with and without the viterbi step respectively.
  Figure~\ref{fig:viterbifig} shows how the string look like before the viterbi step, after the viterbi step and after the similarity mapping, in the same order mentioned.
  From the figure it is possible to see that the viterbi step actually improves the input string.
 
