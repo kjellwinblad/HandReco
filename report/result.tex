@@ -7,7 +7,7 @@ We used a total of 100 test examples to test the accuracy of the created classif
 Five test examples each for the 20 words. 
 The test examples were generated using the same properties as the training examples.
 Two initialization methods, count-based initialization and random initialization, were tested with 100, 200, 400, 800 and 1600 training examples. 
-The results of the test is presented in Table~\ref{tab:word_classifier_results_generated_data}. 
+The results of the test is presented in Figure~\ref{figure:initialization-methods}. 
 It contains the test scores for the two initialization methods, before and after training with the Baum-Welch algorithm. 
 The test score is defined as the percentage of correctly classified test examples.
 
@@ -37,27 +37,17 @@ The test score is defined as the percentage of correctly classified test example
 \label{tab:word_generator_properties} 
 \end{table}
 
-\begin{table}[htb]
-  \begin{center}
-  \begin{tabular}{ l l l l l l l }
-    NOE    & RIBF   & CBIBT  & RIAT    & CBIAT  & RITT & CBITT\\ \hline
-    $100$  & $3\%$  & $99\%$    & $1\%$        & $0\%$       & $6\%$    & $3\%$\\ 
-    $200$  & $2\%$  & $100\%$  & $13\%$     & $36\%$     & $12\%$  & $5\%$\\ 
-    $400$  & $2\%$  & $100\%$  & $90\%$     & $95\%$     & $23\%$  & $7\%$\\
-    $800$  & $1\%$  & $100\%$  & $100\%$   & $100\%$  & $46\%$ & $13\%$\\   
-    $1600$ & $5\%$ & $100\%$  & $100\%$   & $100\%$  & $96\%$ & $26\%$\\  
-  \end{tabular}
-\end{center}
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.57]{initialization-methods}
 \caption{Test with different number of training examples and different initialization methods.
 	 NOE=''number of training examples for every word'',
          RIBF=''random initialization score before training'',
          CBIBT=''count-based initialization score before training'',
          RIAT=''random initialization score after training'',
-         CBIAT=''count-based initialization score after training'',
-         RITT=''random initialization training time (minutes)'',
-         CBITT=''count-based initialization training time (minutes)''} 
-\label{tab:word_classifier_results_generated_data} 
-\end{table}
+         CBIAT=''count-based initialization score after training.}
+\label{figure:initialization-methods}
+\end{figure}
 
 \subsection{Test of Single HMM Word Classifier}
 \textbf{TODO:} Here results for the word classifier called \textit{Word HMM} in the Topology of Word Classifier Section will be presented.
