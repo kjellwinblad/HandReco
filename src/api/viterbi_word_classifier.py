@@ -3,6 +3,10 @@ Created on Jul 25, 2011
 
 @author: C
 '''
+import sys
+sys.path.append("../gui")
+sys.path.append("../api")
+sys.path.append("..")
 
 from hmm import HMM
 from api.simple_image_feature_extractor import SimpleImageFeatureExtractor
@@ -138,60 +142,149 @@ class WordClassifier(object):
      
 class TestWordClassifier(unittest.TestCase):
 
-        
-    def test_classify(self):     
-        words = ["pig","dog","cat","bee","ape","elk","hen","cow"]
-        alphabet =['a','b','c','d','e','f','g','h','i','j','k','l',
-                   'm','n','o','p','q','r','s','t','u','v','w','x','y','z']
-        #extractor = SimpleImageFeatureExtractor(nr_of_divisions=17, 
-        #                            size_classification_factor=3.4)
-        #examples_dir = File(File(File(File(str(inspect.getfile( inspect.currentframe() ))).getParent(),".."),".."),"word_examples_for_test").getCanonicalPath()
-        #empty, character_test_examples = extractor.extract_training_and_test_examples(examples_dir, #character_examples word_examples_for_test
-        #                                                                    nr_of_training_examples=0,
-        #                                                                    nr_of_test_examples=10)
-        #                                                                    
-        #output = open('datatest_segments_17_cf_3_4.pkl', 'wb')
-        #pickle.dump(character_test_examples, output)
-        #output.close()   
-        
+    feature_extraction_number_of_segments = 11
+    feature_extraction_classification_factor = 4.6
+    word_list1 = ["pig","dog","cat","bee","ape","elk","hen","cow"]
+    word_list2 = ['asexual', 'amoral', 'anarchy', 'anhydrous', 'anabaptist', 'anachronism', 'abnormal',
+                   'abduct', 'abductor', 'abscission', 'agent', 'agency', 'agenda', 'antipathy', 
+                   'antitank', 'anticlimax', 'aquarium', 'aqueous', 'automatic', 'automaton', 
+                   'bisexual', 'biennial', 'binary', 'benefit', 'benevolent', 'benefactor', 
+                   'beneficent', 'biology', 'biography', 'circumference', 'circumlocution', 
+                   'circumstance', 'democracy', 'theocrat', 'technocracy', 'diagonal', 'dialectic', 
+                   'dialogue', 'diagnosis', 'dynamic', 'dynamo', 'dynasty', 'dynamite', 'exotic', 
+                   'exterior', 'extraneous', 'extemporaneous', 'exophalmic', 'exogenous', 'exothermic', 
+                   'federation', 'confederate', 'fraternize', 'fraternity', 'fraternal', 'fratricide', 
+                   'geology', 'geography', 'geocentric', 'geomancy', 'graphic', 'graphite', 
+                   'graphology', 'heterogeneous', 'heterosexual', 'heterodox', 'heterodont', 
+                   'heterocyclic', 'heterozygous', 'homogeneous', 'homogenized', 'homozygous', 
+                   'identity', 'idiopathic', 'individual', 'idiosyncrasy', 'idiopathic', 'incredible', 
+                   'ignoble', 'inglorious', 'inhospitable', 'infinite', 'infinitesimal', 'immoral', 
+                   'interact', 'interstellar', 'interpret', 'interstitial', 'legal', 'legislature', 
+                   'lexicon', 'lexicography', 'liberty', 'library', 'liberal', 'locality', 'local', 
+                   'circumlocution', 'mission', 'transmit', 'remit', 'monocle', 'monopoly', 'monogamy', 
+                   'monovalent', 'monomania', 'monarchy', 'oligarchy', 'oligopoly', 'paternal', 
+                   'paternity', 'patricide', 'peripatetic', 'periscope', 'perineum', 'peritoneum', 
+                   'political', 'metropolitan', 'premier', 'preview', 'premium', 'prescient', 'project', 
+                   'projectile', 'public', 'republic', 'pub', 'publican', 'psychology', 'solo', 
+                   'solitary', 'synchronize', 'symphony', 'sympathy', 'syncretic', 'syncope', 
+                   'subterfuge', 'subtle', 'subaltern', 'subterranean', 'telegraph', 'telephone', 
+                   'teleology', 'transport', 'transcend', 'transmogrify', 'utility', 'utilitarian', 
+                   'video', 'vision', 'visible']
+    alphabet =['a','b','c','d','e','f','g','h','i','j','k','l',
+               'm','n','o','p','q','r','s','t','u','v','w','x','y','z']
+
+    def extract_test_examples_to_file(self):
+        extractor = SimpleImageFeatureExtractor(nr_of_divisions=self.feature_extraction_number_of_segments, 
+                                    size_classification_factor=self.feature_extraction_classification_factor)
+        examples_dir = File(File(File(File(str(inspect.getfile( inspect.currentframe() ))).getParent(),".."),".."),"word_examples_for_test").getCanonicalPath()
+        empty, character_test_examples = extractor.extract_training_and_test_examples(examples_dir, #character_examples word_examples_for_test
+                                                                            nr_of_training_examples=0,
+                                                                            nr_of_test_examples=10)
+                                                                            
+        output = open('datatest_segments_' +
+                      str(self.feature_extraction_number_of_segments) + '_cf_'+
+                      str(self.feature_extraction_classification_factor).replace('.','_')+
+                      '.pkl', 'wb')
+        pickle.dump(character_test_examples, output)
+        output.close()
+   
+   
+    def get_test_examples(self):
+        self.extract_test_examples_to_file()
         # the same effect to create the word testing data
-        pkl_file = open('datatest_segments_17_cf_3_4.pkl', 'rb')
+        example_file = ('datatest_segments_' +
+                        str(self.feature_extraction_number_of_segments) + '_cf_'+
+                        str(self.feature_extraction_classification_factor).replace('.','_')+
+                        '.pkl')
+        pkl_file = open(example_file, 'rb')
         character_test_examples = pickle.load(pkl_file)
         character_test_examples.sort()
         #pprint.pprint(training_examples)
         pkl_file.close()
-        
-        def gernerateCharacterFeatures(character):
-            '''randomly choice the features of the character from the training_examples'''
-            allFeatures = character_test_examples[alphabet.index(character)][1]
-            return random.choice(allFeatures)
-        
+        return character_test_examples
+    
+    def get_character_classifier(self):
         path_to_this_dir = File(str(inspect.getfile( inspect.currentframe() ))).getParent()
-        character_classifier_file = open(File(path_to_this_dir,"character_classifier_17_segments_cf_3_4_correct_54.dat").getPath(),'r')
+        classifier_filename = ("character_classifier_" +
+                               str(self.feature_extraction_number_of_segments) +
+                               "_segments_cf_"+str(self.feature_extraction_classification_factor).replace('.','_')+
+                               ".dat")
+        character_classifier_file = open(File(path_to_this_dir,classifier_filename).getPath(),'r')
         character_classifier = CharacterClassifier(from_string_string=character_classifier_file.read())
         character_classifier_file.close()
-
-        wordClassifier = WordClassifier(words)
+        return character_classifier
         
-        def testWordOnce(word):
-            observations = []
-            for eachCharacter in word:
-                character_features = gernerateCharacterFeatures(eachCharacter)
-                observation = character_classifier.classify_character_string(character_features)
-                observations.append(str(observation))
+    def gernerate_observation_from_word(self,word, character_classifier, character_test_examples):
+        def gernerateCharacterFeatures(character):
+            '''randomly choice the features of the character from the training_examples'''
+            allFeatures = character_test_examples[self.alphabet.index(character)][1]
+            return random.choice(allFeatures)
+        observations = []
+        for eachCharacter in word:
+            character_features = gernerateCharacterFeatures(eachCharacter)
+            observation = character_classifier.classify_character_string(character_features)
+            observations.append(str(observation))
+        observations = reduce(str.__add__, observations)
+        return observations
 
-                #transfer the list of characters to their corresponding string
-            observations = reduce(str.__add__, observations)
-            word = wordClassifier.classify(observations.lower())
-            return observations.lower(), word
+    
+    def test_word_once(self, word, wordClassifier, character_classifier, character_test_examples):
+        #transfer the list of characters to their corresponding string
+        observations = self.gernerate_observation_from_word(word, character_classifier, character_test_examples)
+        word = wordClassifier.classify(observations.lower())
+        return observations.lower(), word
+    
+    def classify(self, words):     
+
+        character_test_examples = self.get_test_examples()
+        character_classifier = self.get_character_classifier()
+        word_classifier = WordClassifier(words=words)
 
         def testWordManyTimes(word, test_numbers = 100):
             for i in range(test_numbers):
-                print testWordOnce(word)
+                print self.test_word_once(word,word_classifier, character_classifier, character_test_examples)
         
         for eachWord in words:
             print eachWord
             testWordManyTimes(eachWord,10)
+            
+    def test_classify(self):
+        print("WORD LIST 1")
+        self.classify(self.word_list1)
+        
+        print("WORD LIST 2")
+        self.classify(self.word_list2)
+        
+            
+    def score(self, words):
+        
+        character_test_examples = self.get_test_examples()
+        character_classifier = self.get_character_classifier()
+        word_classifier = WordClassifier(words)
+        
+        def score_for_word(word, number_of_tests = 100):
+            nr_of_correctly_classified = 0.0
+            for i in range(number_of_tests):
+                observation, (viterbi,classification) = self.test_word_once(word,word_classifier, character_classifier, character_test_examples)
+                if classification == word:
+                    nr_of_correctly_classified = nr_of_correctly_classified + 1
+            return (nr_of_correctly_classified + 0.0) / (number_of_tests + 0.0)
+        
+        total_word_score = 0.0
+        for word in words:
+            score_for_w = score_for_word(word, number_of_tests = 10)
+            total_word_score = total_word_score + score_for_w
+            print '"Score for word '+ word + '" = ' + str(score_for_w)
+        
+        print "SCORE = " + str(total_word_score/(len(words)+0.0))
+        
+    def test_score(self):
+        print("SCORE FOR WORD LIST 1")
+        self.score(self.word_list1)
+        
+        print("SCORE FOR WORD LIST 2")
+        self.score(self.word_list2)
+        
                 
 
 if __name__ == "__main__":
