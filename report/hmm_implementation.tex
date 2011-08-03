@@ -32,10 +32,10 @@ The initialization of the transition and emission matrices are done in such a wa
 \end{figure}
 
 
-\subsubsection{Hidden Markov Model Topology for the Word Classifiers}
+\subsubsection{Hidden Markov Model Topology for the Word Classifiers}\label{sec:word_classifiers}
 
 We have implemented two classifiers for classifying words. 
-The first has exactly the same topology as the character classifier and uses one HMM for every character as described in Section~\ref{sec:overview-of-classifiers}. 
+The first called \emph{Forward-classifier}, has exactly the same topology as the character classifier and uses one HMM for every character as described in Section~\ref{sec:overview-of-classifiers}. 
 If the word has $n$ letters, there will be $n + 2$ states in the corresponding HMM.
 
 It is natural to implement one HMM for each of the words when the vocabulary is small.
@@ -43,8 +43,8 @@ When the vocabulary is larger this approach may have performance problems.
 With a large vocabulary using a single HMM can be beneficial.
 A single model has the additional benefit that it can learn common patterns in words such as ''ing''.
 
-The second word classifier that we implemented uses a single HMM for the whole vocabulary. 
-The HMM used in the second word classifier is called \textit{Word HMM} in the following text.
+The second word classifier (\emph{Viterbi-classifier}) that we implemented, uses a single HMM for the whole vocabulary. 
+The HMM used in the \emph{Viterbi-classifier} is called \textit{Word HMM} in the following text.
 See Figure~\ref{figure:wordtopology}.
 
 \begin{figure}[h!]
@@ -64,6 +64,17 @@ The observations are the letters we have observed from the character classifier.
 The observation probability matrix is created from observations when testing the character classifier.
 For example, if we have 10 test example images for A, and 5 of them are classified to be A, 3 to be B and 2 to be C, then $P(observation=A)=0.5$, $P(observation=B)=0.3$ and $P(observation=C)=0.2$.
 For this example, the row for A in the probability matrix will be set to $[0.5, 0.3, 0.2, 0, 0,...,0]$.
+
+So given the \textit{Word HMM} described above the classification of a string of characters can be done in the following way:
+
+\begin{enumerate}
+ \item Use the string as an observation sequence and applay the viterbi-algorithm to get the most probable sequence of states.
+ \item Calculate the similaraty for the resulting string to all possible output words. As simularity messure we use the hamming distance. 
+ \item Return the most similar word from above as the result.
+\end{enumerate}
+
+
+
 
 \subsection{Initial Parameter Selection}
 %4.1. Describe the different initialization algos, advantages and disadvantages. Chongyang

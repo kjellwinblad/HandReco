@@ -1,5 +1,51 @@
-\subsection{Word Classifier and Different Initialization Methods}\label{sec:word_classifier_results}
-In this subsection the classification results for running with the words in Table~\ref{tab:words_supported_by_classifier} will be presented. 
+\subsection{Character Classification with Different Parameters}\label{sec:character_classifier_results}
+
+As described in Section~\ref{sec:image-preprocessing} the image feature extraction step in the character classifier takes two parameters.
+The first parameter is the \textit{number of segments} that should be created. 
+The second parameter is the \textit{size classification factor}, which is used in Equation~\ref{eq:classification_function}. 
+For the experiment we only had 100 examples for each of the 26 characters. 
+How the examples are produced is described in Section~\ref{sec:dataset}. 
+An initial experiment was performed to test count-based initialization and random initialization before and after training with the Baum-Welch algorithm.
+The initial experiment shows that there is probably not enough training data for the training to have any positive effect for count-based initialization. 
+This could possible be fixed to some extend with some kind of smoothening of the model produced by the training. 
+10 test examples and 90 training examples for every character were selected randomly from the example set for the experiments. 
+The results from the initial experiment can be found in table~\ref{tab:character_classifier_initial_experiment}. 
+In the initial experiment $1.3$ was used as the size classification factor and the number of segments was set to $7$.
+
+
+\begin{table}[htb]
+  \begin{center}
+  \begin{tabular}{ l l l l l }
+    NOE    & RIBF   & CBIBT  & RIAT    & CBIAT \\ \hline
+    $90$  & $4\%$ & $53\%$ & $16\%$  & $16\%$  \\   
+  \end{tabular}
+\end{center}
+\caption{Test of the character classifier with different initialization methods and before and after training.
+	 NOE=''number of training examples for every word'',
+         RIBF=''random initialization score before training'',
+         CBIBT=''count-based initialization score before training'',
+         RIAT=''random initialization score after training'',
+         CBIAT=''count-based initialization score after training''} 
+\label{tab:character_classifier_initial_experiment} 
+\end{table}
+
+Only count-based initialization is considered in the experiment of different parameters, because the initial experiment showed that the best result seems to be produced when only using count-based initialization and no training.
+When testing the parameters, 5 models were created in the same way as in the initial experiment. 
+The average accuracy for these 5 models when testing them with their own test example set was recorded as the accuracy for the configuration. 
+For all 5 models that were created, different training example sets and test example sets were randomly selected. 
+We used 90 training examples and 10 test examples for every character, as in the initial experiment. 
+The results of the experiment can be seen in Figure~\ref{figure:charater-results-parameters}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.57]{ccf-nos}
+\caption{Results for character classification test with different parameters. The performance is the percentage of correctly classified characters.}
+\label{figure:charater-results-parameters}
+\end{figure}
+
+\subsection{Forward-classifier with Different Initialization Methods}\label{sec:word_classifier_results}
+In this section we will describe results optained for the \emph{Forward-classifier} introduced in Section~\ref{sec:overview-of-classifiers}.
+The classification results for running with the words in Table~\ref{tab:words_supported_by_classifier} will be presented. 
 The training and test example words were randomly generated with the generator having the properties in Table~\ref{tab:word_generator_properties}.
 See Section~\ref{sec:dataset}, for more information about the word example generator. 
 
@@ -49,54 +95,44 @@ The test score is defined as the percentage of correctly classified test example
 \label{figure:initialization-methods}
 \end{figure}
 
-\subsection{Test of Single HMM Word Classifier}
-\textbf{TODO:} Here results for the word classifier called \textit{Word HMM} in the Topology of Word Classifier Section will be presented.
+\subsection{Two Level Classification with the Viterbi-classifier}
+In this section we will describe results obtained for the \emph{Viterbi-classifier} together with the character classifier.
+The classifiers are introduced in Section~\ref{sec:overview-of-classifiers}.
+Thus we will illustrate the results for a two stages offline-handwritten recognition system.
+
+A test string for a word $w$ used as input to the classifier in the test was generated in the following way:
+
+\begin{enumerate}
+ \item A test example set with examples of character images containing 20 images for every character. 
+For every letter in the string a corresponding character image was chosen randomly.
+ \item The selected character images were classified with a character classifier which used 100 training examples, 11 segment and the classification factor 4.6.
+ \item The resulting string from step 2 is the final test example for the word $w$.
+\end{enumerate}
+
+ Two experiments were ran with two different set of possible output words.
+ These sets can be seen in appendix~\ref{app:examples_sets_viterbi_classifier}.
+ \emph{Example set 1} contains 151 unconstrained English words chosen from common prefix and root word examples in the dictionary.
+ \emph{Example set 2} contains 8 words with 3 letters in each.
+ To test the difference between using the viterbi correction and simply the similarity measurement we performed tests both with and without the viterbi correction.
+ For every word in the list 10 test examples were created.
+ With the viterbi correction the score was 91\% for \emph{example set 1} and 96\% for \emph{example set 2}.
+ Without the viterbi correction the score was 91\% for \emph{example set 1} and 70\% for \emph{example set 2}.
+
+ The results for the \emph{example set 1} are almost the same, with and without the viterbi step respectively.
+ Figure~\ref{fig:viterbifig} shows how the string look like before the viterbi step, after the viterbi step and after the similarity mapping, in the same order mentioned.
+ From the figure it is possible to see that the viterbi step actually improves the input string.
+
+    \begin{figure}[htb] 
+      \begin{center}
+	\leavevmode
+	\includegraphics[width=80mm]{viterbiimage.pdf}%width=115mm,height=40mm
+      \end{center}
+      \caption{Example image from output of the Viterbi-classifier experiment.}
+      \label{fig:viterbifig}
+    \end{figure}
 
 
-\subsection{Character Classification with Different Parameters}\label{sec:character_classifier_results}
 
-As described in Section~\ref{sec:image-preprocessing} the image feature extraction step in the character classifier takes two parameters.
-The first parameter is the \textit{number of segments} that should be created. 
-The second parameter is the \textit{size classification factor}, which is used in Equation~\ref{eq:classification_function}. 
-For the experiment we only had 100 examples for each of the 26 characters. 
-How the examples are produced is described in Section~\ref{sec:dataset}. 
-An initial experiment was performed to test count-based initialization and random initialization before and after training with the Baum-Welch algorithm.
-The initial experiment shows that there is probably not enough training data for the training to have any positive effect for count-based initialization. 
-This could possible be fixed to some extend with some kind of smoothening of the model produced by the training. 
-10 test examples and 90 training examples for every character were selected randomly from the example set for the experiments. 
-The results from the initial experiment can be found in table~\ref{tab:character_classifier_initial_experiment}. 
-In the initial experiment $1.3$ was used as the size classification factor and the number of segments was set to $7$.
-
-
-\begin{table}[htb]
-  \begin{center}
-  \begin{tabular}{ l l l l l }
-    NOE    & RIBF   & CBIBT  & RIAT    & CBIAT \\ \hline
-    $90$  & $4\%$ & $53\%$ & $16\%$  & $16\%$  \\   
-  \end{tabular}
-\end{center}
-\caption{Test of the character classifier with different initialization methods and before and after training.
-	 NOE=''number of training examples for every word'',
-         RIBF=''random initialization score before training'',
-         CBIBT=''count-based initialization score before training'',
-         RIAT=''random initialization score after training'',
-         CBIAT=''count-based initialization score after training''} 
-\label{tab:character_classifier_initial_experiment} 
-\end{table}
-
-Only count-based initialization is considered in the experiment of different parameters, because the initial experiment showed that the best result seems to be produced when only using count-based initialization and no training.
-When testing the parameters, 5 models were created in the same way as in the initial experiment. 
-The average accuracy for these 5 models when testing them with their own test example set was recorded as the accuracy for the configuration. 
-For all 5 models that were created, different training example sets and test example sets were randomly selected. 
-We used 90 training examples and 10 test examples for every character, as in the initial experiment. 
-The results of the experiment can be seen in Figure~\ref{figure:charater-results-parameters}.
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.57]{ccf-nos}
-\caption{Results for character classification test with different parameters. The performance is the percentage of correctly classified characters.}
-\label{figure:charater-results-parameters}
-\end{figure}
 
 
 

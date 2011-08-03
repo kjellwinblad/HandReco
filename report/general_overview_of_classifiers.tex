@@ -2,8 +2,10 @@
 The handwriting recognition system has two levels, each containing a classifier. 
 The first classifier is a function that takes an image as input and outputs a character. 
 The second classifier is a function that takes a string of characters as input and outputs a word.
-We have implemented two kinds of the word classifier.
-One of them is only described in the method section, because we did not have time to analyze its performance.
+
+We have implemented two kinds of word classifiers.
+The first one called the \emph{Forward-classifier} has exactly the same architecture as the character classifier and is explained in this section.
+The second one is called \emph{Viterbi-classifier} and is explained in Section~\ref{sec:word_classifiers}.
 A flowchart that shows the classification process can be seen in Figure~\ref{fig:classification_system_overview}. 
 
     \begin{figure}[htb] 
