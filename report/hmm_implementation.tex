@@ -7,7 +7,7 @@ For handwritten signals, a left-to-right HMM is often used where no back transit
 
 \subsubsection{Hidden Markov Model Topology for the Character Classifier}
 
-A model is created for each character in the training phase, as described in Section~\ref{sec:overview_of_classifiers}.
+A model is created for each character in the training phase, as described in Section~\ref{sec:overview-of-classifiers}.
 Because the Latin alphabet only contains 26 characters, it is not too computationally costly to train a separate model for each character.
 The topology is very similar to the topology suggested by Laan et al \cite{Laan}. 
 We used special beginning and end states denoted by \textit{start} and \textit{end} respectively.
@@ -39,11 +39,11 @@ The first called \emph{Forward-classifier}, has exactly the same topology as the
 If the word has $n$ letters, there will be $n + 2$ states in the corresponding HMM.
 
 It is natural to implement one HMM for each of the words when the vocabulary is small.
-When the vocabulary is larger this approach may have performance problems.
+When the vocabulary is larger, this approach may have performance problems.
 With a large vocabulary using a single HMM can be beneficial.
 A single model has the additional benefit that it can learn common patterns in words such as ''ing''.
 
-The second word classifier (\emph{Viterbi-classifier}) that we implemented, uses a single HMM for the whole vocabulary. 
+The second word classifier that we implemented, called (\emph{Viterbi-classifier}), uses a single HMM for the whole vocabulary. 
 The HMM used in the \emph{Viterbi-classifier} is called \textit{Word HMM} in the following text.
 See Figure~\ref{figure:wordtopology}.
 
@@ -68,9 +68,9 @@ For this example, the row for A in the probability matrix will be set to $[0.5, 
 So given the \textit{Word HMM} described above the classification of a string of characters can be done in the following way:
 
 \begin{enumerate}
- \item Use the string as an observation sequence and applay the viterbi-algorithm to get the most probable sequence of states.
- \item Calculate the similaraty for the resulting string to all possible output words. As simularity messure we use the hamming distance. 
- \item Return the most similar word from above as the result.
+ \item Use the string as an observation sequence and apply the Viterbi-algorithm to get the most probable sequence of states.
+ \item Calculate the similarity of the resulting string to all possible output words. As similarity measure we use the hamming distance. 
+ \item Return the most similar word.
 \end{enumerate}
 
 
