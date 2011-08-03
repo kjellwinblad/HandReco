@@ -59,6 +59,7 @@ It has 28 hidden states (26 for the 26 Latin letters and 2 with special emission
 The transition matrix is a 28 * 28 matrix, which is estimated from the lexicon analysis, using the method explain below.
 For example, if there are only three words in our vocabulary: DOG, CAT and CAP.
 Then the probability of going from A to T is $0.5$, A to P is $0.5$ and A to other letters is $0$.
+According to the parameter estimation method we just explained, the transition probability matrix only needs information from every two successive letters in the words.
 
 The observations are the letters we have observed from the character classifier.
 The observation probability matrix is created from observations when testing the character classifier.
@@ -73,7 +74,13 @@ So given the \textit{Word HMM} described above the classification of a string of
  \item Return the most similar word.
 \end{enumerate}
 
-
+Based on our topology, useful knowledge from the character classification step is preserved. 
+To demonstrate the performance of the \emph{Viterbi-classifier}, we tested our topology using vocabulary that included eight animal names.
+See Section~\ref{sec:result-viterbi}.
+Among the results from classifying ''pig'', after using the character classifier, we got ''dxq'' as observation. \textit{Viterbi-classifier} classifies ''dxg'' to ''pig'' instead of ''dog''.
+This is attributed to how we estimate the parameters. 
+After observed ''d'', the path ''dog'' is more likely to be chosen instead of ''pig''. 
+However, there is less chance that ''o'' is observed as ''x'' ($10^{-10}$) than ''i'' is observed as ''x'' (0.15), so the path is successfully fixed.
 
 
 \subsection{Initial Parameter Selection}
