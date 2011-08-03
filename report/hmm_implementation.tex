@@ -13,6 +13,7 @@ The topology is very similar to the topology suggested by Laan et al \cite{Laan}
 We used special beginning and end states denoted by \textit{start} and \textit{end} respectively.
 If the image feature extraction step produces $n$ segments there will be $n + 2$ states in the HMMs.
 Special beginning and end states are included because multiple training observation sequences are concatenated to form one observation sequence.
+See Figure~\ref{figure:charactertopology}.
 The sequence is then used as input to the Baum-Welch algorithm.
 The initialization of the transition and emission matrices are done in such a way that the following properties are fulfilled:
 
@@ -23,12 +24,18 @@ The initialization of the transition and emission matrices are done in such a wa
  \item All other states always transition forward to a state that has not been visited since the last visit to \textit{start}.
 \end{itemize}
 
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=1.1]{character-topology}
+\caption{Character topology.}
+\label{figure:charactertopology}
+\end{figure}
 
 
 \subsubsection{Hidden Markov Model Topology for the Word Classifiers}
 
 We have implemented two classifiers for classifying words. 
-The first has exactly the same topology as the character classifier and uses one HMM for every character as described in Section~\ref{sec:overview_of_classifiers}. 
+The first has exactly the same topology as the character classifier and uses one HMM for every character as described in Section~\ref{sec:overview-of-classifiers}. 
 If the word has $n$ letters, there will be $n + 2$ states in the corresponding HMM.
 
 It is natural to implement one HMM for each of the words when the vocabulary is small.
