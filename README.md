@@ -1,6 +1,6 @@
 HandReco
 ========
-HandReco is a handwriting recognition system which uses Hidden Markov Models. It currently supports classification of handwritten words where the letters are separated. It makes use of two levels of HMMs to do the classification. It is first using HMMs to classify the character images and then HMMs to classify words given the output of the previous step. The character images need to fulfill quite hard constraints for it to work good. We believe that we need to optimize the parameters and get more training data for it to be very accurate.
+HandReco is a handwriting recognition system which uses Hidden Markov Models. It currently supports classification of handwritten words where the letters are separated. It makes use of two levels of HMMs to do the classification. It is first using HMMs to classify the character images and then HMMs to classify words given the output of the previous step. The character images need to fulfill quite hard constraints for it to work good. We believe that we need to optimize the parameters and get more training data for it to be very accurate. The result is described in the [report](https://github.com/kjellwinblad/HandReco/blob/master/report/report.pdf?raw=true).
 
 Usage
 -----
